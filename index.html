@@ -1,1501 +1,1611 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon" />
-    <title>District Profile| PAIReD Partners</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>District Profile | PAIReD Partners — Ghana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0f1e;
+      --surface: #111827;
+      --surface2: #1a2236;
+      --border: rgba(255,255,255,0.07);
+      --accent: #f4a024;
+      --accent2: #3b82f6;
+      --accent3: #10b981;
+      --danger: #ef4444;
+      --text: #f1f5f9;
+      --muted: #64748b;
+      --muted2: #94a3b8;
+      --gold: #f4a024;
+      --silver: #94a3b8;
+      --bronze: #cd7c3e;
+    }
 
-    <!-- ========== All CSS files linkup ========= -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/lineicons.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="assets/css/fullcalendar.css" />
-    <link rel="stylesheet" href="assets/css/fullcalendar.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-  </head>
-  <body>
-    <!-- ======== Preloader =========== -->
-    <div id="preloader">
-      <div class="spinner"></div>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── BACKGROUND ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% -10%, rgba(59,130,246,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 100%, rgba(244,160,36,0.10) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 240px;
+      background: rgba(17,24,39,0.95);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-logo {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), #e8880f);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: #0a0f1e;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+    }
+
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 8px 4px;
+      margin-top: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted2);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-bottom: 2px;
+      text-decoration: none;
+    }
+
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+
+    .nav-item.active {
+      background: rgba(244,160,36,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(244,160,36,0.2);
+    }
+
+    .nav-item svg { flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .user-card {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px;
+      background: var(--surface2);
+      border-radius: 10px;
+    }
+
+    .user-avatar {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--accent2), #8b5cf6);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .user-info { min-width: 0; }
+    .user-name { font-size: 12.5px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-role { font-size: 11px; color: var(--muted); }
+
+    /* ─── MAIN ─── */
+    .main {
+      margin-left: 240px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── TOP BAR ─── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: rgba(10,15,30,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+    }
+
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+
+    .topbar-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .breadcrumb span { color: var(--muted2); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+    .badge-pill {
+      background: rgba(244,160,36,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(244,160,36,0.25);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+
+    .topbar-search {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      width: 200px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .topbar-search:focus { border-color: var(--accent2); }
+    .topbar-search::placeholder { color: var(--muted); }
+
+    /* ─── CONTENT ─── */
+    .content {
+      padding: 32px;
+      max-width: 1600px;
+    }
+
+    /* ─── KPI GRID ─── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+
+    .kpi-card.blue::before { background: linear-gradient(90deg, var(--accent2), #60a5fa); }
+    .kpi-card.gold::before { background: linear-gradient(90deg, var(--accent), #fbbf24); }
+    .kpi-card.green::before { background: linear-gradient(90deg, var(--accent3), #34d399); }
+    .kpi-card.purple::before { background: linear-gradient(90deg, #8b5cf6, #c084fc); }
+
+    .kpi-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+      font-size: 18px;
+    }
+
+    .kpi-icon.blue { background: rgba(59,130,246,0.15); color: var(--accent2); }
+    .kpi-icon.gold { background: rgba(244,160,36,0.15); color: var(--accent); }
+    .kpi-icon.green { background: rgba(16,185,129,0.15); color: var(--accent3); }
+    .kpi-icon.purple { background: rgba(139,92,246,0.15); color: #a78bfa; }
+
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .kpi-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    .kpi-sub strong { color: var(--accent3); }
+
+    /* ─── SECTION HEADING ─── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .section-sub {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    /* ─── LAYOUT ROWS ─── */
+    .row { display: grid; gap: 16px; margin-bottom: 20px; }
+    .row-2-3 { grid-template-columns: 2fr 3fr; }
+    .row-3-2 { grid-template-columns: 3fr 2fr; }
+    .row-2 { grid-template-columns: 1fr 1fr; }
+    .row-full { grid-template-columns: 1fr; }
+
+    /* ─── PFM LEAGUE TABLE ─── */
+    .league-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted2);
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .tab-btn.active {
+      background: rgba(244,160,36,0.15);
+      border-color: rgba(244,160,36,0.4);
+      color: var(--accent);
+    }
+
+    .league-search {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+      outline: none;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .league-search:focus { border-color: var(--accent2); }
+    .league-search::placeholder { color: var(--muted); }
+
+    .league-table-wrap {
+      max-height: 480px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--surface2) transparent;
+    }
+
+    .league-table-wrap::-webkit-scrollbar { width: 4px; }
+    .league-table-wrap::-webkit-scrollbar-track { background: transparent; }
+    .league-table-wrap::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 4px; }
+
+    .league-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .league-table thead th {
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .league-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.1s;
+    }
+
+    .league-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+    .league-table td {
+      padding: 9px 10px;
+      vertical-align: middle;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .rank-1 { background: rgba(244,160,36,0.2); color: var(--gold); border: 1px solid rgba(244,160,36,0.3); }
+    .rank-2 { background: rgba(148,163,184,0.2); color: var(--silver); border: 1px solid rgba(148,163,184,0.3); }
+    .rank-3 { background: rgba(205,124,62,0.2); color: var(--bronze); border: 1px solid rgba(205,124,62,0.3); }
+    .rank-top10 { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+    .rank-other { background: var(--surface2); color: var(--muted2); border: 1px solid var(--border); }
+
+    .mmda-name {
+      font-weight: 500;
+      color: var(--text);
+      max-width: 200px;
+    }
+
+    .score-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .score-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 3px;
+      overflow: hidden;
+      min-width: 60px;
+    }
+
+    .score-bar {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+
+    .score-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      min-width: 36px;
+      text-align: right;
+    }
+
+    .rank-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+
+    .rank-up { background: rgba(16,185,129,0.12); color: var(--accent3); }
+    .rank-down { background: rgba(239,68,68,0.12); color: var(--danger); }
+    .rank-same { background: var(--surface2); color: var(--muted); }
+
+    /* ─── STATS PANEL ─── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-block {
+      background: var(--surface2);
+      border-radius: 10px;
+      padding: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-desc {
+      font-size: 11.5px;
+      color: var(--muted2);
+    }
+
+    /* ─── SCORE DISTRIBUTION ─── */
+    .dist-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dist-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dist-label {
+      font-size: 12px;
+      color: var(--muted2);
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .dist-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: var(--surface2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .dist-bar {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .dist-count {
+      font-size: 12px;
+      color: var(--muted);
+      width: 30px;
+      text-align: right;
+    }
+
+    /* ─── TOP PERFORMERS ─── */
+    .performers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .performer-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--surface2);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+    }
+
+    .performer-item:hover { border-color: rgba(244,160,36,0.2); }
+
+    .performer-rank {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      width: 30px;
+      flex-shrink: 0;
+    }
+
+    .rank-gold { color: var(--gold); }
+    .rank-silver-c { color: var(--silver); }
+    .rank-bronze-c { color: var(--bronze); }
+    .rank-normal { color: var(--muted); }
+
+    .performer-info { flex: 1; min-width: 0; }
+
+    .performer-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .performer-region {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .performer-score {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── MOST IMPROVED ─── */
+    .improved-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .improved-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: var(--surface2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .arrow-up {
+      color: var(--accent3);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .improved-name {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 500;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .improved-jump {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent3);
+      flex-shrink: 0;
+    }
+
+    /* ─── REGIONAL TABLE ─── */
+    .regional-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .region-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      transition: all 0.15s;
+    }
+
+    .region-card:hover {
+      border-color: rgba(59,130,246,0.3);
+      transform: translateY(-1px);
+    }
+
+    .region-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .region-leader {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .region-score {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    .region-score span {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ─── DATAWRAPPER ─── */
+    .dw-embed-wrap {
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    /* ─── FOOTER ─── */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: 240px;
+    }
+
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ─── MOBILE ─── */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    @media (max-width: 1200px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .regional-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .page-footer { margin-left: 0; }
+      .menu-toggle { display: flex; }
+      .row-2-3, .row-3-2, .row-2 { grid-template-columns: 1fr; }
+      .content { padding: 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .regional-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+    .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+    .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+    .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+
+    /* ─── OVERLAY ─── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 90;
+    }
+
+    .overlay.visible { display: block; }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">DP</div>
+      <div>
+        <div class="logo-text">District Profile</div>
+        <div class="logo-sub">PAIReD Partners</div>
+      </div>
     </div>
-    <!-- ======== Preloader =========== -->
+  </div>
 
-    <!-- ======== sidebar-nav start =========== -->
-    <aside class="sidebar-nav-wrapper">
-      <div class="navbar-logo">
-        <a href="index.html">
-          <img src="assets/images/logo/logo2d.png" alt="logo" />
-        </a>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item active" href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+      Dashboard
+    </a>
+    <a class="nav-item" href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      PFM League Table
+    </a>
+    <div class="nav-section-label">Analysis</div>
+    <a class="nav-item" href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+      Regional Analysis
+    </a>
+    <a class="nav-item" href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+      Population Data
+    </a>
+    <a class="nav-item" href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      District History
+    </a>
+    <div class="nav-section-label">System</div>
+    <a class="nav-item" href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      Notifications
+    </a>
+    <a class="nav-item" href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+      Settings
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar">JD</div>
+      <div class="user-info">
+        <div class="user-name">Admin User</div>
+        <div class="user-role">PAIReD Ghana</div>
       </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li class="nav-item nav-item-has-children">
-            <a
-              href="#0"
-              data-bs-toggle="collapse"
-              data-bs-target="#ddmenu_1"
-              aria-controls="ddmenu_1"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="icon">
-  
-              </span>
-              <span class="text">District</span>
-            </a>
-            <ul id="ddmenu_1" class="collapse show dropdown-nav">
-              <li>
-                <a href="index.html" class="active"> Dashboard </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item nav-item-has-children">
-            <a
-              href="#0"
-              class="collapsed"
-              data-bs-toggle="collapse"
-              data-bs-target="#ddmenu_2"
-              aria-controls="ddmenu_2"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M11.8097 1.66667C11.8315 1.66667 11.8533 1.6671 11.875 1.66796V4.16667C11.875 5.43232 12.901 6.45834 14.1667 6.45834H16.6654C16.6663 6.48007 16.6667 6.50186 16.6667 6.5237V16.6667C16.6667 17.5872 15.9205 18.3333 15 18.3333H5.00001C4.07954 18.3333 3.33334 17.5872 3.33334 16.6667V3.33334C3.33334 2.41286 4.07954 1.66667 5.00001 1.66667H11.8097ZM6.66668 7.70834C6.3215 7.70834 6.04168 7.98816 6.04168 8.33334C6.04168 8.67851 6.3215 8.95834 6.66668 8.95834H10C10.3452 8.95834 10.625 8.67851 10.625 8.33334C10.625 7.98816 10.3452 7.70834 10 7.70834H6.66668ZM6.04168 11.6667C6.04168 12.0118 6.3215 12.2917 6.66668 12.2917H13.3333C13.6785 12.2917 13.9583 12.0118 13.9583 11.6667C13.9583 11.3215 13.6785 11.0417 13.3333 11.0417H6.66668C6.3215 11.0417 6.04168 11.3215 6.04168 11.6667ZM6.66668 14.375C6.3215 14.375 6.04168 14.6548 6.04168 15C6.04168 15.3452 6.3215 15.625 6.66668 15.625H13.3333C13.6785 15.625 13.9583 15.3452 13.9583 15C13.9583 14.6548 13.6785 14.375 13.3333 14.375H6.66668Z" />
-                  <path
-                    d="M13.125 2.29167L16.0417 5.20834H14.1667C13.5913 5.20834 13.125 4.74197 13.125 4.16667V2.29167Z" />
-                </svg>
-              </span>
-              <span class="text">Pages</span>
-            </a>
-            <ul id="ddmenu_2" class="collapse dropdown-nav">
-              <li>
-                <a href="settings.html"> System Setup </a>
-              </li>
-              <li>
-                <a href="blank-page.html"> District History </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="invoice.html">
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M3.33334 3.35442C3.33334 2.4223 4.07954 1.66666 5.00001 1.66666H15C15.9205 1.66666 16.6667 2.4223 16.6667 3.35442V16.8565C16.6667 17.5519 15.8827 17.9489 15.3333 17.5317L13.8333 16.3924C13.537 16.1673 13.1297 16.1673 12.8333 16.3924L10.5 18.1646C10.2037 18.3896 9.79634 18.3896 9.50001 18.1646L7.16668 16.3924C6.87038 16.1673 6.46298 16.1673 6.16668 16.3924L4.66668 17.5317C4.11731 17.9489 3.33334 17.5519 3.33334 16.8565V3.35442ZM4.79168 5.04218C4.79168 5.39173 5.0715 5.6751 5.41668 5.6751H10C10.3452 5.6751 10.625 5.39173 10.625 5.04218C10.625 4.69264 10.3452 4.40927 10 4.40927H5.41668C5.0715 4.40927 4.79168 4.69264 4.79168 5.04218ZM5.41668 7.7848C5.0715 7.7848 4.79168 8.06817 4.79168 8.41774C4.79168 8.76724 5.0715 9.05066 5.41668 9.05066H10C10.3452 9.05066 10.625 8.76724 10.625 8.41774C10.625 8.06817 10.3452 7.7848 10 7.7848H5.41668ZM4.79168 11.7932C4.79168 12.1428 5.0715 12.4262 5.41668 12.4262H10C10.3452 12.4262 10.625 12.1428 10.625 11.7932C10.625 11.4437 10.3452 11.1603 10 11.1603H5.41668C5.0715 11.1603 4.79168 11.4437 4.79168 11.7932ZM13.3333 4.40927C12.9882 4.40927 12.7083 4.69264 12.7083 5.04218C12.7083 5.39173 12.9882 5.6751 13.3333 5.6751H14.5833C14.9285 5.6751 15.2083 5.39173 15.2083 5.04218C15.2083 4.69264 14.9285 4.40927 14.5833 4.40927H13.3333ZM12.7083 8.41774C12.7083 8.76724 12.9882 9.05066 13.3333 9.05066H14.5833C14.9285 9.05066 15.2083 8.76724 15.2083 8.41774C15.2083 8.06817 14.9285 7.7848 14.5833 7.7848H13.3333C12.9882 7.7848 12.7083 8.06817 12.7083 8.41774ZM13.3333 11.1603C12.9882 11.1603 12.7083 11.4437 12.7083 11.7932C12.7083 12.1428 12.9882 12.4262 13.3333 12.4262H14.5833C14.9285 12.4262 15.2083 12.1428 15.2083 11.7932C15.2083 11.4437 14.9285 11.1603 14.5833 11.1603H13.3333Z" />
-                </svg>
-              </span>
-              <span class="text">Regional Analysis</span>
-            </a>
-          </li>
-          <li class="nav-item nav-item-has-children">
-            <a
-              href="#0"
-              class="collapsed"
-              data-bs-toggle="collapse"
-              data-bs-target="#ddmenu_3"
-              aria-controls="ddmenu_3"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M14.9211 10.1294C15.1652 9.88534 15.1652 9.48967 14.9211 9.24559L10.7544 5.0789C10.5103 4.83482 10.1147 4.83482 9.87057 5.0789C9.62649 5.32297 9.62649 5.71871 9.87057 5.96278L12.9702 9.06251H1.97916C1.63398 9.06251 1.35416 9.34234 1.35416 9.68751C1.35416 10.0327 1.63398 10.3125 1.97916 10.3125H12.9702L9.87057 13.4123C9.62649 13.6563 9.62649 14.052 9.87057 14.2961C10.1147 14.5402 10.5103 14.5402 10.7544 14.2961L14.9211 10.1294Z" />
-                  <path
-                    d="M11.6383 15.18L15.805 11.0133C16.5373 10.2811 16.5373 9.09391 15.805 8.36166L11.6383 4.195C11.2722 3.82888 10.7923 3.64582 10.3125 3.64582V3.02082C10.3125 2.10035 11.0587 1.35416 11.9792 1.35416H16.9792C17.8997 1.35416 18.6458 2.10035 18.6458 3.02082V16.3542C18.6458 17.2747 17.8997 18.0208 16.9792 18.0208H11.9792C11.0587 18.0208 10.3125 17.2747 10.3125 16.3542V15.7292C10.7923 15.7292 11.2722 15.5461 11.6383 15.18Z" />
-                </svg>
-              </span>
-              <span class="text">User Setup</span>
-            </a>
-            <ul id="ddmenu_3" class="collapse dropdown-nav">
-              <li>
-                <a href="signin.html"> Sign In </a>
-              </li>
-              <li>
-                <a href="signup.html"> Sign Up </a>
-              </li>
-            </ul>
-          </li>
-          <span class="divider"><hr /></span>
-          <li class="nav-item nav-item-has-children">
-            <a
-              href="#0"
-              class="collapsed"
-              data-bs-toggle="collapse"
-              data-bs-target="#ddmenu_4"
-              aria-controls="ddmenu_4"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <!-- <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M1.66666 5.41669C1.66666 3.34562 3.34559 1.66669 5.41666 1.66669C7.48772 1.66669 9.16666 3.34562 9.16666 5.41669C9.16666 7.48775 7.48772 9.16669 5.41666 9.16669C3.34559 9.16669 1.66666 7.48775 1.66666 5.41669Z" />
-                  <path
-                    d="M1.66666 14.5834C1.66666 12.5123 3.34559 10.8334 5.41666 10.8334C7.48772 10.8334 9.16666 12.5123 9.16666 14.5834C9.16666 16.6545 7.48772 18.3334 5.41666 18.3334C3.34559 18.3334 1.66666 16.6545 1.66666 14.5834Z" />
-                  <path
-                    d="M10.8333 5.41669C10.8333 3.34562 12.5123 1.66669 14.5833 1.66669C16.6544 1.66669 18.3333 3.34562 18.3333 5.41669C18.3333 7.48775 16.6544 9.16669 14.5833 9.16669C12.5123 9.16669 10.8333 7.48775 10.8333 5.41669Z" />
-                  <path
-                    d="M10.8333 14.5834C10.8333 12.5123 12.5123 10.8334 14.5833 10.8334C16.6544 10.8334 18.3333 12.5123 18.3333 14.5834C18.3333 16.6545 16.6544 18.3334 14.5833 18.3334C12.5123 18.3334 10.8333 16.6545 10.8333 14.5834Z" />
-                </svg>
-              <!-- </span>
-              <span class="text">UI Elements </span>
-            </a>
-            <ul id="ddmenu_4" class="collapse dropdown-nav">
-              <li>
-                <a href="alerts.html"> Alerts </a>
-              </li>
-              <li>
-                <a href="buttons.html"> Buttons </a>
-              </li>
-              <li>
-                <a href="cards.html"> Cards </a>
-              </li>
-              <li>
-                <a href="typography.html"> Typography </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item nav-item-has-children">
-            <a
-              href="#0"
-              class="collapsed"
-              data-bs-toggle="collapse"
-              data-bs-target="#ddmenu_55"
-              aria-controls="ddmenu_55"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M5.48663 1.1466C5.77383 0.955131 6.16188 1.03274 6.35335 1.31994L6.87852 2.10769C7.20508 2.59755 7.20508 3.23571 6.87852 3.72556L6.35335 4.51331C6.16188 4.80052 5.77383 4.87813 5.48663 4.68666C5.19943 4.49519 5.12182 4.10715 5.31328 3.81994L5.83845 3.03219C5.88511 2.96221 5.88511 2.87105 5.83845 2.80106L5.31328 2.01331C5.12182 1.72611 5.19943 1.33806 5.48663 1.1466Z" />
-                  <path
-                    d="M2.49999 5.83331C2.03976 5.83331 1.66666 6.2064 1.66666 6.66665V10.8333C1.66666 13.5948 3.90523 15.8333 6.66666 15.8333H9.99999C12.1856 15.8333 14.0436 14.431 14.7235 12.4772C14.8134 12.4922 14.9058 12.5 15 12.5H16.6667C17.5872 12.5 18.3333 11.7538 18.3333 10.8333V8.33331C18.3333 7.41284 17.5872 6.66665 16.6667 6.66665H15C15 6.2064 14.6269 5.83331 14.1667 5.83331H2.49999ZM14.9829 11.2496C14.9942 11.1123 15 10.9735 15 10.8333V7.91665H16.6667C16.8967 7.91665 17.0833 8.10319 17.0833 8.33331V10.8333C17.0833 11.0634 16.8967 11.25 16.6667 11.25H15L14.9898 11.2498L14.9829 11.2496Z" />
-                  <path
-                    d="M8.85332 1.31994C8.6619 1.03274 8.27383 0.955131 7.98663 1.1466C7.69943 1.33806 7.62182 1.72611 7.81328 2.01331L8.33848 2.80106C8.38507 2.87105 8.38507 2.96221 8.33848 3.03219L7.81328 3.81994C7.62182 4.10715 7.69943 4.49519 7.98663 4.68666C8.27383 4.87813 8.6619 4.80052 8.85332 4.51331L9.37848 3.72556C9.70507 3.23571 9.70507 2.59755 9.37848 2.10769L8.85332 1.31994Z" />
-                  <path
-                    d="M10.4867 1.1466C10.7738 0.955131 11.1619 1.03274 11.3533 1.31994L11.8785 2.10769C12.2051 2.59755 12.2051 3.23571 11.8785 3.72556L11.3533 4.51331C11.1619 4.80052 10.7738 4.87813 10.4867 4.68666C10.1994 4.49519 10.1218 4.10715 10.3133 3.81994L10.8385 3.03219C10.8851 2.96221 10.8851 2.87105 10.8385 2.80106L10.3133 2.01331C10.1218 1.72611 10.1994 1.33806 10.4867 1.1466Z" />
-                  <path
-                    d="M2.49999 16.6667C2.03976 16.6667 1.66666 17.0398 1.66666 17.5C1.66666 17.9602 2.03976 18.3334 2.49999 18.3334H14.1667C14.6269 18.3334 15 17.9602 15 17.5C15 17.0398 14.6269 16.6667 14.1667 16.6667H2.49999Z" />
-                </svg>
-              </span>
-              <span class="text">Icons</span>
-            </a>
-            <ul id="ddmenu_55" class="collapse dropdown-nav">
-              <li>
-                <a href="icons.html"> LineIcons </a>
-              </li>
-              <li>
-                <a href="mdi-icons.html"> MDI Icons </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item nav-item-has-children">
-            <a
-              href="#0"
-              class="collapsed"
-              data-bs-toggle="collapse"
-              data-bs-target="#ddmenu_5"
-              aria-controls="ddmenu_5"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M4.16666 3.33335C4.16666 2.41288 4.91285 1.66669 5.83332 1.66669H14.1667C15.0872 1.66669 15.8333 2.41288 15.8333 3.33335V16.6667C15.8333 17.5872 15.0872 18.3334 14.1667 18.3334H5.83332C4.91285 18.3334 4.16666 17.5872 4.16666 16.6667V3.33335ZM6.04166 5.00002C6.04166 5.3452 6.32148 5.62502 6.66666 5.62502H13.3333C13.6785 5.62502 13.9583 5.3452 13.9583 5.00002C13.9583 4.65485 13.6785 4.37502 13.3333 4.37502H6.66666C6.32148 4.37502 6.04166 4.65485 6.04166 5.00002ZM6.66666 6.87502C6.32148 6.87502 6.04166 7.15485 6.04166 7.50002C6.04166 7.8452 6.32148 8.12502 6.66666 8.12502H13.3333C13.6785 8.12502 13.9583 7.8452 13.9583 7.50002C13.9583 7.15485 13.6785 6.87502 13.3333 6.87502H6.66666ZM6.04166 10C6.04166 10.3452 6.32148 10.625 6.66666 10.625H9.99999C10.3452 10.625 10.625 10.3452 10.625 10C10.625 9.65485 10.3452 9.37502 9.99999 9.37502H6.66666C6.32148 9.37502 6.04166 9.65485 6.04166 10ZM9.99999 16.6667C10.9205 16.6667 11.6667 15.9205 11.6667 15C11.6667 14.0795 10.9205 13.3334 9.99999 13.3334C9.07949 13.3334 8.33332 14.0795 8.33332 15C8.33332 15.9205 9.07949 16.6667 9.99999 16.6667Z" />
-                </svg>
-              </span>
-              <span class="text"> Forms </span>
-            </a>
-            <ul id="ddmenu_5" class="collapse dropdown-nav">
-              <li>
-                <a href="form-elements.html"> From Elements </a>
-              </li>
-            </ul>
-          </li> -->
-          <li class="nav-item">
-            <a href="tables.html">
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M1.66666 4.16667C1.66666 3.24619 2.41285 2.5 3.33332 2.5H16.6667C17.5872 2.5 18.3333 3.24619 18.3333 4.16667V9.16667C18.3333 10.0872 17.5872 10.8333 16.6667 10.8333H3.33332C2.41285 10.8333 1.66666 10.0872 1.66666 9.16667V4.16667Z" />
-                  <path
-                    d="M1.875 13.75C1.875 13.4048 2.15483 13.125 2.5 13.125H17.5C17.8452 13.125 18.125 13.4048 18.125 13.75C18.125 14.0952 17.8452 14.375 17.5 14.375H2.5C2.15483 14.375 1.875 14.0952 1.875 13.75Z" />
-                  <path
-                    d="M2.5 16.875C2.15483 16.875 1.875 17.1548 1.875 17.5C1.875 17.8452 2.15483 18.125 2.5 18.125H17.5C17.8452 18.125 18.125 17.8452 18.125 17.5C18.125 17.1548 17.8452 16.875 17.5 16.875H2.5Z" />
-                </svg>
-              </span> -->
-              <span class="text">Tables</span>
-            </a>
-          </li>
-          <span class="divider"><hr /></span>
+    </div>
+  </div>
+</aside>
 
-          <li class="nav-item">
-            <a href="notification.html">
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10.8333 2.50008C10.8333 2.03984 10.4602 1.66675 9.99999 1.66675C9.53975 1.66675 9.16666 2.03984 9.16666 2.50008C9.16666 2.96032 9.53975 3.33341 9.99999 3.33341C10.4602 3.33341 10.8333 2.96032 10.8333 2.50008Z" />
-                  <path
-                    d="M17.5 5.41673C17.5 7.02756 16.1942 8.33339 14.5833 8.33339C12.9725 8.33339 11.6667 7.02756 11.6667 5.41673C11.6667 3.80589 12.9725 2.50006 14.5833 2.50006C16.1942 2.50006 17.5 3.80589 17.5 5.41673Z" />
-                  <path
-                    d="M11.4272 2.69637C10.9734 2.56848 10.4947 2.50006 10 2.50006C7.10054 2.50006 4.75003 4.85057 4.75003 7.75006V9.20873C4.75003 9.72814 4.62082 10.2393 4.37404 10.6963L3.36705 12.5611C2.89938 13.4272 3.26806 14.5081 4.16749 14.9078C7.88074 16.5581 12.1193 16.5581 15.8326 14.9078C16.732 14.5081 17.1007 13.4272 16.633 12.5611L15.626 10.6963C15.43 10.3333 15.3081 9.93606 15.2663 9.52773C15.0441 9.56431 14.8159 9.58339 14.5833 9.58339C12.2822 9.58339 10.4167 7.71791 10.4167 5.41673C10.4167 4.37705 10.7975 3.42631 11.4272 2.69637Z" />
-                  <path
-                    d="M7.48901 17.1925C8.10004 17.8918 8.99841 18.3335 10 18.3335C11.0016 18.3335 11.9 17.8918 12.511 17.1925C10.8482 17.4634 9.15183 17.4634 7.48901 17.1925Z" />
-                </svg>
-              </span>
-              <span class="text">New Info Tab</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div class="promo-box">
-        <div class="promo-icon">
-          <img class="mx-auto" src="./assets/images/logo/dp123.png" alt="Logo">
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- ── TOPBAR ── -->
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle" onclick="toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+      <div>
+        <div class="topbar-title">District Profile Dashboard</div>
+        <div class="breadcrumb">
+          <span>Home</span>
+          <span class="breadcrumb-sep">/</span>
+          <span style="color:var(--accent)">Overview</span>
         </div>
-    
       </div>
-    </aside>
-    <div class="overlay"></div>
-    <!-- ======== sidebar-nav end =========== -->
+    </div>
+    <div class="topbar-right">
+      <div class="badge-pill">📊 2024 Data</div>
+      <input type="text" class="topbar-search" placeholder="Search districts…" id="globalSearch" oninput="filterTable()">
+    </div>
+  </header>
 
-    <!-- ======== main-wrapper start =========== -->
-    <main class="main-wrapper">
-      <!-- ========== header start ========== -->
-      <header class="header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-5 col-md-5 col-6">
-              <div class="header-left d-flex align-items-center">
-                <div class="menu-toggle-btn mr-15">
-                  <button id="menu-toggle" class="main-btn primary-btn btn-hover">
-                    <i class="lni lni-chevron-left me-2"></i> Menu
-                  </button>
-                </div>
-                <div class="header-search d-none d-md-flex">
-                  <form action="#">
-                    <input type="text" placeholder="Search..." />
-                    <button><i class="lni lni-search-alt"></i></button>
-                  </form>
-                </div>
-              </div>
+  <!-- ── CONTENT ── -->
+  <div class="content">
+
+    <!-- KPI ROW -->
+    <div class="kpi-grid">
+      <div class="kpi-card blue">
+        <div class="kpi-icon blue">🏛️</div>
+        <div class="kpi-label">Regions</div>
+        <div class="kpi-value">16</div>
+        <div class="kpi-sub">All regions of Ghana covered</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-icon gold">🏘️</div>
+        <div class="kpi-label">PAIReD MMDAs</div>
+        <div class="kpi-value">60</div>
+        <div class="kpi-sub">Carefully selected districts</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-icon green">👥</div>
+        <div class="kpi-label">Total Population</div>
+        <div class="kpi-value">7.4M</div>
+        <div class="kpi-sub"><strong>50.6%</strong> Female population</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-icon purple">📉</div>
+        <div class="kpi-label">Below MPI Threshold</div>
+        <div class="kpi-value">34</div>
+        <div class="kpi-sub">MMDAs below national MPI (GSS)</div>
+      </div>
+    </div>
+
+    <!-- ROW: TOP PERFORMERS + STATS -->
+    <div class="row row-3-2">
+
+      <!-- Top 10 performers -->
+      <div class="card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">🏆 Top 10 National Performers</div>
+            <div class="section-sub">PFM Compliance League Table 2024</div>
+          </div>
+          <div class="badge-pill">National</div>
+        </div>
+        <div class="performers-list">
+          <div class="performer-item">
+            <div class="performer-rank rank-gold">1</div>
+            <div class="performer-info">
+              <div class="performer-name">La Dade Kotopon Municipal Assembly</div>
+              <div class="performer-region">Greater Accra • Was 2nd in 2023</div>
             </div>
-            <div class="col-lg-7 col-md-7 col-6">
-              <div class="header-right">
-                <!-- notification start -->
-                <div class="notification-box ml-15 d-none d-md-flex">
-                  <button class="dropdown-toggle" type="button" id="notification" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11 20.1667C9.88317 20.1667 8.88718 19.63 8.23901 18.7917H13.761C13.113 19.63 12.1169 20.1667 11 20.1667Z"
-                        fill="" />
-                      <path
-                        d="M10.1157 2.74999C10.1157 2.24374 10.5117 1.83333 11 1.83333C11.4883 1.83333 11.8842 2.24374 11.8842 2.74999V2.82604C14.3932 3.26245 16.3051 5.52474 16.3051 8.24999V14.287C16.3051 14.5301 16.3982 14.7633 16.564 14.9352L18.2029 16.6342C18.4814 16.9229 18.2842 17.4167 17.8903 17.4167H4.10961C3.71574 17.4167 3.5185 16.9229 3.797 16.6342L5.43589 14.9352C5.6017 14.7633 5.69485 14.5301 5.69485 14.287V8.24999C5.69485 5.52474 7.60672 3.26245 10.1157 2.82604V2.74999Z"
-                        fill="" />
-                    </svg>
-                    <span></span>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notification">
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-6.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>
-                            John Dogbey
-                            <span class="text-regular">
-                              comment on a product.
-                            </span>
-                          </h6>
-                          <p>
-                            Lorem ipsum dolor sit amet, consect etur adipiscing
-                            elit Vivamus tortor.
-                          </p>
-                          <span>10 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-1.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>
-                            Mavis
-                            <span class="text-regular">
-                              like on a product.
-                            </span>
-                          </h6>
-                          <p>
-                            Lorem ipsum dolor sit amet, consect etur adipiscing
-                            elit Vivamus tortor.
-                          </p>
-                          <span>10 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- notification end -->
-                <!-- message start -->
-                <div class="header-message-box ml-15 d-none d-md-flex">
-                  <button class="dropdown-toggle" type="button" id="message" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                  
-                    <span></span>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="message">
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-5.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>Mavis Kemeh</h6>
-                          <p>Hey!I can across your profile and ...</p>
-                          <span>10 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-3.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>John Dogbey</h6>
-                          <p>Would you mind please checking out</p>
-                          <span>12 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-2.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>Anee Lee</h6>
-                          <p>Hey! are you available for freelance?</p>
-                          <span>1h ago</span>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- message end -->
-                <!-- profile start -->
-                <div class="profile-box ml-15">
-                  <button class="dropdown-toggle bg-transparent border-0" type="button" id="profile"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="profile-info">
-                      <div class="info">
-                        <div class="image">
-                          <img src="assets/images/profile/profile-image.png" alt="" />
-                        </div>
-                        <div>
-                          <h6 class="fw-500">John Dogbey</h6>
-                          <p>Admin</p>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
-                    <li>
-                      <div class="author-info flex items-center !p-1">
-                        <div class="image">
-                          <img src="assets/images/profile/profile-image.png" alt="image">
-                        </div>
-                        <div class="content">
-                          <h4 class="text-sm">John Dogbey</h4>
-                          <a class="text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-xs" href="#">Email@gmail.com</a>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                      <a href="#0">
-                        <i class="lni lni-user"></i> View Profile
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <i class="lni lni-alarm"></i> Notifications
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-inbox"></i> Messages </a>
-                    </li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-cog"></i> Settings </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- profile end -->
-              </div>
+            <div class="performer-score">57.5%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-silver-c">2</div>
+            <div class="performer-info">
+              <div class="performer-name">Kwadaso Municipal Assembly</div>
+              <div class="performer-region">Ashanti • Was 29th in 2023 ↑</div>
+            </div>
+            <div class="performer-score">55.5%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-bronze-c">3</div>
+            <div class="performer-info">
+              <div class="performer-name">Kpando Municipal Assembly</div>
+              <div class="performer-region">Volta • Was 243rd in 2023 ↑↑↑</div>
+            </div>
+            <div class="performer-score">55.2%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-normal">4</div>
+            <div class="performer-info">
+              <div class="performer-name">Suame Municipal Assembly</div>
+              <div class="performer-region">Ashanti • Was 256th in 2023 ↑↑↑</div>
+            </div>
+            <div class="performer-score">55.0%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-normal">5</div>
+            <div class="performer-info">
+              <div class="performer-name">Asante Akim South Municipal Assembly</div>
+              <div class="performer-region">Ashanti • Was 172nd in 2023 ↑↑</div>
+            </div>
+            <div class="performer-score">54.0%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-normal">6</div>
+            <div class="performer-info">
+              <div class="performer-name">Central Tongu District Assembly</div>
+              <div class="performer-region">Volta • Was 184th in 2023 ↑↑</div>
+            </div>
+            <div class="performer-score">53.0%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-normal">7</div>
+            <div class="performer-info">
+              <div class="performer-name">Denkyembour District Assembly</div>
+              <div class="performer-region">Eastern • Was 21st in 2023</div>
+            </div>
+            <div class="performer-score">52.1%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-normal">8</div>
+            <div class="performer-info">
+              <div class="performer-name">New Juaben North Municipal Assembly</div>
+              <div class="performer-region">Eastern • Was 35th in 2023 ↑</div>
+            </div>
+            <div class="performer-score">52.0%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-normal">9</div>
+            <div class="performer-info">
+              <div class="performer-name">Ketu North Municipal Assembly</div>
+              <div class="performer-region">Volta • Was 31st in 2023</div>
+            </div>
+            <div class="performer-score">51.5%</div>
+          </div>
+          <div class="performer-item">
+            <div class="performer-rank rank-normal">10</div>
+            <div class="performer-info">
+              <div class="performer-name">Adentan Municipal Assembly</div>
+              <div class="performer-region">Greater Accra • Was 3rd in 2023 ↓</div>
+            </div>
+            <div class="performer-score">51.0%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- Summary Stats -->
+        <div class="card">
+          <div class="section-header" style="margin-bottom:14px;">
+            <div class="section-title">📈 2024 Summary Stats</div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-block">
+              <div class="stat-number" style="color:var(--accent3);">261</div>
+              <div class="stat-desc">Total MMDAs Ranked</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-number" style="color:var(--accent);">57.5%</div>
+              <div class="stat-desc">Highest Score (La Dade Kotopon)</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-number" style="color:var(--danger);">0%</div>
+              <div class="stat-desc">3 MMDAs scored zero</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-number" style="color:var(--accent2);">240</div>
+              <div class="stat-desc">Positions gained: Kpando MA</div>
             </div>
           </div>
         </div>
-      </header>
-      <!-- ========== header end ========== -->
 
-      <!-- ========== section start ========== -->
-      <section class="section">
-        <div class="container-fluid">
-          <!-- ========== title-wrapper start ========== -->
-          <div class="title-wrapper pt-30">
-            <div class="row align-items-center">
-              <div class="col-md-6">
-                <div class="title">
-                  <h2>District Profile Dashboard</h2>
-                </div>
-              
-              </div>
-              <!-- end col -->
-              <div class="col-md-6">
-                <div class="breadcrumb-wrapper">
-                  <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item">
-                        <a href="#0">Dashboard</a>
-                      </li>
-                      <li class="breadcrumb-item active" aria-current="page">
-                        District                 </li>
-                    </ol>
-                  </nav>
-                </div>
-              </div>
-              <!-- end col -->
-            </div>
-            <!-- end row -->
+        <!-- Score Distribution -->
+        <div class="card">
+          <div class="section-header" style="margin-bottom:14px;">
+            <div class="section-title">📊 Score Distribution</div>
           </div>
-          <!-- ========== title-wrapper end ========== -->
-          <div class="row">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="icon-card mb-30">
-                <div class="icon purple">
-                  <i class="lni lni-city"></i>
-                </div>
-                <div class="content">
-                  <h6 class="mb-10">Regions</h6>
-
-                  <h3 class="text-bold mb-10">16</h3>
-                  <p class="text-sm text-success">
-                    <i class="lni lni-arrow-up"></i> PAIReD operates in
-                    <span class="text-gray">all regions of Ghana</span>
-                  </p>
-                </div>
+          <div class="dist-bars">
+            <div class="dist-row">
+              <div class="dist-label">≥ 50% 🏆</div>
+              <div class="dist-bar-wrap">
+                <div class="dist-bar" style="width:4%;background:var(--gold);"></div>
               </div>
-              <!-- End Icon Cart -->
+              <div class="dist-count">11</div>
             </div>
-            <!-- End Col -->
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="icon-card mb-30">
-                <div class="icon success">
-                  <i class="lni lni-apartment"></i>
-                </div>
-                <div class="content">
-                  <h6 class="mb-10">MMDAs</h6>
-                  <h3 class="text-bold mb-10">60</h3>
-                  <p class="text-sm text-success">
-                    <i class="lni lni-arrow-up"> </i> 
-                    <span class="text-gray">The PAIReD programme operates in carefully selected MMDAs of Ghana. </span>
-                  </p>
-                </div>
+            <div class="dist-row">
+              <div class="dist-label">40–49%</div>
+              <div class="dist-bar-wrap">
+                <div class="dist-bar" style="width:24%;background:var(--accent2);"></div>
               </div>
-              <!-- End Icon Cart -->
+              <div class="dist-count">63</div>
             </div>
-            <!-- End Col -->
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="icon-card mb-30">
-                <div class="icon primary">
-                  <i class="lni lni-credit-cards"></i>
-                </div>
-                <div class="content">
-                  <h6 class="mb-10">Total Population of PAIReD Districts</h6>
-                  <h3 class="text-bold mb-10">7,430,154</h3>
-                  <p class="text-sm text-danger">
-                    <i class="lni lni-arrow-down"></i> 50.6% are Females
-                    <span class="text-gray"></span>
-                  </p>
-                </div>
+            <div class="dist-row">
+              <div class="dist-label">30–39%</div>
+              <div class="dist-bar-wrap">
+                <div class="dist-bar" style="width:30%;background:var(--accent3);"></div>
               </div>
-              <!-- End Icon Cart -->
+              <div class="dist-count">79</div>
             </div>
-            <!-- End Col -->
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="icon-card mb-30">
-                <div class="icon orange">
-                  <i class="lni lni-user"></i>
-                </div>
-                <div class="content">
-                  <h6 class="mb-10">PAIReD Supports</h6>
-                  <h3 class="text-bold mb-10">34 MMDAs</h3>
-                  <p class="text-sm text-danger">that are below the national
-                    <i class="lni lni-arrow-down"></i> MPI
-                    <span class="text-gray"> according to GSS</span>
-                  </p>
-                </div>
+            <div class="dist-row">
+              <div class="dist-label">20–29%</div>
+              <div class="dist-bar-wrap">
+                <div class="dist-bar" style="width:22%;background:#f59e0b;"></div>
               </div>
-              <!-- End Icon Cart -->
+              <div class="dist-count">58</div>
             </div>
-            <!-- End Col -->
+            <div class="dist-row">
+              <div class="dist-label">&lt; 20%</div>
+              <div class="dist-bar-wrap">
+                <div class="dist-bar" style="width:19%;background:var(--danger);"></div>
+              </div>
+              <div class="dist-count">50</div>
+            </div>
           </div>
-          <!-- End Row -->
-          <div class="row">
-            <div class="col-lg-7">
-              <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap justify-content-between">
-                  <div class="left">
-                    <h6 class="text-align-center mb-10"></h6>
-                    <h3 class="text-bold">Rate of Urbanisation</h3>
-                  </div>
-                  <div class="right">
-                    <div class="select-style-1">
-                      <div class="select-position select-sm">
-                       
-                      </div>
-                    </div>
-                    <!-- end select -->
-                  </div>
-                </div>
-                <!-- End Title -->
-                <!-- <div class="chart">
-                  <canvas id="Chart1" style="width: 100%; height: 400px; margin-left: -35px;"></canvas>
-                  <div style="min-height:743px" id="datawrapper-vis-1bNV3"><script type="text/javascript" defer src="https://datawrapper.dwcdn.net/1bNV3/embed.js" charset="utf-8" data-target="#datawrapper-vis-1bNV3"></script><noscript><img src="https://datawrapper.dwcdn.net/1bNV3/full.png" alt="" /></noscript></div>
-                </div> -->
-                <div class="map-container">
-                  <div style="min-height: 200px" id="datawrapper-vis-1bNV3">
-                    <script type="text/javascript" defer src="https://datawrapper.dwcdn.net/1bNV3/embed.js" charset="utf-8" data-target="#datawrapper-vis-1bNV3"></script>
-                    <noscript>
-                      <img src="https://datawrapper.dwcdn.net/1bNV3/full.png" alt="Datawrapper Map" />
-                    </noscript>
-                  </div>
-                </div>
-                
-                <!-- End Chart -->
-              </div>
-            </div>
-            <!-- End Col -->
-            <div class="col-lg-5">
-              <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                  
-                    <h4 class="text-medium mb-20">Multi Dimensional Poverty Index</h4>
-                    <div <h6> <p>This is a non-monetary measure of poverty that reflects 4 dimensions namely living conditions, education, health, and employment. A person or a household is considered mltidimensionally poor if he or she or they are
-deprived in at least one third (33.3%) of the weighted indicators.</p></h6>
-<div <h5 class="text-medium mb-10">
-</p> The chart below shows the level of poverty in a descending order of magnitude. A district considered mltidimensionally poor if it scores above 33.3%
-
-</h5></p> 
-                    </div>
-                  <!-- </div>
-                  <div style="min-height:1655px" id="datawrapper-vis-qPfYY"><script type="text/javascript" defer src="https://datawrapper.dwcdn.net/qPfYY/embed.js" charset="utf-8" data-target="#datawrapper-vis-qPfYY" overflow-y: auto;></script><noscript><img src="https://datawrapper.dwcdn.net/qPfYY/full.png" alt="" />
-                  </noscript>
-                </div>
-                    </div> -->
-
-                    <div style="height: 500px; overflow-y: auto; border: 1px solid #ccc;">
-                      <div style="min-height: 1655px;" id="datawrapper-vis-qPfYY">
-                          <script type="text/javascript" defer src="https://datawrapper.dwcdn.net/qPfYY/embed.js" charset="utf-8" data-target="#datawrapper-vis-qPfYY"></script>
-                          <noscript>
-                              <img src="https://datawrapper.dwcdn.net/qPfYY/full.png" alt="" />
-                          </noscript>
-                      </div>
-                  </div>
-                  
-                    <!-- end select -->
-                  </div>
-                </div>
-                <!-- End Title -->
-                <div class="chart">
-                  <canvas id="Chart2" style="width: 400%; height: 400px; margin-left: -45px;"></canvas>
-               
-                <!-- End Chart -->
-              </div>
-            </div>
-            <!-- End Col -->
-          </div>
-          <!-- End Row -->
-          <div class="row">
-            <div class="col-lg-5">
-              <div class="card-style mb-30">
-                <div class="title d-flex justify-content-between align-items-center">
-                  <div class="left">
-                    <h4 class="text-medium mb-30">District Population Distribution</h4>
-                  </div>
-                </div>
-                <!-- End Title -->
-                <div style="min-height:30px" id="datawrapper-vis-u7yaQ"><script type="text/javascript" defer src="https://datawrapper.dwcdn.net/u7yaQ/embed.js" charset="utf-8" data-target="#datawrapper-vis-u7yaQ"></script><noscript><img src="https://datawrapper.dwcdn.net/u7yaQ/full.png" alt="" /></noscript></div>
-              </div>
-            
-              </div>
-                <p>Last updated: 1 hour ago</p>
-              </div>
-            </div>
-            <!-- End Col -->
-            <div class="col-lg-7">
-              <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap justify-content-between align-items-center">
-                  <div class="left">
-                    <h6 class="text-medium mb-30">District League Table</h6>
-                  </div>
-                  <div class="right">
-                    <div class="select-style-1">
-                      <div class="select-position select-sm">
-                        <!-- Dropdown or other elements can go here -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            
-                <!-- Chart Container -->
-                <div style="height: 500px; overflow-y: auto; border: 1px solid #ccc;">
-                  <div style="min-height:1504px" id="datawrapper-vis-YlEdu">
-                    <script type="text/javascript" defer src="https://datawrapper.dwcdn.net/YlEdu/embed.js"
-                 ></script>
-                  </div>
-                <!-- End Title -->
-                <div class="table-responsive">
-                  <table class="table top-selling-table">
-                    <thead>
-                      <tr>
-                        <th></th>
-                       
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="check-input-primary">
-                            <input class="form-check-input" type="checkbox" id="checkbox-1" />
-                          </div>
-                        </td>
-                        <td>
-                         
-                        </td>
-                        <td>
-                          <div class="action justify-content-end">
-                            <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              <i class="lni lni-more-alt"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Remove</a>
-                              </li>
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Edit</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="check-input-primary">
-                            <input class="form-check-input" type="checkbox" id="checkbox-1" />
-                          </div>
-                        </td>
-                        <td>
-                          
-                        <td>
-                          <div class="action justify-content-end">
-                            <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              <i class="lni lni-more-alt"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Remove</a>
-                              </li>
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Edit</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                       
-                        <td>
-                         
-                        </td>
-                        <td>
-                          <div class="action justify-content-end">
-                            <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              <i class="lni lni-more-alt"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Remove</a>
-                              </li>
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Edit</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="check-input-primary">
-                            <input class="form-check-input" type="checkbox" id="checkbox-1" />
-                          </div>
-                        </td>
-                        <td>
-                         
-                        </td>
-                        <td>
-                          <div class="action justify-content-end">
-                            <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              <i class="lni lni-more-alt"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Remove</a>
-                              </li>
-                              <li class="dropdown-item">
-                                <a href="#0" class="text-gray">Edit</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <!-- End Table -->
-                </div>
-              </div>
-            </div>
-            <!-- End Col -->
-          </div>
-          <!-- End Row -->
-          <div class="row">
-            <div class="col-lg-7">
-              <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                  <div class="left">
-                    <h6 class="text-medium mb-2">DLT Governance</h6>
-                  </div>
-                  <div class="right">
-                    <div class="select-style-1 mb-2">
-                      <div class="select-position select-sm">
-                      
-                      </div>
-                    </div>
-                    <!-- end select -->
-                  </div>
-                </div>
-                <!-- End Title -->
-                <div class="chart">
-                  <div id="legend3">
-                    <ul class="legend3 d-flex flex-wrap align-items-center mb-30">
-                      <li>
-                        <div class="d-flex">
-                          <span class="bg-color primary-bg"> </span>
-                          <div class="text">
-                            <p class="text-sm text-success">
-                              <span class="text-dark"> </span>
-                              <i class="lni lni-arrow-up"></i>
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="d-flex">
-                          <span class="bg-color purple-bg"></span>
-                          <div class="text">
-                            <p class="text-sm text-success">
-                              <span class="text-dark"> </span> 
-                              <i class="lni lni-arrow-up"></i>
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="d-flex">
-                          <span class="bg-color orange-bg"></span>
-                          <div class="text">
-                            <p class="text-sm text-danger">
-                              <span class="text-dark">Tamale</span> 12%
-                              <i class="lni lni-arrow-down"></i>
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <canvas id="Chart3" style="width: 100%; height: 450px; margin-left: -35px;"></canvas>
-                </div>
-              </div>
-            </div>
-            <!-- End Col -->
-            <div class="col-lg-5">
-              <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                  <div class="left">
-                    <h6 class="text-medium mb-2">PFM League Table</h6>
-                  </div>
-                  <div class="right">
-    
-                    </div>
-                    <!-- end select -->
-                  </div>
-                </div>
-                <!-- End Title -->
-                <div class="chart">
-                  <div id="legend4">
-                    <ul class="legend3 d-flex flex-wrap gap-3 gap-sm-0 align-items-center mb-30">
-                      <li>
-                        <div class="d-flex">
-                          <span class="bg-color primary-bg"> </span>
-                          <div class="text">
-                            <p class="text-sm text-success">
-                              <span class="text-dark">PFM LT</span>
-                              
-                              <i class="lni lni-arrow-up"></i>
-                            </p>
-                            <h2>PFM League Table</h2>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="d-flex">
-                          <span class="bg-color danger-bg"></span>
-                          <div class="text">
-                            <p class="text-sm text-danger">
-                              <span class="text-dark"></span> -
-                              <i class="lni lni-arrow-down"></i>
-                            </p>
-                            <h2></h2>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <canvas id="Chart4" style="width: 100%; height: 420px; margin-left: -35px;"></canvas>
-                </div>
-                <!-- End Chart -->
-              </div>
-            </div>
-            <!-- End Col -->
-          </div>
-          <!-- End Row -->
-          <div class="row">
-            <div class="col-lg-5">
-              <div class="card-style calendar-card mb-30">
-                <div id="calendar-mini"></div>
-              </div>
-            </div>
-            <!-- End Col -->
-            <div class="col-lg-7">
-              <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                  <div class="left">
-                    <h6 class="text-medium mb-30"></h6>
-                  </div>
-                  <div class="right">
-                    <div class="select-style-1">
-                      <div class="select-position select-sm">
-                       
-                  <!-- End Table -->
-                </div>
-              </div>
-            </div>
-            <!-- End Col -->
-          </div>
-          <!-- End Row -->
         </div>
-        <!-- end container -->
-      </section>
-      <!-- ========== section end ========== -->
 
-      <!-- ========== footer start =========== -->
-      <footer class="footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6 order-last order-md-first">
-              <div class="copyright text-center text-md-start">
-                <p class="text-sm">
-                  Designed and Developed by
-                  <a href="https://www.linkedin.com/in/pln-john-dogbey-mgip-186883129/" rel="nofollow" target="_blank">
-                    John, Mavis & Araba
-                  </a>
-                </p>
-              </div>
+        <!-- Most Improved -->
+        <div class="card">
+          <div class="section-header" style="margin-bottom:12px;">
+            <div class="section-title">🚀 Most Improved 2023→2024</div>
+          </div>
+          <div class="improved-list">
+            <div class="improved-item">
+              <div class="arrow-up">▲</div>
+              <div class="improved-name">Kpando Municipal Assembly</div>
+              <div class="improved-jump">+240</div>
             </div>
-            <!-- end col-->
-            <div class="col-md-6">
-              <div class="terms d-flex justify-content-center justify-content-md-end">
-                <a href="#0" class="text-sm">Term & Conditions</a>
-                <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
-              </div>
+            <div class="improved-item">
+              <div class="arrow-up">▲</div>
+              <div class="improved-name">Suame Municipal Assembly</div>
+              <div class="improved-jump">+252</div>
+            </div>
+            <div class="improved-item">
+              <div class="arrow-up">▲</div>
+              <div class="improved-name">Asante Akim South MA</div>
+              <div class="improved-jump">+167</div>
+            </div>
+            <div class="improved-item">
+              <div class="arrow-up">▲</div>
+              <div class="improved-name">Agona West Municipal Assembly</div>
+              <div class="improved-jump">+216</div>
+            </div>
+            <div class="improved-item">
+              <div class="arrow-up">▲</div>
+              <div class="improved-name">South Dayi District Assembly</div>
+              <div class="improved-jump">+242</div>
             </div>
           </div>
-          <!-- end row -->
         </div>
-        <!-- end container -->
-      </footer>
-      <!-- ========== footer end =========== -->
-    </main>
-    <!-- ======== main-wrapper end =========== -->
 
-    <!-- ========= All Javascript files linkup ======== -->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/Chart.min.js"></script>
-    <script src="assets/js/dynamic-pie-chart.js"></script>
-    <script src="assets/js/moment.min.js"></script>
-    <script src="assets/js/fullcalendar.js"></script>
-    <script src="assets/js/jvectormap.min.js"></script>
-    <script src="assets/js/world-merc.js"></script>
-    <script src="assets/js/polyfill.js"></script>
-    <script src="assets/js/main.js"></script>
+      </div>
+    </div>
 
-    <script>
-      // ======== jvectormap activation
-      
-      var jvm = new jsVectorMap({
-        map: "world_merc",
-        selector: "#map",
-        zoomButtons: true,
+    <!-- FULL PFM LEAGUE TABLE -->
+    <div class="row row-full">
+      <div class="card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">📋 Full PFM Compliance League Table — 2024 National Rankings</div>
+            <div class="section-sub">Public Financial Management Compliance League Table | All 261 MMDAs ranked</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span style="font-size:12px;color:var(--muted);" id="row-count">Showing 261 districts</span>
+          </div>
+        </div>
 
-        regionStyle: {
-          initial: {
-            fill: "#d1d5db",
-          },
-        },
+        <!-- Region filter tabs -->
+        <div class="league-tabs" id="regionTabs">
+          <button class="tab-btn active" onclick="filterRegion('all', this)">All Regions</button>
+          <button class="tab-btn" onclick="filterRegion('Greater Accra', this)">Greater Accra</button>
+          <button class="tab-btn" onclick="filterRegion('Ashanti', this)">Ashanti</button>
+          <button class="tab-btn" onclick="filterRegion('Eastern', this)">Eastern</button>
+          <button class="tab-btn" onclick="filterRegion('Volta', this)">Volta</button>
+          <button class="tab-btn" onclick="filterRegion('Central', this)">Central</button>
+          <button class="tab-btn" onclick="filterRegion('Western', this)">Western</button>
+          <button class="tab-btn" onclick="filterRegion('Northern', this)">Northern</button>
+          <button class="tab-btn" onclick="filterRegion('Bono', this)">Bono</button>
+          <button class="tab-btn" onclick="filterRegion('Upper East', this)">Upper East</button>
+          <button class="tab-btn" onclick="filterRegion('Oti', this)">Oti</button>
+        </div>
 
-        labels: {
-          markers: {
-            render: (marker) => marker.name,
-          },
-        },
+        <input type="text" class="league-search" placeholder="🔍  Search district name…" id="tableSearch" oninput="filterTable()">
 
-        markersSelectable: true,
-        selectedMarkers: markers.map((marker, index) => {
-          var name = marker.name;
+        <div class="league-table-wrap">
+          <table class="league-table" id="leagueTable">
+            <thead>
+              <tr>
+                <th>Rank 2024</th>
+                <th>District / MMDA</th>
+                <th>Region</th>
+                <th>Score 2024</th>
+                <th>Rank 2023</th>
+                <th>Change</th>
+              </tr>
+            </thead>
+            <tbody id="leagueTableBody">
+              <!-- populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-          if (name === "Russia" || name === "Brazil") {
-            return index;
-          }
-        }),
-        markers: markers,
-        markerStyle: {
-          initial: { fill: "#4A6CF7" },
-          selected: { fill: "#ff5050" },
-        },
-        markerLabelStyle: {
-          initial: {
-            fontWeight: 400,
-            fontSize: 14,
-          },
-        },
-      });
-      // ====== calendar activation
-      document.addEventListener("DOMContentLoaded", function () {
-        var calendarMiniEl = document.getElementById("calendar-mini");
-        var calendarMini = new FullCalendar.Calendar(calendarMiniEl, {
-          initialView: "dayGridMonth",
-          headerToolbar: {
-            end: "today prev,next",
-          },
-        });
-        calendarMini.render();
-      });
+    <!-- REGIONAL LEADERS -->
+    <div class="row row-full">
+      <div class="card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">🗺️ Regional League Leaders 2024</div>
+            <div class="section-sub">Top-ranked MMDA in each of Ghana's 16 regions</div>
+          </div>
+        </div>
+        <div class="regional-grid" id="regionalGrid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </div>
 
-      // =========== chart one start
-      const ctx1 = document.getElementById("Chart1").getContext("2d");
-      const chart1 = new Chart(ctx1, {
-        type: "line",
-        data: {
-          labels: [
-            "Jan",
-            "Fab",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          datasets: [
-            {
-              label: "",
-              backgroundColor: "transparent",
-              borderColor: "#365CF5",
-              data: [
-                600, 800, 750, 880, 940, 880, 900, 770, 920, 890, 976, 1100,
-              ],
-              pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: "#365CF5",
-              pointBorderColor: "transparent",
-              pointHoverBorderColor: "#fff",
-              pointHoverBorderWidth: 5,
-              borderWidth: 5,
-              pointRadius: 8,
-              pointHoverRadius: 8,
-              cubicInterpolationMode: "monotone", // Add this line for curved line
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            tooltip: {
-              callbacks: {
-                labelColor: function (context) {
-                  return {
-                    backgroundColor: "#ffffff",
-                    color: "#171717"
-                  };
-                },
-              },
-              intersect: false,
-              backgroundColor: "#f9f9f9",
-              title: {
-                fontFamily: "Plus Jakarta Sans",
-                color: "#8F92A1",
-                fontSize: 12,
-              },
-              body: {
-                fontFamily: "Plus Jakarta Sans",
-                color: "#171717",
-                fontStyle: "bold",
-                fontSize: 16,
-              },
-              multiKeyBackground: "transparent",
-              displayColors: false,
-              padding: {
-                x: 30,
-                y: 10,
-              },
-              bodyAlign: "center",
-              titleAlign: "center",
-              titleColor: "#8F92A1",
-              bodyColor: "#171717",
-              bodyFont: {
-                family: "Plus Jakarta Sans",
-                size: "16",
-                weight: "bold",
-              },
-            },
-            legend: {
-              display: false,
-            },
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          title: {
-            display: false,
-          },
-          scales: {
-            y: {
-              grid: {
-                display: false,
-                drawTicks: false,
-                drawBorder: false,
-              },
-              ticks: {
-                padding: 35,
-                max: 1200,
-                min: 500,
-              },
-            },
-            x: {
-              grid: {
-                drawBorder: false,
-                color: "rgba(143, 146, 161, .1)",
-                zeroLineColor: "rgba(143, 146, 161, .1)",
-              },
-              ticks: {
-                padding: 20,
-              },
-            },
-          },
-        },
-      });
-      // =========== chart one end
+    <!-- Datawrapper embeds -->
+    <div class="row row-2">
+      <div class="card">
+        <div class="section-header">
+          <div class="section-title">🌆 Rate of Urbanisation</div>
+          <div class="section-sub">PAIReD district urbanisation trends</div>
+        </div>
+        <div class="dw-embed-wrap">
+          <div style="min-height:280px" id="datawrapper-vis-1bNV3">
+            <script type="text/javascript" defer src="https://datawrapper.dwcdn.net/1bNV3/embed.js" charset="utf-8" data-target="#datawrapper-vis-1bNV3"></script>
+            <noscript><img src="https://datawrapper.dwcdn.net/1bNV3/full.png" alt="Urbanisation chart" /></noscript>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">📉 Multidimensional Poverty Index</div>
+            <div class="section-sub">Non-monetary poverty across 4 dimensions: living conditions, education, health, employment</div>
+          </div>
+        </div>
+        <div style="height:300px;overflow-y:auto;border-radius:8px;">
+          <div style="min-height:1655px" id="datawrapper-vis-qPfYY">
+            <script type="text/javascript" defer src="https://datawrapper.dwcdn.net/qPfYY/embed.js" charset="utf-8" data-target="#datawrapper-vis-qPfYY"></script>
+            <noscript><img src="https://datawrapper.dwcdn.net/qPfYY/full.png" alt="MPI chart" /></noscript>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      // =========== chart two start
-      const ctx2 = document.getElementById("Chart2").getContext("2d");
-      const chart2 = new Chart(ctx2, {
-        type: "bar",
-        data: {
-          labels: [
-            "Jan",
-            "Fab",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          datasets: [
-            {
-              label: "",
-              backgroundColor: "#365CF5",
-              borderRadius: 30,
-              barThickness: 6,
-              maxBarThickness: 8,
-              data: [
-                600, 700, 1000, 700, 650, 800, 690, 740, 720, 1120, 876, 900,
-              ],
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            tooltip: {
-              callbacks: {
-                titleColor: function (context) {
-                  return "#8F92A1";
-                },
-                label: function (context) {
-                  let label = context.dataset.label || "";
+  </div><!-- /content -->
 
-                  if (label) {
-                    label += ": ";
-                  }
-                  label += context.parsed.y;
-                  return label;
-                },
-              },
-              backgroundColor: "#F3F6F8",
-              titleAlign: "center",
-              bodyAlign: "center",
-              titleFont: {
-                size: 12,
-                weight: "bold",
-                color: "#8F92A1",
-              },
-              bodyFont: {
-                size: 16,
-                weight: "bold",
-                color: "#171717",
-              },
-              displayColors: false,
-              padding: {
-                x: 30,
-                y: 10,
-              },
-          },
-          },
-          legend: {
-            display: false,
-            },
-          legend: {
-            display: false,
-          },
-          layout: {
-            padding: {
-              top: 15,
-              right: 15,
-              bottom: 15,
-              left: 15,
-            },
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              grid: {
-                display: false,
-                drawTicks: false,
-                drawBorder: false,
-              },
-              ticks: {
-                padding: 35,
-                max: 1200,
-                min: 0,
-              },
-            },
-            x: {
-              grid: {
-                display: false,
-                drawBorder: false,
-                color: "rgba(143, 146, 161, .1)",
-                drawTicks: false,
-                zeroLineColor: "rgba(143, 146, 161, .1)",
-              },
-              ticks: {
-                padding: 20,
-              },
-            },
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-            title: {
-              display: false,
-            },
-          },
-        },
-      });
-      // =========== chart two end
+  <footer class="page-footer">
+    <div>Designed by John, Mavis &amp; Araba &nbsp;·&nbsp; PAIReD Partners Ghana &nbsp;·&nbsp; Data: 2024 PFMCLT</div>
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+</div><!-- /main -->
 
-      // =========== chart three start
-      const ctx3 = document.getElementById("Chart3").getContext("2d");
-      const chart3 = new Chart(ctx3, {
-        type: "line",
-        data: {
-          labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          datasets: [
-            {
-              label: "Revenue",
-              backgroundColor: "transparent",
-              borderColor: "#365CF5",
-              data: [80, 120, 110, 100, 130, 150, 115, 145, 140, 130, 160, 210],
-              pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: "#365CF5",
-              pointBorderColor: "transparent",
-              pointHoverBorderColor: "#365CF5",
-              pointHoverBorderWidth: 3,
-              pointBorderWidth: 5,
-              pointRadius: 5,
-              pointHoverRadius: 8,
-              fill: false,
-              tension: 0.4,
-            },
-            {
-              label: "Profit",
-              backgroundColor: "transparent",
-              borderColor: "#9b51e0",
-              data: [
-                120, 160, 150, 140, 165, 210, 135, 155, 170, 140, 130, 200,
-              ],
-              pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: "#9b51e0",
-              pointBorderColor: "transparent",
-              pointHoverBorderColor: "#9b51e0",
-              pointHoverBorderWidth: 3,
-              pointBorderWidth: 5,
-              pointRadius: 5,
-              pointHoverRadius: 8,
-              fill: false,
-              tension: 0.4,
-            },
-            {
-              label: "Order",
-              backgroundColor: "transparent",
-              borderColor: "#f2994a",
-              data: [180, 110, 140, 135, 100, 90, 145, 115, 100, 110, 115, 150],
-              pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: "#f2994a",
-              pointBorderColor: "transparent",
-              pointHoverBorderColor: "#f2994a",
-              pointHoverBorderWidth: 3,
-              pointBorderWidth: 5,
-              pointRadius: 5,
-              pointHoverRadius: 8,
-              fill: false,
-              tension: 0.4,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            tooltip: {
-              intersect: false,
-              backgroundColor: "#fbfbfb",
-              titleColor: "#8F92A1",
-              bodyColor: "#272727",
-              titleFont: {
-                size: 16,
-                family: "Plus Jakarta Sans",
-                weight: "400",
-              },
-              bodyFont: {
-                family: "Plus Jakarta Sans",
-                size: 16,
-              },
-              multiKeyBackground: "transparent",
-              displayColors: false,
-              padding: {
-                x: 30,
-                y: 15,
-              },
-              borderColor: "rgba(143, 146, 161, .1)",
-              borderWidth: 1,
-              enabled: true,
-            },
-            title: {
-              display: false,
-            },
-            legend: {
-              display: false,
-            },
-          },
-          layout: {
-            padding: {
-              top: 0,
-            },
-          },
-          responsive: true,
-          // maintainAspectRatio: false,
-          legend: {
-            display: false,
-          },
-          scales: {
-            y: {
-              grid: {
-                display: false,
-                drawTicks: false,
-                drawBorder: false,
-              },
-              ticks: {
-                padding: 35,
-              },
-              max: 350,
-              min: 50,
-            },
-            x: {
-              grid: {
-                drawBorder: false,
-                color: "rgba(143, 146, 161, .1)",
-                drawTicks: false,
-                zeroLineColor: "rgba(143, 146, 161, .1)",
-              },
-              ticks: {
-                padding: 20,
-              },
-            },
-          },
-        },
-      });
-      // =========== chart three end
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const pfmData = [
+  {rank:1,name:"La Dade Kotopon Municipal Assembly",region:"Greater Accra",score:57.50,rank2023:2},
+  {rank:2,name:"Kwadaso Municipal Assembly",region:"Ashanti",score:55.50,rank2023:29},
+  {rank:3,name:"Kpando Municipal Assembly",region:"Volta",score:55.20,rank2023:243},
+  {rank:4,name:"Suame Municipal Assembly",region:"Ashanti",score:55.00,rank2023:256},
+  {rank:5,name:"Asante Akim South Municipal Assembly",region:"Ashanti",score:54.00,rank2023:172},
+  {rank:6,name:"Central Tongu District Assembly",region:"Volta",score:53.00,rank2023:184},
+  {rank:7,name:"Denkyembour District Assembly",region:"Eastern",score:52.10,rank2023:21},
+  {rank:8,name:"New Juaben North Municipal Assembly",region:"Eastern",score:52.00,rank2023:35},
+  {rank:9,name:"Ketu North Municipal Assembly",region:"Volta",score:51.50,rank2023:31},
+  {rank:10,name:"Adentan Municipal Assembly",region:"Greater Accra",score:51.00,rank2023:3},
+  {rank:11,name:"Tema West Municipal Assembly",region:"Greater Accra",score:50.50,rank2023:114},
+  {rank:12,name:"La Nkwantanang-Madina Municipal Assembly",region:"Greater Accra",score:50.00,rank2023:142},
+  {rank:13,name:"Akyemansa District Assembly",region:"Eastern",score:49.80,rank2023:84},
+  {rank:14,name:"Agona West Municipal Assembly",region:"Central",score:49.50,rank2023:230},
+  {rank:15,name:"Ketu South Municipal Assembly",region:"Volta",score:49.00,rank2023:22},
+  {rank:16,name:"South Dayi District Assembly",region:"Volta",score:48.50,rank2023:258},
+  {rank:17,name:"Ayawaso West Municipal Assembly",region:"Greater Accra",score:48.00,rank2023:7},
+  {rank:18,name:"Atiwa East District Assembly",region:"Eastern",score:47.70,rank2023:110},
+  {rank:19,name:"Hohoe Municipal Assembly",region:"Volta",score:47.50,rank2023:37},
+  {rank:20,name:"Ablekuma North Municipal Assembly",region:"Greater Accra",score:47.30,rank2023:46},
+  {rank:21,name:"Birim Central Municipal Assembly",region:"Eastern",score:47.10,rank2023:164},
+  {rank:22,name:"Ho Municipal Assembly",region:"Volta",score:47.00,rank2023:196},
+  {rank:23,name:"Atwima Kwanwoma District Assembly",region:"Ashanti",score:46.70,rank2023:103},
+  {rank:24,name:"Afigya Kwabre North Municipal Assembly",region:"Ashanti",score:46.50,rank2023:115},
+  {rank:25,name:"Krachi East Municipal Assembly",region:"Oti",score:46.40,rank2023:129},
+  {rank:26,name:"Kwahu East District Assembly",region:"Eastern",score:46.20,rank2023:75},
+  {rank:27,name:"Offinso Municipal Assembly",region:"Ashanti",score:46.10,rank2023:179},
+  {rank:28,name:"Dormaa West District Assembly",region:"Bono",score:46.00,rank2023:174},
+  {rank:29,name:"Ga West Municipal Assembly",region:"Greater Accra",score:45.80,rank2023:217},
+  {rank:30,name:"New Juaben South Municipal Assembly",region:"Eastern",score:45.65,rank2023:185},
+  {rank:31,name:"North Dayi District Assembly",region:"Volta",score:45.54,rank2023:247},
+  {rank:32,name:"Lower Manya Krobo Municipal Assembly",region:"Eastern",score:45.07,rank2023:78},
+  {rank:33,name:"West Akim Municipal Assembly",region:"Eastern",score:45.00,rank2023:11},
+  {rank:34,name:"Anloga District Assembly",region:"Volta",score:44.83,rank2023:50},
+  {rank:35,name:"Adaklu District Assembly",region:"Volta",score:44.69,rank2023:226},
+  {rank:36,name:"North Tongu District Assembly",region:"Volta",score:44.57,rank2023:249},
+  {rank:37,name:"Asante Akim North Municipal Assembly",region:"Ashanti",score:44.50,rank2023:34},
+  {rank:38,name:"Bosomtwe District Assembly",region:"Ashanti",score:44.08,rank2023:81},
+  {rank:39,name:"Keta Municipal Assembly",region:"Volta",score:44.00,rank2023:204},
+  {rank:40,name:"South Tongu District Assembly",region:"Volta",score:43.98,rank2023:98},
+  {rank:41,name:"Ajumako/Enyan/Essiam District Assembly",region:"Central",score:43.86,rank2023:20},
+  {rank:42,name:"Old Tafo Municipal Assembly",region:"Ashanti",score:43.80,rank2023:160},
+  {rank:43,name:"Asante Akim Central Municipal Assembly",region:"Ashanti",score:43.64,rank2023:137},
+  {rank:44,name:"Ga Central Municipal Assembly",region:"Greater Accra",score:43.56,rank2023:77},
+  {rank:45,name:"Kwabre East Municipal Assembly",region:"Ashanti",score:43.50,rank2023:66},
+  {rank:46,name:"Asokwa Municipal Assembly",region:"Ashanti",score:43.47,rank2023:113},
+  {rank:47,name:"Cape Coast Metropolitan Assembly",region:"Central",score:43.09,rank2023:49},
+  {rank:48,name:"Krachi West District Assembly",region:"Oti",score:43.08,rank2023:244},
+  {rank:49,name:"Atiwa West District Assembly",region:"Eastern",score:43.02,rank2023:80},
+  {rank:50,name:"Ejisu Municipal Assembly",region:"Ashanti",score:43.00,rank2023:220},
+  {rank:51,name:"Agortime Ziope District Assembly",region:"Volta",score:42.98,rank2023:112},
+  {rank:52,name:"Okere District Assembly",region:"Eastern",score:42.95,rank2023:41},
+  {rank:53,name:"Jasikan Municipal Assembly",region:"Oti",score:42.85,rank2023:165},
+  {rank:54,name:"Pru West District Assembly",region:"Bono East",score:42.61,rank2023:128},
+  {rank:55,name:"Jaman South Municipal Assembly",region:"Bono",score:42.54,rank2023:134},
+  {rank:56,name:"Kassena-Nankana West District Assembly",region:"Upper East",score:42.50,rank2023:47},
+  {rank:57,name:"Afigya Kwabre South District Assembly",region:"Ashanti",score:42.26,rank2023:152},
+  {rank:58,name:"Awutu Senya District Assembly",region:"Central",score:42.22,rank2023:0},
+  {rank:59,name:"Guan District Assembly",region:"Oti",score:42.19,rank2023:239},
+  {rank:60,name:"Ayawaso North Municipal Assembly",region:"Greater Accra",score:42.17,rank2023:12},
+  {rank:61,name:"Biakoye District Assembly",region:"Oti",score:42.09,rank2023:39},
+  {rank:62,name:"Mfantsiman Municipal Assembly",region:"Central",score:42.04,rank2023:6},
+  {rank:63,name:"Korle Klottey Municipal Assembly",region:"Greater Accra",score:42.01,rank2023:205},
+  {rank:64,name:"Ayensuano District Assembly",region:"Eastern",score:42.00,rank2023:116},
+  {rank:65,name:"Ayawaso East Municipal Assembly",region:"Greater Accra",score:41.59,rank2023:13},
+  {rank:66,name:"Kadjebi District Assembly",region:"Oti",score:41.57,rank2023:36},
+  {rank:67,name:"Okaikwei North Municipal Assembly",region:"Greater Accra",score:41.55,rank2023:14},
+  {rank:68,name:"Kintampo South District Assembly",region:"Bono East",score:41.52,rank2023:127},
+  {rank:69,name:"Nkwanta North District Assembly",region:"Oti",score:41.51,rank2023:125},
+  {rank:70,name:"Ahafo Ano North Municipal Assembly",region:"Ashanti",score:41.50,rank2023:216},
+  {rank:71,name:"Kwahu West Municipal Assembly",region:"Eastern",score:41.40,rank2023:62},
+  {rank:72,name:"Abuakwa South Municipal Assembly",region:"Eastern",score:41.30,rank2023:206},
+  {rank:73,name:"Achiase District Assembly",region:"Eastern",score:41.25,rank2023:27},
+  {rank:74,name:"Asene Manso Akroso District Assembly",region:"Eastern",score:41.17,rank2023:57},
+  {rank:75,name:"Nanton District Assembly",region:"Northern",score:41.06,rank2023:79},
+  {rank:76,name:"Birim South District Assembly",region:"Eastern",score:41.00,rank2023:138},
+  {rank:77,name:"Kintampo Municipal Assembly",region:"Bono East",score:40.54,rank2023:188},
+  {rank:78,name:"Berekum East Municipal Assembly",region:"Bono",score:40.52,rank2023:211},
+  {rank:79,name:"Kwahu Afram Plains South District Assembly",region:"Eastern",score:40.50,rank2023:245},
+  {rank:80,name:"Bekwai Municipal Assembly",region:"Ashanti",score:40.05,rank2023:123},
+  {rank:81,name:"Akuapim North Municipal Assembly",region:"Eastern",score:40.01,rank2023:207},
+  {rank:82,name:"Nsawam Adoagyire Municipal Assembly",region:"Eastern",score:40.00,rank2023:19},
+  {rank:83,name:"Builsa South District Assembly",region:"Upper East",score:39.66,rank2023:154},
+  {rank:84,name:"Kwahu South Municipal Assembly",region:"Eastern",score:39.60,rank2023:4},
+  {rank:85,name:"Akrofuom District Assembly",region:"Ashanti",score:39.58,rank2023:231},
+  {rank:86,name:"Upper West Akim District Assembly",region:"Eastern",score:39.57,rank2023:187},
+  {rank:87,name:"Gomoa East District Assembly",region:"Central",score:39.56,rank2023:53},
+  {rank:88,name:"Ga North Municipal Assembly",region:"Greater Accra",score:39.50,rank2023:58},
+  {rank:89,name:"Bawku West District Assembly",region:"Upper East",score:39.00,rank2023:97},
+  {rank:90,name:"Ahafo Ano South West District Assembly",region:"Ashanti",score:38.55,rank2023:229},
+  {rank:91,name:"Techiman North District Assembly",region:"Bono East",score:38.50,rank2023:33},
+  {rank:92,name:"Tema Metropolitan Assembly",region:"Greater Accra",score:38.15,rank2023:26},
+  {rank:93,name:"Dormaa East District Assembly",region:"Bono",score:38.03,rank2023:203},
+  {rank:94,name:"Bolgatanga Municipal Assembly",region:"Upper East",score:38.00,rank2023:199},
+  {rank:95,name:"Assin Foso Municipal Assembly",region:"Central",score:37.57,rank2023:9},
+  {rank:96,name:"Dormaa Central Municipal Assembly",region:"Bono",score:37.54,rank2023:28},
+  {rank:97,name:"Krachie Nchumuru District Assembly",region:"Oti",score:37.50,rank2023:10},
+  {rank:98,name:"Yilo Krobo Municipal Assembly",region:"Eastern",score:37.20,rank2023:55},
+  {rank:99,name:"Ho West District Assembly",region:"Volta",score:37.18,rank2023:240},
+  {rank:100,name:"Sekyere South District Assembly",region:"Ashanti",score:37.10,rank2023:170},
+  {rank:101,name:"Kpone Katamanso Municipal Assembly",region:"Greater Accra",score:37.07,rank2023:224},
+  {rank:102,name:"Krowor Municipal Assembly",region:"Greater Accra",score:37.05,rank2023:54},
+  {rank:103,name:"Kumasi Metropolitan Assembly",region:"Ashanti",score:37.04,rank2023:74},
+  {rank:104,name:"Nkoranza North District Assembly",region:"Bono East",score:37.02,rank2023:25},
+  {rank:105,name:"Asikuma Odoben Brakwa District Assembly",region:"Central",score:37.00,rank2023:85},
+  {rank:106,name:"Ga East Municipal Assembly",region:"Greater Accra",score:36.59,rank2023:213},
+  {rank:107,name:"Atebubu-Amantin Municipal Assembly",region:"Bono East",score:36.56,rank2023:232},
+  {rank:108,name:"Sene East District Assembly",region:"Bono East",score:36.54,rank2023:100},
+  {rank:109,name:"Obuasi East District Assembly",region:"Ashanti",score:36.50,rank2023:192},
+  {rank:110,name:"Akatsi North District Assembly",region:"Volta",score:36.12,rank2023:144},
+  {rank:111,name:"Nkoranza South Municipal Assembly",region:"Bono East",score:36.10,rank2023:43},
+  {rank:112,name:"Ayawaso Central Municipal Assembly",region:"Greater Accra",score:36.04,rank2023:56},
+  {rank:113,name:"Sagnarigu Municipal Assembly",region:"Northern",score:36.03,rank2023:69},
+  {rank:114,name:"Komenda/Edina/Eguafo/Abirem Municipal Assembly",region:"Central",score:36.00,rank2023:242},
+  {rank:115,name:"Ningo-Prampram District Assembly",region:"Greater Accra",score:35.70,rank2023:186},
+  {rank:116,name:"Asuogyaman District Assembly",region:"Eastern",score:35.61,rank2023:96},
+  {rank:117,name:"Birim North District Assembly",region:"Eastern",score:35.58,rank2023:153},
+  {rank:118,name:"Ablekuma Central Municipal Assembly",region:"Greater Accra",score:35.57,rank2023:132},
+  {rank:119,name:"Fanteakwa South District Assembly",region:"Eastern",score:35.54,rank2023:195},
+  {rank:120,name:"Wenchi Municipal Assembly",region:"Bono",score:35.50,rank2023:0},
+  {rank:121,name:"Kwaebibirem Municipal Assembly",region:"Eastern",score:35.15,rank2023:61},
+  {rank:122,name:"Ledzokuku Municipal Assembly",region:"Greater Accra",score:35.08,rank2023:109},
+  {rank:123,name:"Gomoa West District Assembly",region:"Central",score:35.00,rank2023:169},
+  {rank:124,name:"Ada West District Assembly",region:"Greater Accra",score:34.90,rank2023:15},
+  {rank:125,name:"Shai-Osuduku District Assembly",region:"Greater Accra",score:34.70,rank2023:150},
+  {rank:126,name:"Pru East District Assembly",region:"Bono East",score:34.54,rank2023:67},
+  {rank:127,name:"Assin North District Assembly",region:"Central",score:34.52,rank2023:71},
+  {rank:128,name:"Effutu Municipal Assembly",region:"Central",score:34.51,rank2023:210},
+  {rank:129,name:"Upper Manya Krobo District Assembly",region:"Eastern",score:34.51,rank2023:225},
+  {rank:130,name:"Akuapim South Municipal Assembly",region:"Eastern",score:34.50,rank2023:194},
+  {rank:131,name:"Afadzato South District Assembly",region:"Volta",score:34.45,rank2023:143},
+  {rank:132,name:"Effia Kwesimintsim District Assembly",region:"Western",score:34.07,rank2023:5},
+  {rank:133,name:"Juaben Municipal Assembly",region:"Ashanti",score:34.02,rank2023:124},
+  {rank:134,name:"Offinso North District Assembly",region:"Ashanti",score:34.00,rank2023:76},
+  {rank:135,name:"Asokore Mampong Municipal Assembly",region:"Ashanti",score:33.56,rank2023:17},
+  {rank:136,name:"Mampong Municipal Assembly",region:"Ashanti",score:33.52,rank2023:0},
+  {rank:137,name:"Ahanta West Municipal Assembly",region:"Western",score:33.50,rank2023:63},
+  {rank:138,name:"Sunyani West Municipal Assembly",region:"Bono",score:33.02,rank2023:257},
+  {rank:139,name:"Assin South District Assembly",region:"Central",score:33.00,rank2023:82},
+  {rank:140,name:"Amansie West District Assembly",region:"Ashanti",score:32.70,rank2023:95},
+  {rank:141,name:"Sekyere Kumawu District Assembly",region:"Ashanti",score:32.65,rank2023:255},
+  {rank:142,name:"Ahafo Ano South East District Assembly",region:"Ashanti",score:32.58,rank2023:0},
+  {rank:143,name:"Yunyoo-Nasuan District Assembly",region:"North East",score:32.50,rank2023:198},
+  {rank:144,name:"Gushegu Municipal Assembly",region:"Northern",score:32.06,rank2023:141},
+  {rank:145,name:"Ablekuma West Municipal Assembly",region:"Greater Accra",score:32.04,rank2023:24},
+  {rank:146,name:"Obuasi Municipal Assembly",region:"Ashanti",score:32.03,rank2023:215},
+  {rank:147,name:"Abuakwa North Municipal Assembly",region:"Eastern",score:32.01,rank2023:168},
+  {rank:148,name:"Sekyere Afram Plains District Assembly",region:"Ashanti",score:32.00,rank2023:253},
+  {rank:149,name:"Weija Gbawe Municipal Assembly",region:"Greater Accra",score:31.90,rank2023:1},
+  {rank:150,name:"Garu District Assembly",region:"Upper East",score:31.52,rank2023:87},
+  {rank:151,name:"Tarkwa Nsuaem Municipal Assembly",region:"Western",score:31.50,rank2023:65},
+  {rank:152,name:"Bosome Freho District Assembly",region:"Ashanti",score:31.08,rank2023:238},
+  {rank:153,name:"Kwahu Afram Plains North District Assembly",region:"Eastern",score:31.07,rank2023:157},
+  {rank:154,name:"Ga South Municipal Assembly",region:"Greater Accra",score:31.05,rank2023:86},
+  {rank:155,name:"Sefwi Wiawso Municipal Assembly",region:"Western North",score:31.03,rank2023:23},
+  {rank:156,name:"Yendi Municipal Assembly",region:"Northern",score:31.00,rank2023:177},
+  {rank:157,name:"Sene West District Assembly",region:"Bono East",score:30.53,rank2023:161},
+  {rank:158,name:"Prestea-Huni Valley Municipal Assembly",region:"Western",score:30.50,rank2023:182},
+  {rank:159,name:"Adansi South District Assembly",region:"Ashanti",score:30.06,rank2023:201},
+  {rank:160,name:"Nabdam District Assembly",region:"Upper East",score:30.00,rank2023:16},
+  {rank:161,name:"Accra Metropolitan Assembly",region:"Greater Accra",score:29.52,rank2023:120},
+  {rank:162,name:"Tamale Metropolitan Assembly",region:"Northern",score:29.50,rank2023:70},
+  {rank:163,name:"Ada East District Assembly",region:"Greater Accra",score:29.11,rank2023:135},
+  {rank:164,name:"Aowin Municipal Assembly",region:"Western North",score:29.09,rank2023:221},
+  {rank:165,name:"Ejura Sekyedumase Municipal Assembly",region:"Ashanti",score:29.06,rank2023:189},
+  {rank:166,name:"Saboba District Assembly",region:"Northern",score:29.02,rank2023:251},
+  {rank:167,name:"Suhum Municipal Assembly",region:"Eastern",score:29.00,rank2023:219},
+  {rank:168,name:"Adansi North District Assembly",region:"Ashanti",score:28.50,rank2023:228},
+  {rank:169,name:"Abura/Asebu/Kwamankese Assembly",region:"Central",score:28.01,rank2023:209},
+  {rank:170,name:"Awutu Senya East Municipal Assembly",region:"Central",score:28.00,rank2023:233},
+  {rank:171,name:"Amansie South Assembly",region:"Ashanti",score:27.54,rank2023:139},
+  {rank:172,name:"Atwima Nwabiagya North District Assembly",region:"Ashanti",score:27.52,rank2023:107},
+  {rank:173,name:"Sunyani Municipal Assembly",region:"Bono",score:27.51,rank2023:126},
+  {rank:174,name:"Wa Municipal Assembly",region:"Upper West",score:27.50,rank2023:8},
+  {rank:175,name:"Bia East District Assembly",region:"Western North",score:27.00,rank2023:202},
+  {rank:176,name:"North East Gonja District Assembly",region:"Savanna",score:26.57,rank2023:248},
+  {rank:177,name:"Sekyere East District Assembly",region:"Ashanti",score:26.50,rank2023:193},
+  {rank:178,name:"Wassa Amenfi West Municipal Assembly",region:"Western",score:26.04,rank2023:190},
+  {rank:179,name:"Sekondi Takoradi Metropolitan Assembly",region:"Western",score:26.02,rank2023:252},
+  {rank:180,name:"Asunafo North Municipal Assembly",region:"Ahafo",score:25.80,rank2023:122},
+  {rank:181,name:"Kumbungu District Assembly",region:"Northern",score:25.53,rank2023:147},
+  {rank:182,name:"Tolon District Assembly",region:"Northern",score:25.50,rank2023:167},
+  {rank:183,name:"Builsa North Municipal Assembly",region:"Upper East",score:25.09,rank2023:234},
+  {rank:184,name:"Gomoa Central District Assembly",region:"Central",score:25.06,rank2023:214},
+  {rank:185,name:"Suaman District Assembly",region:"Western North",score:25.00,rank2023:64},
+  {rank:186,name:"Tatale Sanguli District Assembly",region:"Northern",score:24.70,rank2023:259},
+  {rank:187,name:"East Mamprusi Municipal Assembly",region:"North East",score:24.56,rank2023:40},
+  {rank:188,name:"Wassa East District Assembly",region:"Western",score:24.50,rank2023:59},
+  {rank:189,name:"Ashaiman Municipal Assembly",region:"Greater Accra",score:24.08,rank2023:92},
+  {rank:190,name:"Kpandai District Assembly",region:"Northern",score:24.07,rank2023:32},
+  {rank:191,name:"Ellembelle District Assembly",region:"Western",score:24.06,rank2023:140},
+  {rank:192,name:"Nanumba North Municipal Assembly",region:"Northern",score:24.03,rank2023:158},
+  {rank:193,name:"Binduri District Assembly",region:"Upper East",score:24.02,rank2023:117},
+  {rank:194,name:"North Gonja District Assembly",region:"Savanna",score:24.00,rank2023:148},
+  {rank:195,name:"Fanteakwa North District Assembly",region:"Eastern",score:23.70,rank2023:60},
+  {rank:196,name:"Bunkpurugu Nyankpanduri District Assembly",region:"North East",score:23.50,rank2023:72},
+  {rank:197,name:"Pusiga District Assembly",region:"Upper East",score:23.40,rank2023:106},
+  {rank:198,name:"East Gonja Municipal Assembly",region:"Savanna",score:23.18,rank2023:145},
+  {rank:199,name:"Tano South District Assembly",region:"Ahafo",score:23.09,rank2023:38},
+  {rank:200,name:"Oforikrom Municipal Assembly",region:"Ashanti",score:23.07,rank2023:250},
+  {rank:201,name:"Tano North Municipal Assembly",region:"Ahafo",score:23.00,rank2023:102},
+  {rank:202,name:"Sissala West District Assembly",region:"Upper West",score:22.58,rank2023:171},
+  {rank:203,name:"Techiman Municipal Assembly",region:"Bono East",score:22.56,rank2023:90},
+  {rank:204,name:"West Gonja Municipal Assembly",region:"Savanna",score:22.54,rank2023:83},
+  {rank:205,name:"Amenfi Central District Assembly",region:"Western",score:22.50,rank2023:0},
+  {rank:206,name:"Bia West District Assembly",region:"Western North",score:22.07,rank2023:108},
+  {rank:207,name:"Kassena-Nankana Municipal Assembly",region:"Upper East",score:22.06,rank2023:222},
+  {rank:208,name:"Talensi District Assembly",region:"Upper East",score:22.03,rank2023:176},
+  {rank:209,name:"West Mamprusi Municipal Assembly",region:"North East",score:22.01,rank2023:99},
+  {rank:210,name:"Asutifi South District Assembly",region:"Ahafo",score:21.90,rank2023:118},
+  {rank:211,name:"Nandom Municipal Assembly",region:"Upper West",score:21.70,rank2023:18},
+  {rank:212,name:"Jomoro Municipal Assembly",region:"Western",score:21.56,rank2023:241},
+  {rank:213,name:"Wassa Amenfi East District Assembly",region:"Western",score:21.50,rank2023:151},
+  {rank:214,name:"Asutifi North District Assembly",region:"Ahafo",score:21.09,rank2023:52},
+  {rank:215,name:"Jaman North District Assembly",region:"Bono",score:21.07,rank2023:42},
+  {rank:216,name:"Juaboso District Assembly",region:"Western North",score:21.05,rank2023:73},
+  {rank:217,name:"Sekyere Central District Assembly",region:"Ashanti",score:21.03,rank2023:254},
+  {rank:218,name:"Karaga District Assembly",region:"Northern",score:21.00,rank2023:111},
+  {rank:219,name:"Tempane District Assembly",region:"Upper East",score:20.70,rank2023:180},
+  {rank:220,name:"Mion District Assembly",region:"Northern",score:20.58,rank2023:119},
+  {rank:221,name:"Mpohor District Assembly",region:"Western",score:20.55,rank2023:200},
+  {rank:222,name:"Upper Denkyira East Municipal Assembly",region:"Central",score:20.50,rank2023:89},
+  {rank:223,name:"Atwima Nwabiagya South District Assembly",region:"Ashanti",score:20.30,rank2023:212},
+  {rank:224,name:"Tain District Assembly",region:"Bono",score:20.10,rank2023:94},
+  {rank:225,name:"Adansi Asokowa District Assembly",region:"Ashanti",score:20.08,rank2023:227},
+  {rank:226,name:"Wa West District Assembly",region:"Upper West",score:20.00,rank2023:131},
+  {rank:227,name:"Amansie Central District Assembly",region:"Ashanti",score:19.95,rank2023:156},
+  {rank:228,name:"Central Gonja District Assembly",region:"Savanna",score:19.90,rank2023:183},
+  {rank:229,name:"Banda District Assembly",region:"Bono",score:19.80,rank2023:30},
+  {rank:230,name:"Bongo District Assembly",region:"Upper East",score:19.56,rank2023:133},
+  {rank:231,name:"Upper Denkyira West District Assembly",region:"Central",score:19.56,rank2023:48},
+  {rank:232,name:"Nzema East Municipal Assembly",region:"Western",score:19.53,rank2023:136},
+  {rank:233,name:"Shama District Assembly",region:"Western",score:19.52,rank2023:166},
+  {rank:234,name:"Zabzugu District Assembly",region:"Northern",score:19.50,rank2023:146},
+  {rank:235,name:"Asunafo South District Assembly",region:"Ahafo",score:19.07,rank2023:51},
+  {rank:236,name:"Berekum West District Assembly",region:"Bono",score:19.02,rank2023:45},
+  {rank:237,name:"Bibiani Anhwiaso Bekwai Municipal Assembly",region:"Western North",score:19.01,rank2023:235},
+  {rank:238,name:"Sawla-Tuna-Kalba District Assembly",region:"Savanna",score:19.00,rank2023:130},
+  {rank:239,name:"Bole District Assembly",region:"Savanna",score:18.70,rank2023:237},
+  {rank:240,name:"Daffiama Bussie Issa District Assembly",region:"Upper West",score:18.50,rank2023:175},
+  {rank:241,name:"Bodi District Assembly",region:"Western North",score:18.09,rank2023:236},
+  {rank:242,name:"Savelugu Municipal Assembly",region:"Northern",score:18.07,rank2023:149},
+  {rank:243,name:"Sissala East Municipal Assembly",region:"Upper West",score:18.00,rank2023:208},
+  {rank:244,name:"Twifo Atti Morkwa District Assembly",region:"Central",score:17.54,rank2023:162},
+  {rank:245,name:"Ekumfi District Assembly",region:"Central",score:17.50,rank2023:93},
+  {rank:246,name:"Atwima Mponua District Assembly",region:"Ashanti",score:17.04,rank2023:104},
+  {rank:247,name:"Bolgatanga East District Assembly",region:"Upper East",score:17.00,rank2023:105},
+  {rank:248,name:"Chereponi District Assembly",region:"North East",score:16.53,rank2023:191},
+  {rank:249,name:"Sefwi Akontombra District Assembly",region:"Western North",score:16.50,rank2023:68},
+  {rank:250,name:"Nadowli-Kaleo District Assembly",region:"Upper West",score:15.54,rank2023:197},
+  {rank:251,name:"Nanumba South District Assembly",region:"Northern",score:15.50,rank2023:159},
+  {rank:252,name:"Lambussie Karni District Assembly",region:"Upper West",score:14.59,rank2023:218},
+  {rank:253,name:"Wa East District Assembly",region:"Upper West",score:14.57,rank2023:155},
+  {rank:254,name:"Mamprugu Moagduri District Assembly",region:"North East",score:14.50,rank2023:88},
+  {rank:255,name:"Lawra Municipal Assembly",region:"Upper West",score:14.40,rank2023:246},
+  {rank:256,name:"Jirapa Municipal Assembly",region:"Upper West",score:13.50,rank2023:178},
+  {rank:257,name:"Twifo/Hemang Lower Denkyira District Assembly",region:"Central",score:12.50,rank2023:260},
+  {rank:258,name:"Agona East District Assembly",region:"Central",score:12.00,rank2023:121},
+  {rank:259,name:"Akatsi South Municipal Assembly",region:"Volta",score:0,rank2023:223},
+  {rank:260,name:"Bawku Municipal Assembly",region:"Upper East",score:0,rank2023:173},
+  {rank:261,name:"Nkwanta South Municipal Assembly",region:"Oti",score:0,rank2023:181},
+];
 
-      // ================== chart four start
-      const ctx4 = document.getElementById("Chart4").getContext("2d");
-      const chart4 = new Chart(ctx4, {
-        type: "bar",
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-          datasets: [
-            {
-              label: "",
-              backgroundColor: "#365CF5",
-              borderColor: "transparent",
-              borderRadius: 20,
-              borderWidth: 5,
-              barThickness: 20,
-              maxBarThickness: 20,
-              data: [600, 700, 1000, 700, 650, 800],
-            },
-            {
-              label: "",
-              backgroundColor: "#d50100",
-              borderColor: "transparent",
-              borderRadius: 20,
-              borderWidth: 5,
-              barThickness: 20,
-              maxBarThickness: 20,
-              data: [690, 740, 720, 1120, 876, 900],
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            tooltip: {
-              backgroundColor: "#F3F6F8",
-              titleColor: "#8F92A1",
-              titleFontSize: 12,
-              bodyColor: "#171717",
-              bodyFont: {
-                weight: "bold",
-                size: 16,
-              },
-              multiKeyBackground: "transparent",
-              displayColors: false,
-              padding: {
-                x: 30,
-                y: 10,
-              },
-              bodyAlign: "center",
-              titleAlign: "center",
-              enabled: true,
-            },
-            legend: {
-              display: false,
-            },
-          },
-          layout: {
-            padding: {
-              top: 0,
-            },
-          },
-          responsive: true,
-          // maintainAspectRatio: false,
-          title: {
-            display: false,
-          },
-          scales: {
-            y: {
-              grid: {
-                display: false,
-                drawTicks: false,
-                drawBorder: false,
-              },
-              ticks: {
-                padding: 35,
-                max: 1200,
-                min: 0,
-              },
-            },
-            x: {
-              grid: {
-                display: false,
-                drawBorder: false,
-                color: "rgba(143, 146, 161, .1)",
-                zeroLineColor: "rgba(143, 146, 161, .1)",
-              },
-              ticks: {
-                padding: 20,
-              },
-            },
-          },
-        },
-      });
-        // =========== chart four end
-    </script>
-  </body>
+const regionalLeaders = [
+  {region:"Ashanti",leader:"Kwadaso Municipal Assembly",score:55.5},
+  {region:"Ahafo",leader:"Asunafo North Municipal Assembly",score:25.8},
+  {region:"Bono",leader:"Dormaa West District Assembly",score:46.0},
+  {region:"Bono East",leader:"Pru West District Assembly",score:42.61},
+  {region:"Central",leader:"Agona West Municipal Assembly",score:49.5},
+  {region:"Eastern",leader:"Denkyembour District Assembly",score:52.1},
+  {region:"Greater Accra",leader:"La Dade Kotopon MA",score:57.5},
+  {region:"Northern",leader:"Nanton District Assembly",score:41.06},
+  {region:"North East",leader:"Yunyoo-Nasuan District Assembly",score:32.5},
+  {region:"Oti",leader:"Krachi East Municipal Assembly",score:46.4},
+  {region:"Savanna",leader:"North East Gonja District Assembly",score:26.57},
+  {region:"Upper East",leader:"Kassena-Nankana West DA",score:42.5},
+  {region:"Upper West",leader:"Wa Municipal Assembly",score:27.5},
+  {region:"Volta",leader:"Kpando Municipal Assembly",score:55.2},
+  {region:"Western",leader:"Effia Kwesimintsim District Assembly",score:34.07},
+  {region:"Western North",leader:"Sefwi Wiawso Municipal Assembly",score:31.03},
+];
+
+// ── RENDER TABLE ──────────────────────────────────────────────────────────
+let currentRegion = 'all';
+
+function getRankBadgeClass(rank) {
+  if (rank === 1) return 'rank-1';
+  if (rank === 2) return 'rank-2';
+  if (rank === 3) return 'rank-3';
+  if (rank <= 10) return 'rank-top10';
+  return 'rank-other';
+}
+
+function getScoreColor(score) {
+  if (score >= 50) return '#f4a024';
+  if (score >= 40) return '#3b82f6';
+  if (score >= 30) return '#10b981';
+  if (score >= 20) return '#f59e0b';
+  return '#ef4444';
+}
+
+function getRankChangeEl(rank2024, rank2023) {
+  if (!rank2023 || rank2023 === 0) return '<span class="rank-change rank-same">New</span>';
+  const diff = rank2023 - rank2024;
+  if (diff > 0) return `<span class="rank-change rank-up">▲ ${diff}</span>`;
+  if (diff < 0) return `<span class="rank-change rank-down">▼ ${Math.abs(diff)}</span>`;
+  return '<span class="rank-change rank-same">—</span>';
+}
+
+function renderTable(data) {
+  const tbody = document.getElementById('leagueTableBody');
+  tbody.innerHTML = data.map(d => {
+    const color = getScoreColor(d.score);
+    const pct = d.score === 0 ? 0 : (d.score / 60 * 100).toFixed(1);
+    return `<tr>
+      <td><span class="rank-badge ${getRankBadgeClass(d.rank)}">${d.rank}</span></td>
+      <td><div class="mmda-name">${d.name}</div></td>
+      <td style="color:var(--muted2);font-size:12px;white-space:nowrap;">${d.region}</td>
+      <td>
+        <div class="score-bar-wrap">
+          <div class="score-bar-bg">
+            <div class="score-bar" style="width:${pct}%;background:${color};"></div>
+          </div>
+          <div class="score-val" style="color:${color};">${d.score}%</div>
+        </div>
+      </td>
+      <td style="color:var(--muted);font-size:12px;">${d.rank2023 || '—'}</td>
+      <td>${getRankChangeEl(d.rank, d.rank2023)}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('row-count').textContent = `Showing ${data.length} districts`;
+}
+
+function filterTable() {
+  const searchGlobal = (document.getElementById('globalSearch')?.value || '').toLowerCase();
+  const searchTable = (document.getElementById('tableSearch')?.value || '').toLowerCase();
+  const q = searchGlobal || searchTable;
+  let filtered = pfmData;
+  if (currentRegion !== 'all') {
+    filtered = filtered.filter(d => d.region.toLowerCase().includes(currentRegion.toLowerCase()));
+  }
+  if (q) {
+    filtered = filtered.filter(d => d.name.toLowerCase().includes(q) || d.region.toLowerCase().includes(q));
+  }
+  renderTable(filtered);
+}
+
+function filterRegion(region, btn) {
+  currentRegion = region;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterTable();
+}
+
+// ── RENDER REGIONAL LEADERS ───────────────────────────────────────────────
+function renderRegionalGrid() {
+  const grid = document.getElementById('regionalGrid');
+  grid.innerHTML = regionalLeaders.map(r => `
+    <div class="region-card">
+      <div class="region-name">${r.region}</div>
+      <div class="region-leader">${r.leader}</div>
+      <div class="region-score">${r.score}% <span>score</span></div>
+    </div>
+  `).join('');
+}
+
+// ── SIDEBAR TOGGLE ────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('visible');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+renderTable(pfmData);
+renderRegionalGrid();
+</script>
+</body>
 </html>
-
