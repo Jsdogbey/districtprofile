@@ -8,20 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0f1e;
-      --surface: #111827;
-      --surface2: #1a2236;
-      --border: rgba(255,255,255,0.07);
-      --accent: #f4a024;
-      --accent2: #3b82f6;
-      --accent3: #10b981;
-      --danger: #ef4444;
-      --text: #f1f5f9;
-      --muted: #64748b;
-      --muted2: #94a3b8;
-      --gold: #f4a024;
-      --silver: #94a3b8;
-      --bronze: #cd7c3e;
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --surface2: #f0f4f8;
+      --border: rgba(0,0,0,0.08);
+      --accent: #d97706;
+      --accent2: #2563eb;
+      --accent3: #059669;
+      --danger: #dc2626;
+      --text: #0f172a;
+      --muted: #94a3b8;
+      --muted2: #64748b;
+      --gold: #d97706;
+      --silver: #64748b;
+      --bronze: #b45309;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,8 +42,8 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 10% -10%, rgba(59,130,246,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 90% 100%, rgba(244,160,36,0.10) 0%, transparent 60%);
+        radial-gradient(ellipse 80% 60% at 10% -10%, rgba(37,99,235,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 100%, rgba(217,119,6,0.06) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
     }
@@ -53,7 +53,7 @@
       position: fixed;
       top: 0; left: 0; bottom: 0;
       width: 240px;
-      background: rgba(17,24,39,0.95);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(20px);
       border-right: 1px solid var(--border);
       display: flex;
@@ -75,7 +75,7 @@
 
     .logo-icon {
       width: 36px; height: 36px;
-      background: linear-gradient(135deg, var(--accent), #e8880f);
+      background: linear-gradient(135deg, var(--accent), #b45309);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Syne', sans-serif;
@@ -125,7 +125,7 @@
       border-radius: 8px;
       font-size: 13.5px;
       font-weight: 500;
-      color: var(--muted2);
+      color: #475569;
       cursor: pointer;
       transition: all 0.15s ease;
       margin-bottom: 2px;
@@ -135,9 +135,9 @@
     .nav-item:hover { background: var(--surface2); color: var(--text); }
 
     .nav-item.active {
-      background: rgba(244,160,36,0.12);
+      background: rgba(217,119,6,0.10);
       color: var(--accent);
-      border: 1px solid rgba(244,160,36,0.2);
+      border: 1px solid rgba(217,119,6,0.2);
     }
 
     .nav-item svg { flex-shrink: 0; opacity: 0.7; }
@@ -157,7 +157,7 @@
 
     .user-avatar {
       width: 32px; height: 32px;
-      background: linear-gradient(135deg, var(--accent2), #8b5cf6);
+      background: linear-gradient(135deg, var(--accent2), #7c3aed);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 12px; font-weight: 700; color: #fff;
@@ -180,7 +180,7 @@
     .topbar {
       position: sticky;
       top: 0;
-      background: rgba(10,15,30,0.85);
+      background: rgba(245,247,250,0.92);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 0 32px;
@@ -213,9 +213,9 @@
     .topbar-right { display: flex; align-items: center; gap: 12px; }
 
     .badge-pill {
-      background: rgba(244,160,36,0.12);
+      background: rgba(217,119,6,0.10);
       color: var(--accent);
-      border: 1px solid rgba(244,160,36,0.25);
+      border: 1px solid rgba(217,119,6,0.25);
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 11.5px;
@@ -259,7 +259,8 @@
       padding: 20px;
       position: relative;
       overflow: hidden;
-      transition: transform 0.2s, border-color 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
       animation: fadeUp 0.5s ease both;
     }
 
@@ -288,10 +289,10 @@
       font-size: 18px;
     }
 
-    .kpi-icon.blue { background: rgba(59,130,246,0.15); color: var(--accent2); }
-    .kpi-icon.gold { background: rgba(244,160,36,0.15); color: var(--accent); }
-    .kpi-icon.green { background: rgba(16,185,129,0.15); color: var(--accent3); }
-    .kpi-icon.purple { background: rgba(139,92,246,0.15); color: #a78bfa; }
+    .kpi-icon.blue { background: rgba(37,99,235,0.10); color: var(--accent2); }
+    .kpi-icon.gold { background: rgba(217,119,6,0.10); color: var(--accent); }
+    .kpi-icon.green { background: rgba(5,150,105,0.10); color: var(--accent3); }
+    .kpi-icon.purple { background: rgba(124,58,237,0.10); color: #7c3aed; }
 
     .kpi-label {
       font-size: 12px;
@@ -343,6 +344,7 @@
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 22px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
       animation: fadeUp 0.5s ease both;
     }
 
@@ -377,8 +379,8 @@
     .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
 
     .tab-btn.active {
-      background: rgba(244,160,36,0.15);
-      border-color: rgba(244,160,36,0.4);
+      background: rgba(217,119,6,0.10);
+      border-color: rgba(217,119,6,0.4);
       color: var(--accent);
     }
 
@@ -403,12 +405,12 @@
       max-height: 480px;
       overflow-y: auto;
       scrollbar-width: thin;
-      scrollbar-color: var(--surface2) transparent;
+      scrollbar-color: #cbd5e1 transparent;
     }
 
     .league-table-wrap::-webkit-scrollbar { width: 4px; }
     .league-table-wrap::-webkit-scrollbar-track { background: transparent; }
-    .league-table-wrap::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 4px; }
+    .league-table-wrap::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
     .league-table {
       width: 100%;
@@ -454,10 +456,10 @@
       font-size: 12px;
     }
 
-    .rank-1 { background: rgba(244,160,36,0.2); color: var(--gold); border: 1px solid rgba(244,160,36,0.3); }
-    .rank-2 { background: rgba(148,163,184,0.2); color: var(--silver); border: 1px solid rgba(148,163,184,0.3); }
-    .rank-3 { background: rgba(205,124,62,0.2); color: var(--bronze); border: 1px solid rgba(205,124,62,0.3); }
-    .rank-top10 { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+    .rank-1 { background: rgba(217,119,6,0.12); color: var(--gold); border: 1px solid rgba(217,119,6,0.3); }
+    .rank-2 { background: rgba(100,116,139,0.12); color: var(--silver); border: 1px solid rgba(100,116,139,0.3); }
+    .rank-3 { background: rgba(180,83,9,0.12); color: var(--bronze); border: 1px solid rgba(180,83,9,0.3); }
+    .rank-top10 { background: rgba(37,99,235,0.10); color: #2563eb; border: 1px solid rgba(37,99,235,0.2); }
     .rank-other { background: var(--surface2); color: var(--muted2); border: 1px solid var(--border); }
 
     .mmda-name {
@@ -505,8 +507,8 @@
       border-radius: 20px;
     }
 
-    .rank-up { background: rgba(16,185,129,0.12); color: var(--accent3); }
-    .rank-down { background: rgba(239,68,68,0.12); color: var(--danger); }
+    .rank-up { background: rgba(5,150,105,0.10); color: var(--accent3); }
+    .rank-down { background: rgba(220,38,38,0.10); color: var(--danger); }
     .rank-same { background: var(--surface2); color: var(--muted); }
 
     /* ─── STATS PANEL ─── */
@@ -594,7 +596,7 @@
       transition: all 0.15s;
     }
 
-    .performer-item:hover { border-color: rgba(244,160,36,0.2); }
+    .performer-item:hover { border-color: rgba(217,119,6,0.2); }
 
     .performer-rank {
       font-family: 'Syne', sans-serif;
@@ -686,7 +688,7 @@
     }
 
     .region-card:hover {
-      border-color: rgba(59,130,246,0.3);
+      border-color: rgba(37,99,235,0.3);
       transform: translateY(-1px);
     }
 
@@ -799,7 +801,7 @@
     /* ─── SCROLLBAR ─── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   </style>
 </head>
 <body>
