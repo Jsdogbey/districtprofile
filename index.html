@@ -7,1445 +7,506 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════
-   DESIGN SYSTEM
-═══════════════════════════════════════════════════ */
 :root {
-  --ghana-green:  #006B3F;
-  --ghana-gold:   #FCD116;
-  --ghana-red:    #CE1126;
-
-  --bg:           #F4F6F8;
-  --surface:      #FFFFFF;
-  --surface2:     #F0F2F5;
-  --surface3:     #E8EBF0;
-  --border:       rgba(0,0,0,0.07);
-  --border2:      rgba(0,0,0,0.12);
-
-  --ink:          #0D1B2A;
-  --ink2:         #3A4A5C;
-  --ink3:         #6B7A8D;
-  --ink4:         #9BA8B5;
-
-  --green:        #006B3F;
-  --green-light:  rgba(0,107,63,0.08);
-  --gold:         #D4940A;
-  --gold-light:   rgba(212,148,10,0.10);
-  --blue:         #1A56A0;
-  --blue-light:   rgba(26,86,160,0.08);
-  --red:          #C0392B;
-  --red-light:    rgba(192,57,43,0.08);
-  --teal:         #0E7490;
-  --teal-light:   rgba(14,116,144,0.08);
-  --purple:       #6D28D9;
-  --purple-light: rgba(109,40,217,0.08);
-
-  --sidebar-w:    260px;
-  --topbar-h:     64px;
-  --radius:       12px;
-  --radius-lg:    18px;
-  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow:       0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
-  --shadow-lg:    0 10px 30px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-size: 14px;
-}
-
-/* ═══════════════════════════════════════════════════
-   SIDEBAR
-═══════════════════════════════════════════════════ */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: var(--sidebar-w);
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-  z-index: 200;
-  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-}
-
-.sidebar-brand {
-  padding: 24px 22px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.brand-lockup {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.brand-icon {
-  width: 40px; height: 40px;
-  background: linear-gradient(135deg, var(--ghana-gold) 0%, #E8A800 100%);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-
-.brand-icon svg { width: 22px; height: 22px; }
-
-.brand-name {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  font-size: 15px;
-  color: #fff;
-  line-height: 1.2;
-}
-
-.brand-sub {
-  font-size: 10px;
-  color: rgba(255,255,255,0.45);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-top: 1px;
-}
-
-/* Ghana flag strip */
-.ghana-strip {
-  display: flex;
-  height: 3px;
-  margin-top: 14px;
-}
-.ghana-strip span { flex: 1; }
-
-/* Nav */
-.nav-body {
-  flex: 1;
-  padding: 16px 12px;
-  overflow-y: auto;
-}
-
-.nav-label {
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.28);
-  padding: 12px 10px 5px;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  border-radius: 8px;
-  color: rgba(255,255,255,0.55);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  text-decoration: none;
-  margin-bottom: 1px;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  position: relative;
-}
-
-.nav-item:hover {
-  background: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.88);
-}
-
-.nav-item.active {
-  background: rgba(252,209,22,0.14);
-  color: var(--ghana-gold);
-  font-weight: 600;
-}
-
-.nav-item.active::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 6px; bottom: 6px;
-  width: 3px;
-  background: var(--ghana-gold);
-  border-radius: 0 3px 3px 0;
-}
-
-.nav-icon {
-  width: 18px; height: 18px;
-  flex-shrink: 0;
-  opacity: 0.7;
-}
-.nav-item.active .nav-icon { opacity: 1; }
-
-.nav-badge {
-  margin-left: auto;
-  background: rgba(252,209,22,0.2);
-  color: var(--ghana-gold);
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 20px;
-}
-
-/* User footer */
-.sidebar-footer {
-  padding: 14px 16px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.user-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.user-av {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--blue) 0%, #3B82F6 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-}
-
-.user-name-text { font-size: 13px; font-weight: 600; color: #fff; }
-.user-role-text { font-size: 11px; color: rgba(255,255,255,0.4); }
-
-/* ═══════════════════════════════════════════════════
-   MAIN AREA
-═══════════════════════════════════════════════════ */
-.main {
-  margin-left: var(--sidebar-w);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Topbar */
-.topbar {
-  position: sticky;
-  top: 0;
-  height: var(--topbar-h);
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  z-index: 100;
-  box-shadow: var(--shadow-sm);
-}
-
-.topbar-left { display: flex; align-items: center; gap: 14px; }
-
-.menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--ink2);
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
-}
-
-.page-crumb {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--ink4);
-}
-
-.page-crumb strong {
-  color: var(--ink);
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.crumb-sep { color: var(--ink4); }
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.topbar-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--green-light);
-  border: 1px solid rgba(0,107,63,0.2);
-  color: var(--green);
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.topbar-search {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 7px 14px 7px 34px;
-  font-size: 13px;
-  color: var(--ink);
-  font-family: inherit;
-  outline: none;
-  width: 210px;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239BA8B5' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 11px center;
-}
-.topbar-search:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,86,160,0.1); }
-
-/* ═══════════════════════════════════════════════════
-   CONTENT + PAGES
-═══════════════════════════════════════════════════ */
-.content {
-  flex: 1;
-  padding: 28px 32px 40px;
-  max-width: 1520px;
-}
-
-.page { display: none; }
-.page.active { display: block; }
-
-/* ═══════════════════════════════════════════════════
-   TYPOGRAPHY UTILITIES
-═══════════════════════════════════════════════════ */
-.section-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  font-size: 17px;
-  color: var(--ink);
-  line-height: 1.3;
-}
-
-.section-sub {
-  font-size: 12px;
-  color: var(--ink3);
-  margin-top: 2px;
-  line-height: 1.5;
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  border-radius: 20px;
-  padding: 4px 11px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.tag-green  { background: var(--green-light);  color: var(--green);  border: 1px solid rgba(0,107,63,0.15); }
-.tag-gold   { background: var(--gold-light);   color: var(--gold);   border: 1px solid rgba(212,148,10,0.2); }
-.tag-blue   { background: var(--blue-light);   color: var(--blue);   border: 1px solid rgba(26,86,160,0.15); }
-.tag-red    { background: var(--red-light);    color: var(--red);    border: 1px solid rgba(192,57,43,0.15); }
-.tag-teal   { background: var(--teal-light);   color: var(--teal);   border: 1px solid rgba(14,116,144,0.15); }
-.tag-purple { background: var(--purple-light); color: var(--purple); border: 1px solid rgba(109,40,217,0.15); }
-
-/* ═══════════════════════════════════════════════════
-   CARD
-═══════════════════════════════════════════════════ */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 22px 24px;
-  box-shadow: var(--shadow-sm);
-}
-
-.card:hover { box-shadow: var(--shadow); }
-
-/* ═══════════════════════════════════════════════════
-   STAT / KPI CARDS
-═══════════════════════════════════════════════════ */
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 22px;
-}
-
-.kpi-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px 22px;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  animation: fadeUp 0.5s ease both;
-}
-
-.kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-
-.kpi-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-}
-
-.kpi-card.green::after  { background: var(--green); }
-.kpi-card.gold::after   { background: var(--gold); }
-.kpi-card.blue::after   { background: var(--blue); }
-.kpi-card.red::after    { background: var(--red); }
-.kpi-card.teal::after   { background: var(--teal); }
-.kpi-card.purple::after { background: var(--purple); }
-
-.kpi-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.kpi-icon-wrap {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.kpi-card.green  .kpi-icon-wrap { background: var(--green-light); }
-.kpi-card.gold   .kpi-icon-wrap { background: var(--gold-light); }
-.kpi-card.blue   .kpi-icon-wrap { background: var(--blue-light); }
-.kpi-card.red    .kpi-icon-wrap { background: var(--red-light); }
-.kpi-card.teal   .kpi-icon-wrap { background: var(--teal-light); }
-.kpi-card.purple .kpi-icon-wrap { background: var(--purple-light); }
-
-.kpi-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--ink3);
-  margin-bottom: 6px;
-}
-
-.kpi-value {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: 30px;
-  line-height: 1;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-
-.kpi-sub {
-  font-size: 11.5px;
-  color: var(--ink3);
-  line-height: 1.4;
-}
-
-/* ═══════════════════════════════════════════════════
-   GRID LAYOUTS
-═══════════════════════════════════════════════════ */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.grid-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; margin-bottom: 16px; }
-.grid-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 16px; margin-bottom: 16px; }
-.grid-full { margin-bottom: 16px; }
-.col-stack { display: flex; flex-direction: column; gap: 16px; }
-
-/* ═══════════════════════════════════════════════════
-   OVERVIEW SUMMARY CARDS (on Dashboard)
-═══════════════════════════════════════════════════ */
-.overview-section {
-  margin-bottom: 8px;
-}
-
-.overview-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.overview-label h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  font-size: 15px;
-  color: var(--ink);
-}
-
-.divider-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border2);
-}
-
-/* Mini stat inside overview cards */
-.mini-stat-row {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-.mini-stat {
-  flex: 1;
-  min-width: 90px;
-  background: var(--surface2);
-  border-radius: 10px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-}
-
-.mini-stat-val {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: 22px;
-  line-height: 1;
-  margin-bottom: 3px;
-}
-
-.mini-stat-lbl {
-  font-size: 11px;
-  color: var(--ink3);
-  line-height: 1.3;
-}
-
-/* ═══════════════════════════════════════════════════
-   PERFORMERS LIST
-═══════════════════════════════════════════════════ */
-.perf-list { display: flex; flex-direction: column; gap: 0; }
-
-.perf-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
-.perf-item:last-child { border-bottom: none; }
-
-.perf-rank {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 800;
-  flex-shrink: 0;
-  font-family: 'Playfair Display', serif;
-}
-.pr-1 { background: rgba(212,148,10,0.15); color: var(--gold); }
-.pr-2 { background: rgba(107,114,128,0.12); color: #6B7280; }
-.pr-3 { background: rgba(180,83,9,0.12); color: #B45309; }
-.pr-n { background: var(--surface2); color: var(--ink3); font-family: inherit; font-size: 11px; }
-
-.perf-info { flex: 1; min-width: 0; }
-.perf-name { font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.perf-meta { font-size: 11px; color: var(--ink3); margin-top: 1px; }
-
-.perf-score {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  font-size: 15px;
-  white-space: nowrap;
-}
-
-/* ═══════════════════════════════════════════════════
-   SCORE BAR
-═══════════════════════════════════════════════════ */
-.score-bar-wrap { display: flex; align-items: center; gap: 8px; }
-.score-bar-bg { flex: 1; height: 6px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
-.score-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
-.score-val { font-size: 12px; font-weight: 700; white-space: nowrap; min-width: 38px; text-align: right; }
-
-/* ═══════════════════════════════════════════════════
-   RANK CHANGE BADGE
-═══════════════════════════════════════════════════ */
-.chg { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; }
-.chg-up   { background: rgba(0,107,63,0.1);  color: var(--green); }
-.chg-down { background: rgba(192,57,43,0.1); color: var(--red); }
-.chg-same { background: var(--surface2);     color: var(--ink4); }
-.chg-new  { background: var(--blue-light);   color: var(--blue); }
-
-/* ═══════════════════════════════════════════════════
-   DISTRIBUTION BARS
-═══════════════════════════════════════════════════ */
-.dist-list { display: flex; flex-direction: column; gap: 10px; }
-
-.dist-row { display: flex; align-items: center; gap: 10px; }
-.dist-lbl { font-size: 12px; color: var(--ink2); width: 70px; flex-shrink: 0; font-weight: 500; }
-.dist-bar-track { flex: 1; height: 8px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
-.dist-bar-fill { height: 100%; border-radius: 99px; transition: width 0.7s ease; }
-.dist-count { font-size: 12px; font-weight: 700; color: var(--ink2); min-width: 26px; text-align: right; }
-
-/* ═══════════════════════════════════════════════════
-   IMPROVED LIST
-═══════════════════════════════════════════════════ */
-.imp-list { display: flex; flex-direction: column; gap: 0; }
-.imp-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); }
-.imp-item:last-child { border-bottom: none; }
-.imp-arrow { width: 26px; height: 26px; background: var(--green-light); border-radius: 7px; display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 12px; flex-shrink: 0; }
-.imp-name { flex: 1; font-size: 12.5px; font-weight: 500; color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.imp-jump { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 14px; color: var(--green); white-space: nowrap; }
-
-/* ═══════════════════════════════════════════════════
-   REGIONAL GRID
-═══════════════════════════════════════════════════ */
-.regional-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.region-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  transition: all 0.15s;
-  position: relative;
-  overflow: hidden;
-}
-
-.region-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--blue);
-  border-radius: 3px 0 0 3px;
-}
-
-.region-card:hover { border-color: rgba(26,86,160,0.2); background: var(--surface); box-shadow: var(--shadow-sm); }
-
-.region-name-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink4); margin-bottom: 5px; }
-.region-leader-name { font-size: 12.5px; font-weight: 600; color: var(--ink); line-height: 1.3; margin-bottom: 6px; }
-.region-score-tag { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 17px; color: var(--blue); }
-.region-score-tag span { font-size: 11px; font-weight: 400; color: var(--ink4); font-family: inherit; }
-
-/* ═══════════════════════════════════════════════════
-   FULL LEAGUE TABLE (PFM page)
-═══════════════════════════════════════════════════ */
-.table-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.region-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-
-.rtab {
-  padding: 5px 13px;
-  border-radius: 20px;
-  border: 1px solid var(--border2);
-  background: var(--surface2);
-  color: var(--ink3);
-  font-size: 11.5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: inherit;
-}
-.rtab:hover { color: var(--ink); border-color: rgba(0,0,0,0.18); }
-.rtab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-
-.tbl-search {
-  flex: 1;
-  max-width: 280px;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 8px 12px 8px 34px;
-  font-size: 13px;
-  color: var(--ink);
-  font-family: inherit;
-  outline: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%239BA8B5' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 11px center;
-  transition: border-color 0.15s;
-}
-.tbl-search:focus { border-color: var(--blue); }
-
-.row-count-lbl { font-size: 12px; color: var(--ink3); margin-left: auto; }
-
-.tbl-wrap {
-  overflow-x: auto;
-  max-height: 520px;
-  overflow-y: auto;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  scrollbar-width: thin;
-  scrollbar-color: #CBD5E1 transparent;
-}
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  min-width: 700px;
-}
-
-.data-table thead th {
-  position: sticky;
-  top: 0;
-  background: var(--surface2);
-  z-index: 2;
-  padding: 11px 14px;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--ink3);
-  border-bottom: 1px solid var(--border2);
-  white-space: nowrap;
-}
-
-.data-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
-.data-table tbody tr:last-child { border-bottom: none; }
-.data-table tbody tr:hover { background: var(--surface2); }
-.data-table td { padding: 9px 14px; vertical-align: middle; }
-
-.rank-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px; height: 28px;
-  border-radius: 7px;
-  font-size: 11.5px;
-  font-weight: 700;
-}
-.rb-1   { background: rgba(212,148,10,0.12); color: var(--gold); }
-.rb-2   { background: rgba(107,114,128,0.1); color: #6B7280; }
-.rb-3   { background: rgba(180,83,9,0.1);    color: #B45309; }
-.rb-top { background: var(--blue-light);     color: var(--blue); }
-.rb-n   { background: var(--surface2);       color: var(--ink3); }
-
-.mmda-name-cell { font-weight: 600; color: var(--ink); }
-.region-cell    { font-size: 12px; color: var(--ink3); white-space: nowrap; }
-
-/* ═══════════════════════════════════════════════════
-   LGS TABLE
-═══════════════════════════════════════════════════ */
-.rating-tag {
-  display: inline-block;
-  padding: 2px 9px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.rt-excellent     { background: rgba(212,148,10,0.12);  color: var(--gold);   border: 1px solid rgba(212,148,10,0.2); }
-.rt-verygood      { background: rgba(26,86,160,0.08);   color: var(--blue);   border: 1px solid rgba(26,86,160,0.2); }
-.rt-good          { background: rgba(0,107,63,0.08);    color: var(--green);  border: 1px solid rgba(0,107,63,0.18); }
-.rt-satisfactory  { background: rgba(14,116,144,0.08);  color: var(--teal);   border: 1px solid rgba(14,116,144,0.18); }
-.rt-unsatisfactory{ background: rgba(192,57,43,0.08);   color: var(--red);    border: 1px solid rgba(192,57,43,0.18); }
-
-/* ═══════════════════════════════════════════════════
-   RCC GRID
-═══════════════════════════════════════════════════ */
-.rcc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-
-.rcc-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 13px 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-left: 3px solid transparent;
-  transition: all 0.15s;
-}
-.rcc-card:hover { background: var(--surface); box-shadow: var(--shadow-sm); }
-
-.rcc-pos { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 17px; min-width: 24px; text-align: center; }
-.rcc-info { flex: 1; min-width: 0; }
-.rcc-region { font-size: 12.5px; font-weight: 700; color: var(--ink); }
-.rcc-rating { font-size: 11px; color: var(--ink3); margin-top: 1px; }
-.rcc-score-val { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 14px; white-space: nowrap; }
-
-.rcc-ex  { border-left-color: var(--gold);   }
-.rcc-vg  { border-left-color: var(--blue);   }
-.rcc-gd  { border-left-color: var(--green);  }
-.rcc-us  { border-left-color: var(--red);    }
-
-/* ═══════════════════════════════════════════════════
-   HEATMAP
-═══════════════════════════════════════════════════ */
-.heatmap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-
-.heatmap-cell {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 13px 14px;
-}
-
-.hm-region { font-size: 11.5px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
-
-.hm-bars {
-  display: flex;
-  gap: 3px;
-  align-items: flex-end;
-  height: 36px;
-  margin-bottom: 6px;
-}
-
-.hm-bar { flex: 1; border-radius: 3px 3px 0 0; min-height: 3px; opacity: 0.85; }
-
-.hm-total { font-size: 10.5px; color: var(--ink4); }
-
-/* ═══════════════════════════════════════════════════
-   EMBED PAGES (MPI + Urban)
-═══════════════════════════════════════════════════ */
-.embed-hero {
-  background: linear-gradient(135deg, var(--ink) 0%, #1E2D40 100%);
-  border-radius: var(--radius-lg);
-  padding: 30px 32px;
-  margin-bottom: 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-.embed-hero::before {
-  content: '';
-  position: absolute;
-  right: -60px; top: -60px;
-  width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(252,209,22,0.12) 0%, transparent 70%);
-  border-radius: 50%;
-}
-
-.embed-hero-eyebrow {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ghana-gold);
-  margin-bottom: 8px;
-}
-
-.embed-hero-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: 24px;
-  color: #fff;
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-
-.embed-hero-desc {
-  font-size: 13px;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.6;
-  max-width: 560px;
-}
-
-.embed-meta-strip {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 18px;
-}
-
-.embed-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.8);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.embed-frame-wrap {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-
-.embed-loader {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: var(--surface);
-  z-index: 1;
-  transition: opacity 0.4s;
-}
-.embed-loader.gone { opacity: 0; pointer-events: none; }
-
-.spinner {
-  width: 36px; height: 36px;
-  border: 3px solid var(--surface3);
-  border-top-color: var(--blue);
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.embed-frame-wrap iframe {
-  display: block;
-  width: 100%;
-  border: none;
-}
-
-.embed-two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 16px;
-}
-
-.info-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
-}
-
-.info-card-title {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--ink3);
-  margin-bottom: 14px;
-}
-
-.info-stat-block { display: flex; flex-direction: column; gap: 14px; }
-
-.info-stat-item { display: flex; flex-direction: column; }
-
-.info-stat-val {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: 26px;
-  line-height: 1;
-  margin-bottom: 3px;
-}
-
-.info-stat-desc { font-size: 11.5px; color: var(--ink3); }
-
-.dim-list { display: flex; flex-direction: column; gap: 12px; }
-
-.dim-item { display: flex; align-items: flex-start; gap: 10px; }
-
-.dim-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; margin-top: 3px; }
-.dim-name { font-size: 13px; font-weight: 600; color: var(--ink); }
-.dim-desc { font-size: 11px; color: var(--ink3); margin-top: 1px; }
-
-.why-list { display: flex; flex-direction: column; gap: 12px; }
-
-.why-item { display: flex; align-items: flex-start; gap: 10px; }
-.why-icon { font-size: 18px; line-height: 1; flex-shrink: 0; }
-.why-title { font-size: 13px; font-weight: 600; color: var(--ink); }
-.why-desc { font-size: 11px; color: var(--ink3); margin-top: 1px; }
-
-/* ═══════════════════════════════════════════════════
-   LGS FILTER TABS
-═══════════════════════════════════════════════════ */
-.lgs-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-
-.ltab {
-  padding: 5px 13px;
-  border-radius: 20px;
-  border: 1px solid var(--border2);
-  background: var(--surface2);
-  color: var(--ink3);
-  font-size: 11.5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: inherit;
-}
-.ltab:hover { color: var(--ink); }
-.ltab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-
-/* ═══════════════════════════════════════════════════
-   MOBILE OVERLAY
-═══════════════════════════════════════════════════ */
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 150;
-  backdrop-filter: blur(2px);
-}
-.overlay.show { display: block; }
-
-/* ═══════════════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════════════ */
-.page-footer {
-  margin-left: var(--sidebar-w);
-  border-top: 1px solid var(--border);
-  padding: 16px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11.5px;
-  color: var(--ink4);
-  background: var(--surface);
-}
-
-.footer-links { display: flex; gap: 16px; }
-.footer-links a { color: var(--ink4); text-decoration: none; transition: color 0.15s; }
-.footer-links a:hover { color: var(--ink); }
-
-/* ═══════════════════════════════════════════════════
-   ANIMATIONS
-═══════════════════════════════════════════════════ */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.kpi-card:nth-child(1) { animation-delay: 0.04s; }
-.kpi-card:nth-child(2) { animation-delay: 0.08s; }
-.kpi-card:nth-child(3) { animation-delay: 0.12s; }
-.kpi-card:nth-child(4) { animation-delay: 0.16s; }
-.kpi-card:nth-child(5) { animation-delay: 0.20s; }
-.kpi-card:nth-child(6) { animation-delay: 0.24s; }
-.kpi-card:nth-child(7) { animation-delay: 0.28s; }
-.kpi-card:nth-child(8) { animation-delay: 0.32s; }
-
-/* ═══════════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════════ */
-@media (max-width: 1200px) {
-  .kpi-grid     { grid-template-columns: repeat(2, 1fr); }
-  .regional-grid{ grid-template-columns: repeat(2, 1fr); }
-  .rcc-grid     { grid-template-columns: repeat(2, 1fr); }
-  .heatmap-grid { grid-template-columns: repeat(2, 1fr); }
-  .grid-3-2, .grid-2-3 { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 900px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .main, .page-footer { margin-left: 0; }
-  .menu-btn { display: flex; }
-  .grid-2, .grid-3, .embed-two-col { grid-template-columns: 1fr; }
-  .content { padding: 20px 16px; }
-  .topbar { padding: 0 16px; }
-  .topbar-search { width: 150px; }
-}
-
-@media (max-width: 600px) {
-  .kpi-grid { grid-template-columns: 1fr; }
-  .regional-grid, .rcc-grid, .heatmap-grid { grid-template-columns: 1fr; }
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 99px; }
+  --green:#006B3F; --green-l:rgba(0,107,63,0.08);
+  --gold:#D4940A;  --gold-l:rgba(212,148,10,0.10);
+  --blue:#1A56A0;  --blue-l:rgba(26,86,160,0.08);
+  --red:#C0392B;   --red-l:rgba(192,57,43,0.08);
+  --teal:#0E7490;  --teal-l:rgba(14,116,144,0.08);
+  --purple:#6D28D9;--purple-l:rgba(109,40,217,0.08);
+  --ink:#0D1B2A; --ink2:#3A4A5C; --ink3:#6B7A8D; --ink4:#9BA8B5;
+  --bg:#F4F6F8; --surface:#fff; --surface2:#F0F2F5; --surface3:#E8EBF0;
+  --border:rgba(0,0,0,0.07); --border2:rgba(0,0,0,0.12);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 4px 12px rgba(0,0,0,0.07),0 1px 3px rgba(0,0,0,0.05);
+  --r:12px; --r-lg:18px;
+  --sw:260px; --th:64px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;font-size:14px}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.sb-brand{padding:24px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sb-lockup{display:flex;align-items:center;gap:12px}
+.sb-icon{width:40px;height:40px;background:linear-gradient(135deg,#FCD116,#E8A800);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-icon svg{width:22px;height:22px}
+.sb-name{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;color:#fff;line-height:1.2}
+.sb-sub{font-size:10px;color:rgba(255,255,255,0.4);font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+.gh-strip{display:flex;height:3px;margin-top:14px}
+.gh-strip span{flex:1}
+.nav-body{flex:1;padding:16px 12px;overflow-y:auto}
+.nav-lbl{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:12px 10px 5px}
+.nav-btn{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:rgba(255,255,255,0.55);font-size:13px;font-weight:500;cursor:pointer;transition:all .18s;border:none;background:none;width:100%;text-align:left;margin-bottom:1px;position:relative;font-family:'Plus Jakarta Sans',sans-serif}
+.nav-btn:hover{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.88)}
+.nav-btn.active{background:rgba(252,209,22,0.14);color:#FCD116;font-weight:600}
+.nav-btn.active::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:#FCD116;border-radius:0 3px 3px 0}
+.nav-ico{width:18px;height:18px;flex-shrink:0;opacity:.7}
+.nav-btn.active .nav-ico{opacity:1}
+.nav-badge{margin-left:auto;background:rgba(252,209,22,0.2);color:#FCD116;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
+.sb-foot{padding:14px 16px;border-top:1px solid rgba(255,255,255,0.08)}
+.user-row{display:flex;align-items:center;gap:10px}
+.user-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#3B82F6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.user-n{font-size:13px;font-weight:600;color:#fff}
+.user-r{font-size:11px;color:rgba(255,255,255,0.4)}
+
+/* MAIN */
+.main{margin-left:var(--sw);min-height:100vh;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;height:var(--th);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:100;box-shadow:var(--shadow-sm)}
+.topbar-l{display:flex;align-items:center;gap:14px}
+.menu-btn{display:none;background:none;border:none;color:var(--ink2);cursor:pointer;padding:6px;border-radius:6px}
+.crumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink4)}
+.crumb strong{color:var(--ink);font-size:15px;font-weight:700}
+.topbar-r{display:flex;align-items:center;gap:12px}
+.tb-chip{display:inline-flex;align-items:center;gap:6px;background:var(--green-l);border:1px solid rgba(0,107,63,0.2);color:var(--green);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700}
+
+/* PAGES */
+.content{flex:1;padding:28px 32px 40px}
+.page{display:none}
+.page.active{display:block}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 24px;box-shadow:var(--shadow-sm);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--shadow)}
+
+/* KPI GRID */
+.kpi-grid{display:grid;gap:14px;margin-bottom:20px}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 22px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;animation:fadeUp .5s ease both}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.kgreen::after{background:var(--green)}
+.kpi-card.kgold::after{background:var(--gold)}
+.kpi-card.kblue::after{background:var(--blue)}
+.kpi-card.kred::after{background:var(--red)}
+.kpi-card.kteal::after{background:var(--teal)}
+.kpi-card.kpurple::after{background:var(--purple)}
+.kpi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.kpi-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.kgreen .kpi-ico{background:var(--green-l)} .kgold .kpi-ico{background:var(--gold-l)} .kblue .kpi-ico{background:var(--blue-l)} .kred .kpi-ico{background:var(--red-l)} .kteal .kpi-ico{background:var(--teal-l)} .kpurple .kpi-ico{background:var(--purple-l)}
+.kpi-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:6px}
+.kpi-val{font-family:'Playfair Display',serif;font-weight:900;font-size:30px;line-height:1;color:var(--ink);margin-bottom:6px}
+.kpi-sub{font-size:11.5px;color:var(--ink3);line-height:1.4}
+
+/* SECTION HEADINGS */
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.sec-title{font-family:'Playfair Display',serif;font-weight:800;font-size:17px;color:var(--ink);line-height:1.3}
+.sec-sub{font-size:12px;color:var(--ink3);margin-top:2px;line-height:1.5}
+.ov-lbl{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.ov-lbl h2{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;color:var(--ink)}
+.divline{flex:1;height:1px;background:var(--border2)}
+.ov-sec{margin-bottom:8px}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:4px 11px;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none}
+.tg{background:var(--green-l);color:var(--green);border:1px solid rgba(0,107,63,0.15)}
+.td{background:var(--gold-l);color:var(--gold);border:1px solid rgba(212,148,10,0.2)}
+.tb{background:var(--blue-l);color:var(--blue);border:1px solid rgba(26,86,160,0.15)}
+.tr{background:var(--red-l);color:var(--red);border:1px solid rgba(192,57,43,0.15)}
+.tt{background:var(--teal-l);color:var(--teal);border:1px solid rgba(14,116,144,0.15)}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.g32{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-bottom:16px}
+.g23{display:grid;grid-template-columns:2fr 3fr;gap:16px;margin-bottom:16px}
+.gfull{margin-bottom:16px}
+.vstack{display:flex;flex-direction:column;gap:16px}
+
+/* PERFORMERS */
+.perf-list{display:flex;flex-direction:column;gap:0}
+.perf-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.perf-item:last-child{border-bottom:none}
+.pr{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;font-family:'Playfair Display',serif}
+.pr1{background:rgba(212,148,10,0.15);color:var(--gold)}
+.pr2{background:rgba(107,114,128,0.12);color:#6B7280}
+.pr3{background:rgba(180,83,9,0.12);color:#B45309}
+.prn{background:var(--surface2);color:var(--ink3);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px}
+.perf-info{flex:1;min-width:0}
+.perf-name{font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.perf-meta{font-size:11px;color:var(--ink3);margin-top:1px}
+.perf-score{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;white-space:nowrap}
+
+/* BARS */
+.bar-wrap{display:flex;align-items:center;gap:8px}
+.bar-bg{flex:1;height:6px;background:var(--surface3);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;transition:width .6s ease}
+.bar-val{font-size:12px;font-weight:700;white-space:nowrap;min-width:38px;text-align:right}
+.dist-list{display:flex;flex-direction:column;gap:10px}
+.dist-row{display:flex;align-items:center;gap:10px}
+.dist-lbl{font-size:12px;color:var(--ink2);width:70px;flex-shrink:0;font-weight:500}
+.dist-track{flex:1;height:8px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.dist-fill{height:100%;border-radius:99px;transition:width .7s ease}
+.dist-cnt{font-size:12px;font-weight:700;color:var(--ink2);min-width:26px;text-align:right}
+
+/* RANK CHANGE */
+.chg{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap}
+.chu{background:rgba(0,107,63,0.1);color:var(--green)}
+.chd{background:rgba(192,57,43,0.1);color:var(--red)}
+.chs{background:var(--surface2);color:var(--ink4)}
+.chn{background:var(--blue-l);color:var(--blue)}
+
+/* IMPROVED */
+.imp-list{display:flex;flex-direction:column;gap:0}
+.imp-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.imp-item:last-child{border-bottom:none}
+.imp-arr{width:26px;height:26px;background:var(--green-l);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:12px;flex-shrink:0}
+.imp-name{flex:1;font-size:12.5px;font-weight:500;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.imp-jump{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--green);white-space:nowrap}
+
+/* MINI STATS */
+.mini-stat{background:var(--surface2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)}
+.mini-val{font-family:'Playfair Display',serif;font-weight:900;font-size:22px;line-height:1;margin-bottom:3px}
+.mini-lbl{font-size:11px;color:var(--ink3);line-height:1.3}
+
+/* REGIONAL GRID */
+.reg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.reg-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;position:relative;overflow:hidden;transition:all .15s;border-left:3px solid var(--blue)}
+.reg-card:hover{border-color:rgba(26,86,160,0.3);background:var(--surface);box-shadow:var(--shadow-sm)}
+.reg-rtag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink4);margin-bottom:5px}
+.reg-name{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:6px}
+.reg-score{font-family:'Playfair Display',serif;font-weight:800;font-size:17px;color:var(--blue)}
+.reg-score span{font-size:11px;font-weight:400;color:var(--ink4);font-family:inherit}
+
+/* TABLE */
+.tbl-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.rtabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.rtab{padding:5px 13px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);color:var(--ink3);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif}
+.rtab:hover{color:var(--ink);border-color:rgba(0,0,0,0.18)}
+.rtab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tbl-search{flex:1;max-width:300px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px 8px 34px;font-size:13px;color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%239BA8B5' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:11px center;transition:border-color .15s}
+.tbl-search:focus{border-color:var(--blue)}
+.tbl-wrap{overflow-x:auto;max-height:520px;overflow-y:auto;border-radius:10px;border:1px solid var(--border)}
+.dtbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
+.dtbl thead th{position:sticky;top:0;background:var(--surface2);z-index:2;padding:11px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);border-bottom:1px solid var(--border2);white-space:nowrap}
+.dtbl tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
+.dtbl tbody tr:last-child{border-bottom:none}
+.dtbl tbody tr:hover{background:var(--surface2)}
+.dtbl td{padding:9px 14px;vertical-align:middle}
+.rb{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;font-size:11.5px;font-weight:700}
+.rb1{background:rgba(212,148,10,0.12);color:var(--gold)}
+.rb2{background:rgba(107,114,128,0.1);color:#6B7280}
+.rb3{background:rgba(180,83,9,0.1);color:#B45309}
+.rbt{background:var(--blue-l);color:var(--blue)}
+.rbn{background:var(--surface2);color:var(--ink3)}
+.dn{font-weight:600;color:var(--ink)}
+.dr{font-size:12px;color:var(--ink3);white-space:nowrap}
+
+/* LGS RATING */
+.rtg{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.rtg-ex{background:rgba(212,148,10,0.12);color:var(--gold);border:1px solid rgba(212,148,10,0.2)}
+.rtg-vg{background:var(--blue-l);color:var(--blue);border:1px solid rgba(26,86,160,0.2)}
+.rtg-gd{background:var(--green-l);color:var(--green);border:1px solid rgba(0,107,63,0.18)}
+.rtg-sf{background:var(--teal-l);color:var(--teal);border:1px solid rgba(14,116,144,0.18)}
+.rtg-un{background:var(--red-l);color:var(--red);border:1px solid rgba(192,57,43,0.18)}
+
+/* LGS TABS */
+.ltabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ltab{padding:5px 13px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);color:var(--ink3);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif}
+.ltab:hover{color:var(--ink)}
+.ltab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* RCC GRID */
+.rcc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.rcc-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:10px;border-left:3px solid transparent;transition:all .15s}
+.rcc-card:hover{background:var(--surface);box-shadow:var(--shadow-sm)}
+.rcc-pos{font-family:'Playfair Display',serif;font-weight:900;font-size:17px;min-width:24px;text-align:center}
+.rcc-info{flex:1;min-width:0}
+.rcc-rn{font-size:12.5px;font-weight:700;color:var(--ink)}
+.rcc-rt{font-size:11px;color:var(--ink3);margin-top:1px}
+.rcc-sc{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;white-space:nowrap}
+.rcc-ex{border-left-color:var(--gold)} .rcc-vg{border-left-color:var(--blue)} .rcc-gd{border-left-color:var(--green)} .rcc-us{border-left-color:var(--red)}
+
+/* HEATMAP */
+.hm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.hm-cell{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px}
+.hm-rn{font-size:11.5px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.hm-bars{display:flex;gap:3px;align-items:flex-end;height:40px;margin-bottom:6px}
+.hm-bar{flex:1;border-radius:3px 3px 0 0;min-height:3px;opacity:.85}
+.hm-tot{font-size:10.5px;color:var(--ink4)}
+
+/* EMBED */
+.embed-hero{background:linear-gradient(135deg,var(--ink) 0%,#1E2D40 100%);border-radius:var(--r-lg);padding:30px 32px;margin-bottom:16px;position:relative;overflow:hidden}
+.embed-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(252,209,22,0.12) 0%,transparent 70%);border-radius:50%}
+.embed-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FCD116;margin-bottom:8px}
+.embed-title{font-family:'Playfair Display',serif;font-weight:900;font-size:24px;color:#fff;margin-bottom:8px;line-height:1.2}
+.embed-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:560px}
+.embed-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.embed-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.8);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.embed-frame{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+.embed-loader{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--surface);z-index:1;transition:opacity .4s}
+.embed-loader.gone{opacity:0;pointer-events:none}
+.spinner{width:36px;height:36px;border:3px solid var(--surface3);border-top-color:var(--blue);border-radius:50%;animation:spin .9s linear infinite}
+.embed-frame iframe{display:block;width:100%;border:none}
+.e2col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow-sm)}
+.ic-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:14px}
+.dim-list{display:flex;flex-direction:column;gap:12px}
+.dim-item{display:flex;align-items:flex-start;gap:10px}
+.dim-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;margin-top:3px}
+.dim-nm{font-size:13px;font-weight:600;color:var(--ink)}
+.dim-ds{font-size:11px;color:var(--ink3);margin-top:1px}
+.stat-list{display:flex;flex-direction:column;gap:14px}
+.stat-item{}
+.stat-val{font-family:'Playfair Display',serif;font-weight:900;font-size:26px;line-height:1;margin-bottom:3px}
+.stat-ds{font-size:11.5px;color:var(--ink3)}
+.why-list{display:flex;flex-direction:column;gap:12px}
+.why-item{display:flex;align-items:flex-start;gap:10px}
+.why-ico{font-size:18px;line-height:1;flex-shrink:0}
+.why-nm{font-size:13px;font-weight:600;color:var(--ink)}
+.why-ds{font-size:11px;color:var(--ink3);margin-top:1px}
+.hr{height:1px;background:var(--border);margin:10px 0}
+
+/* OVERLAY & FOOTER */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:150;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+.pg-footer{margin-left:var(--sw);border-top:1px solid var(--border);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--ink4);background:var(--surface)}
+.ft-links{display:flex;gap:16px}
+.ft-links a{color:var(--ink4);text-decoration:none;transition:color .15s}
+.ft-links a:hover{color:var(--ink)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.kpi-card:nth-child(1){animation-delay:.04s}.kpi-card:nth-child(2){animation-delay:.08s}.kpi-card:nth-child(3){animation-delay:.12s}.kpi-card:nth-child(4){animation-delay:.16s}.kpi-card:nth-child(5){animation-delay:.20s}
+
+@media(max-width:1200px){
+  .g2,.g3,.g32,.g23,.e2col{grid-template-columns:1fr}
+  .reg-grid,.rcc-grid,.hm-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .main,.pg-footer{margin-left:0}.menu-btn{display:flex}
+  .content{padding:20px 16px}.topbar{padding:0 16px}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:600px){
+  .kpi-grid{grid-template-columns:1fr!important}
+  .reg-grid,.rcc-grid,.hm-grid{grid-template-columns:1fr}
+}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:99px}
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════
-     SIDEBAR
-════════════════════════════════════════════════ -->
 <aside class="sidebar" id="sidebar">
-
-  <div class="sidebar-brand">
-    <div class="brand-lockup">
-      <div class="brand-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#0D1B2A" stroke-width="2.2">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
+  <div class="sb-brand">
+    <div class="sb-lockup">
+      <div class="sb-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0D1B2A" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
       <div>
-        <div class="brand-name">District Profile</div>
-        <div class="brand-sub">PAIReD Partners Ghana</div>
+        <div class="sb-name">District Profile</div>
+        <div class="sb-sub">PAIReD Partners Ghana</div>
       </div>
     </div>
-    <div class="ghana-strip">
-      <span style="background:#CE1126;"></span>
-      <span style="background:#FCD116;"></span>
-      <span style="background:#006B3F;"></span>
+    <div class="gh-strip">
+      <span style="background:#CE1126"></span>
+      <span style="background:#FCD116"></span>
+      <span style="background:#006B3F"></span>
     </div>
   </div>
-
   <nav class="nav-body">
-
-    <div class="nav-label">Main</div>
-
-    <button class="nav-item active" onclick="showPage('dashboard',this)">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+    <div class="nav-lbl">Main</div>
+    <button class="nav-btn active" id="nb-dashboard" onclick="showPage('dashboard')">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
       Dashboard
     </button>
-
-    <div class="nav-label">Data Pages</div>
-
-    <button class="nav-item" onclick="showPage('pfm',this)">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2 2H5V5h14v14zM5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z"/></svg>
+    <div class="nav-lbl">Data Pages</div>
+    <button class="nav-btn" id="nb-pfm" onclick="showPage('pfm')">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2 2H5V5h14v14zM5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z"/></svg>
       PFM League Table
       <span class="nav-badge">261</span>
     </button>
-
-    <button class="nav-item" onclick="showPage('lgs',this)">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+    <button class="nav-btn" id="nb-lgs" onclick="showPage('lgs')">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
       LGS Performance 2023
     </button>
-
-    <button class="nav-item" onclick="showPage('mpi',this)">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"/></svg>
+    <button class="nav-btn" id="nb-mpi" onclick="showPage('mpi')">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"/></svg>
       Poverty Index (MPI)
     </button>
-
-    <button class="nav-item" onclick="showPage('urban',this)">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M15 11V5l-3-3-3 3v2H3v14h18V11h-6zm-8 8H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm6 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm6 12h-2v-2h2v2zm0-4h-2v-2h2v2z"/></svg>
+    <button class="nav-btn" id="nb-urban" onclick="showPage('urban')">
+      <svg class="nav-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M15 11V5l-3-3-3 3v2H3v14h18V11h-6zm-8 8H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm6 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm6 12h-2v-2h2v2zm0-4h-2v-2h2v2z"/></svg>
       Rate of Urbanisation
     </button>
-
-    <div class="nav-label">System</div>
-
-    <button class="nav-item">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-      Help & Support
-    </button>
-
   </nav>
-
-  <div class="sidebar-footer">
+  <div class="sb-foot">
     <div class="user-row">
       <div class="user-av">AU</div>
-      <div>
-        <div class="user-name-text">Admin User</div>
-        <div class="user-role-text">PAIReD Ghana</div>
-      </div>
+      <div><div class="user-n">Admin User</div><div class="user-r">PAIReD Ghana</div></div>
     </div>
   </div>
-
 </aside>
 
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
-<!-- ════════════════════════════════════════════════
-     MAIN
-════════════════════════════════════════════════ -->
 <div class="main">
-
-  <!-- TOPBAR -->
   <header class="topbar">
-    <div class="topbar-left">
+    <div class="topbar-l">
       <button class="menu-btn" onclick="toggleSidebar()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
       </button>
-      <div class="page-crumb">
-        <span>PAIReD Ghana</span>
-        <span class="crumb-sep">/</span>
-        <strong id="page-title">Dashboard</strong>
+      <div class="crumb">
+        <span>PAIReD Ghana</span>&nbsp;/&nbsp;<strong id="page-title">Dashboard</strong>
       </div>
     </div>
-    <div class="topbar-right">
-      <div class="topbar-chip">🇬🇭 2024 Data Active</div>
-      <input type="text" class="topbar-search" placeholder="Search districts…" id="globalSearch" oninput="filterTable()">
+    <div class="topbar-r">
+      <div class="tb-chip">🇬🇭 2024 Data Active</div>
     </div>
   </header>
 
-  <!-- CONTENT -->
   <div class="content">
 
-  <!-- ╔══════════════════════════════════════════════╗
-       ║  PAGE: DASHBOARD                            ║
-       ╚══════════════════════════════════════════════╝ -->
+  <!-- ═══ DASHBOARD PAGE ═══════════════════════════════════════ -->
   <div id="page-dashboard" class="page active">
 
-    <!-- TOP KPIs -->
     <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
-      <div class="kpi-card green">
-        <div class="kpi-top">
-          <div>
-            <div class="kpi-label">Regions Covered</div>
-            <div class="kpi-value">16</div>
-          </div>
-          <div class="kpi-icon-wrap">🏛️</div>
-        </div>
-        <div class="kpi-sub">All regions of Ghana represented</div>
-      </div>
-      <div class="kpi-card gold">
-        <div class="kpi-top">
-          <div>
-            <div class="kpi-label">PAIReD MMDAs</div>
-            <div class="kpi-value">60</div>
-          </div>
-          <div class="kpi-icon-wrap">🏘️</div>
-        </div>
-        <div class="kpi-sub">Carefully selected districts</div>
-      </div>
-      <div class="kpi-card blue">
-        <div class="kpi-top">
-          <div>
-            <div class="kpi-label">Total Population</div>
-            <div class="kpi-value">7.4M</div>
-          </div>
-          <div class="kpi-icon-wrap">👥</div>
-        </div>
-        <div class="kpi-sub"><strong>50.6%</strong> female population</div>
-      </div>
-      <div class="kpi-card red">
-        <div class="kpi-top">
-          <div>
-            <div class="kpi-label">Below MPI Threshold</div>
-            <div class="kpi-value">34</div>
-          </div>
-          <div class="kpi-icon-wrap">📉</div>
-        </div>
-        <div class="kpi-sub">MMDAs below national MPI (GSS)</div>
-      </div>
+      <div class="kpi-card kgreen"><div class="kpi-top"><div><div class="kpi-lbl">Regions Covered</div><div class="kpi-val">16</div></div><div class="kpi-ico">🏛️</div></div><div class="kpi-sub">All regions of Ghana represented</div></div>
+      <div class="kpi-card kgold"><div class="kpi-top"><div><div class="kpi-lbl">PAIReD MMDAs</div><div class="kpi-val">60</div></div><div class="kpi-ico">🏘️</div></div><div class="kpi-sub">Carefully selected districts</div></div>
+      <div class="kpi-card kblue"><div class="kpi-top"><div><div class="kpi-lbl">Total Population</div><div class="kpi-val">7.4M</div></div><div class="kpi-ico">👥</div></div><div class="kpi-sub"><strong>50.6%</strong> female population</div></div>
+      <div class="kpi-card kred"><div class="kpi-top"><div><div class="kpi-lbl">Below MPI Threshold</div><div class="kpi-val">34</div></div><div class="kpi-ico">📉</div></div><div class="kpi-sub">MMDAs below national MPI</div></div>
     </div>
 
-    <!-- ─── SECTION: PFM OVERVIEW ─── -->
-    <div class="overview-section">
-      <div class="overview-label">
+    <!-- PFM SECTION -->
+    <div class="ov-sec">
+      <div class="ov-lbl">
         <h2>PFM Compliance League Table — 2024 Highlights</h2>
-        <div class="divider-line"></div>
-        <button class="tag tag-blue" onclick="showPage('pfm', document.querySelectorAll('.nav-item')[1])" style="cursor:pointer;border:none;font-family:inherit;">View Full Table →</button>
+        <div class="divline"></div>
+        <button class="tag tb" onclick="showPage('pfm')">View Full Table →</button>
       </div>
-
-      <div class="grid-3-2">
-        <!-- Top 10 -->
+      <div class="g32">
         <div class="card">
-          <div class="section-heading">
-            <div>
-              <div class="section-title">🏆 Top 10 National Performers</div>
-              <div class="section-sub">PFM Compliance League Table 2024 — out of 261 MMDAs</div>
-            </div>
-            <span class="tag tag-gold">2024</span>
-          </div>
+          <div class="sec-hd"><div><div class="sec-title">🏆 Top 10 National Performers</div><div class="sec-sub">PFM 2024 · out of 261 MMDAs</div></div><span class="tag td">2024</span></div>
           <div class="perf-list">
-            <div class="perf-item"><div class="perf-rank pr-1">1</div><div class="perf-info"><div class="perf-name">La Dade Kotopon Municipal Assembly</div><div class="perf-meta">Greater Accra · Was #2 in 2023</div></div><div class="perf-score" style="color:var(--gold)">57.5%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-2">2</div><div class="perf-info"><div class="perf-name">Kwadaso Municipal Assembly</div><div class="perf-meta">Ashanti · Was #29 in 2023 ↑↑</div></div><div class="perf-score" style="color:var(--ink2)">55.5%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-3">3</div><div class="perf-info"><div class="perf-name">Kpando Municipal Assembly</div><div class="perf-meta">Volta · Was #243 in 2023 ↑↑↑</div></div><div class="perf-score" style="color:#B45309">55.2%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">4</div><div class="perf-info"><div class="perf-name">Suame Municipal Assembly</div><div class="perf-meta">Ashanti · Was #256 in 2023 ↑↑↑</div></div><div class="perf-score" style="color:var(--blue)">55.0%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">5</div><div class="perf-info"><div class="perf-name">Asante Akim South Municipal Assembly</div><div class="perf-meta">Ashanti · Was #172 in 2023</div></div><div class="perf-score" style="color:var(--blue)">54.0%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">6</div><div class="perf-info"><div class="perf-name">Central Tongu District Assembly</div><div class="perf-meta">Volta · Was #184 in 2023 ↑↑</div></div><div class="perf-score" style="color:var(--blue)">53.0%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">7</div><div class="perf-info"><div class="perf-name">Denkyembour District Assembly</div><div class="perf-meta">Eastern · Was #21 in 2023</div></div><div class="perf-score" style="color:var(--blue)">52.1%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">8</div><div class="perf-info"><div class="perf-name">New Juaben North Municipal Assembly</div><div class="perf-meta">Eastern · Was #35 in 2023</div></div><div class="perf-score" style="color:var(--blue)">52.0%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">9</div><div class="perf-info"><div class="perf-name">Ketu North Municipal Assembly</div><div class="perf-meta">Volta · Was #31 in 2023</div></div><div class="perf-score" style="color:var(--blue)">51.5%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">10</div><div class="perf-info"><div class="perf-name">Adentan Municipal Assembly</div><div class="perf-meta">Greater Accra · Was #3 in 2023 ↓</div></div><div class="perf-score" style="color:var(--blue)">51.0%</div></div>
+            <div class="perf-item"><div class="pr pr1">1</div><div class="perf-info"><div class="perf-name">La Dade Kotopon Municipal Assembly</div><div class="perf-meta">Greater Accra · Was #2 in 2023</div></div><div class="perf-score" style="color:var(--gold)">57.5%</div></div>
+            <div class="perf-item"><div class="pr pr2">2</div><div class="perf-info"><div class="perf-name">Kwadaso Municipal Assembly</div><div class="perf-meta">Ashanti · Was #29 in 2023</div></div><div class="perf-score" style="color:var(--ink2)">55.5%</div></div>
+            <div class="perf-item"><div class="pr pr3">3</div><div class="perf-info"><div class="perf-name">Kpando Municipal Assembly</div><div class="perf-meta">Volta · Was #243 in 2023 ↑↑↑</div></div><div class="perf-score" style="color:#B45309">55.2%</div></div>
+            <div class="perf-item"><div class="pr prn">4</div><div class="perf-info"><div class="perf-name">Suame Municipal Assembly</div><div class="perf-meta">Ashanti · Was #256 in 2023 ↑↑↑</div></div><div class="perf-score" style="color:var(--blue)">55.0%</div></div>
+            <div class="perf-item"><div class="pr prn">5</div><div class="perf-info"><div class="perf-name">Asante Akim South Municipal Assembly</div><div class="perf-meta">Ashanti · Was #172 in 2023</div></div><div class="perf-score" style="color:var(--blue)">54.0%</div></div>
+            <div class="perf-item"><div class="pr prn">6</div><div class="perf-info"><div class="perf-name">Central Tongu District Assembly</div><div class="perf-meta">Volta · Was #184 in 2023</div></div><div class="perf-score" style="color:var(--blue)">53.0%</div></div>
+            <div class="perf-item"><div class="pr prn">7</div><div class="perf-info"><div class="perf-name">Denkyembour District Assembly</div><div class="perf-meta">Eastern · Was #21 in 2023</div></div><div class="perf-score" style="color:var(--blue)">52.1%</div></div>
+            <div class="perf-item"><div class="pr prn">8</div><div class="perf-info"><div class="perf-name">New Juaben North Municipal Assembly</div><div class="perf-meta">Eastern · Was #35 in 2023</div></div><div class="perf-score" style="color:var(--blue)">52.0%</div></div>
+            <div class="perf-item"><div class="pr prn">9</div><div class="perf-info"><div class="perf-name">Ketu North Municipal Assembly</div><div class="perf-meta">Volta · Was #31 in 2023</div></div><div class="perf-score" style="color:var(--blue)">51.5%</div></div>
+            <div class="perf-item"><div class="pr prn">10</div><div class="perf-info"><div class="perf-name">Adentan Municipal Assembly</div><div class="perf-meta">Greater Accra · Was #3 in 2023</div></div><div class="perf-score" style="color:var(--blue)">51.0%</div></div>
           </div>
         </div>
-
-        <!-- Right col -->
-        <div class="col-stack">
-          <!-- Summary Stats -->
+        <div class="vstack">
           <div class="card">
-            <div class="section-heading"><div class="section-title">📊 2024 Summary</div></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div class="mini-stat">
-                <div class="mini-stat-val" style="color:var(--green)">261</div>
-                <div class="mini-stat-lbl">MMDAs Ranked Nationally</div>
-              </div>
-              <div class="mini-stat">
-                <div class="mini-stat-val" style="color:var(--gold)">57.5%</div>
-                <div class="mini-stat-lbl">Highest Score (La Dade Kotopon)</div>
-              </div>
-              <div class="mini-stat">
-                <div class="mini-stat-val" style="color:var(--red)">3</div>
-                <div class="mini-stat-lbl">MMDAs Scored Zero</div>
-              </div>
-              <div class="mini-stat">
-                <div class="mini-stat-val" style="color:var(--blue)">252</div>
-                <div class="mini-stat-lbl">Positions Gained (Suame MA)</div>
-              </div>
+            <div class="sec-hd"><div class="sec-title">📊 2024 Summary</div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="mini-stat"><div class="mini-val" style="color:var(--green)">261</div><div class="mini-lbl">MMDAs Ranked Nationally</div></div>
+              <div class="mini-stat"><div class="mini-val" style="color:var(--gold)">57.5%</div><div class="mini-lbl">Highest Score</div></div>
+              <div class="mini-stat"><div class="mini-val" style="color:var(--red)">3</div><div class="mini-lbl">MMDAs Scored Zero</div></div>
+              <div class="mini-stat"><div class="mini-val" style="color:var(--blue)">+252</div><div class="mini-lbl">Biggest Position Gain</div></div>
             </div>
           </div>
-          <!-- Score Distribution -->
           <div class="card">
-            <div class="section-heading"><div class="section-title">📈 Score Distribution</div></div>
+            <div class="sec-hd"><div class="sec-title">📈 Score Distribution</div></div>
             <div class="dist-list">
-              <div class="dist-row"><div class="dist-lbl">≥ 50%</div><div class="dist-bar-track"><div class="dist-bar-fill" style="width:4%;background:var(--gold)"></div></div><div class="dist-count">11</div></div>
-              <div class="dist-row"><div class="dist-lbl">40–49%</div><div class="dist-bar-track"><div class="dist-bar-fill" style="width:24%;background:var(--blue)"></div></div><div class="dist-count">63</div></div>
-              <div class="dist-row"><div class="dist-lbl">30–39%</div><div class="dist-bar-track"><div class="dist-bar-fill" style="width:30%;background:var(--green)"></div></div><div class="dist-count">79</div></div>
-              <div class="dist-row"><div class="dist-lbl">20–29%</div><div class="dist-bar-track"><div class="dist-bar-fill" style="width:22%;background:var(--teal)"></div></div><div class="dist-count">58</div></div>
-              <div class="dist-row"><div class="dist-lbl">&lt; 20%</div><div class="dist-bar-track"><div class="dist-bar-fill" style="width:19%;background:var(--red)"></div></div><div class="dist-count">50</div></div>
+              <div class="dist-row"><div class="dist-lbl">≥ 50%</div><div class="dist-track"><div class="dist-fill" style="width:4%;background:var(--gold)"></div></div><div class="dist-cnt">11</div></div>
+              <div class="dist-row"><div class="dist-lbl">40–49%</div><div class="dist-track"><div class="dist-fill" style="width:24%;background:var(--blue)"></div></div><div class="dist-cnt">63</div></div>
+              <div class="dist-row"><div class="dist-lbl">30–39%</div><div class="dist-track"><div class="dist-fill" style="width:30%;background:var(--green)"></div></div><div class="dist-cnt">79</div></div>
+              <div class="dist-row"><div class="dist-lbl">20–29%</div><div class="dist-track"><div class="dist-fill" style="width:22%;background:var(--teal)"></div></div><div class="dist-cnt">58</div></div>
+              <div class="dist-row"><div class="dist-lbl">&lt; 20%</div><div class="dist-track"><div class="dist-fill" style="width:19%;background:var(--red)"></div></div><div class="dist-cnt">50</div></div>
             </div>
           </div>
-          <!-- Most Improved -->
           <div class="card">
-            <div class="section-heading"><div class="section-title">🚀 Most Improved</div><span class="tag tag-green">2023 → 2024</span></div>
+            <div class="sec-hd"><div class="sec-title">🚀 Most Improved</div><span class="tag tg">2023→2024</span></div>
             <div class="imp-list">
-              <div class="imp-item"><div class="imp-arrow">▲</div><div class="imp-name">Suame Municipal Assembly</div><div class="imp-jump">+252</div></div>
-              <div class="imp-item"><div class="imp-arrow">▲</div><div class="imp-name">South Dayi District Assembly</div><div class="imp-jump">+242</div></div>
-              <div class="imp-item"><div class="imp-arrow">▲</div><div class="imp-name">Kpando Municipal Assembly</div><div class="imp-jump">+240</div></div>
-              <div class="imp-item"><div class="imp-arrow">▲</div><div class="imp-name">Agona West Municipal Assembly</div><div class="imp-jump">+216</div></div>
-              <div class="imp-item"><div class="imp-arrow">▲</div><div class="imp-name">Asante Akim South Municipal</div><div class="imp-jump">+167</div></div>
+              <div class="imp-item"><div class="imp-arr">▲</div><div class="imp-name">Suame Municipal Assembly</div><div class="imp-jump">+252</div></div>
+              <div class="imp-item"><div class="imp-arr">▲</div><div class="imp-name">South Dayi District Assembly</div><div class="imp-jump">+242</div></div>
+              <div class="imp-item"><div class="imp-arr">▲</div><div class="imp-name">Kpando Municipal Assembly</div><div class="imp-jump">+240</div></div>
+              <div class="imp-item"><div class="imp-arr">▲</div><div class="imp-name">Agona West Municipal Assembly</div><div class="imp-jump">+216</div></div>
+              <div class="imp-item"><div class="imp-arr">▲</div><div class="imp-name">Asante Akim South Municipal</div><div class="imp-jump">+167</div></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ─── SECTION: LGS OVERVIEW ─── -->
-    <div class="overview-section" style="margin-top:8px;">
-      <div class="overview-label">
+    <!-- LGS SECTION -->
+    <div class="ov-sec" style="margin-top:8px">
+      <div class="ov-lbl">
         <h2>LGS Performance Assessment — 2023 Highlights</h2>
-        <div class="divider-line"></div>
-        <button class="tag tag-blue" onclick="showPage('lgs', document.querySelectorAll('.nav-item')[2])" style="cursor:pointer;border:none;font-family:inherit;">View Full Rankings →</button>
+        <div class="divline"></div>
+        <button class="tag tb" onclick="showPage('lgs')">View Full Rankings →</button>
       </div>
-
       <div class="kpi-grid" style="grid-template-columns:repeat(5,1fr)">
-        <div class="kpi-card gold">
-          <div class="kpi-top"><div><div class="kpi-label">Excellent</div><div class="kpi-value">9</div></div><div class="kpi-icon-wrap">⭐</div></div>
-          <div class="kpi-sub">MMDAs scored 80–100%</div>
-        </div>
-        <div class="kpi-card blue">
-          <div class="kpi-top"><div><div class="kpi-label">Very Good</div><div class="kpi-value">38</div></div><div class="kpi-icon-wrap">✨</div></div>
-          <div class="kpi-sub">MMDAs scored 70–79%</div>
-        </div>
-        <div class="kpi-card green">
-          <div class="kpi-top"><div><div class="kpi-label">Good</div><div class="kpi-value">71</div></div><div class="kpi-icon-wrap">✅</div></div>
-          <div class="kpi-sub">MMDAs scored 60–69%</div>
-        </div>
-        <div class="kpi-card teal">
-          <div class="kpi-top"><div><div class="kpi-label">Satisfactory</div><div class="kpi-value">79</div></div><div class="kpi-icon-wrap">🔶</div></div>
-          <div class="kpi-sub">MMDAs scored 50–59%</div>
-        </div>
-        <div class="kpi-card red">
-          <div class="kpi-top"><div><div class="kpi-label">Unsatisfactory</div><div class="kpi-value">64</div></div><div class="kpi-icon-wrap">⚠️</div></div>
-          <div class="kpi-sub">MMDAs scored below 50%</div>
-        </div>
+        <div class="kpi-card kgold"><div class="kpi-top"><div><div class="kpi-lbl">Excellent</div><div class="kpi-val">9</div></div><div class="kpi-ico">⭐</div></div><div class="kpi-sub">MMDAs scored 80–100%</div></div>
+        <div class="kpi-card kblue"><div class="kpi-top"><div><div class="kpi-lbl">Very Good</div><div class="kpi-val">38</div></div><div class="kpi-ico">✨</div></div><div class="kpi-sub">MMDAs scored 70–79%</div></div>
+        <div class="kpi-card kgreen"><div class="kpi-top"><div><div class="kpi-lbl">Good</div><div class="kpi-val">71</div></div><div class="kpi-ico">✅</div></div><div class="kpi-sub">MMDAs scored 60–69%</div></div>
+        <div class="kpi-card kteal"><div class="kpi-top"><div><div class="kpi-lbl">Satisfactory</div><div class="kpi-val">79</div></div><div class="kpi-ico">🔶</div></div><div class="kpi-sub">MMDAs scored 50–59%</div></div>
+        <div class="kpi-card kred"><div class="kpi-top"><div><div class="kpi-lbl">Unsatisfactory</div><div class="kpi-val">64</div></div><div class="kpi-ico">⚠️</div></div><div class="kpi-sub">MMDAs scored below 50%</div></div>
       </div>
-
-      <div class="grid-2">
-        <!-- Top LGS performers -->
+      <div class="g2">
         <div class="card">
-          <div class="section-heading">
-            <div><div class="section-title">🥇 Top LGS Performers 2023</div><div class="section-sub">Highest scoring MMDAs nationally</div></div>
-            <span class="tag tag-gold">Excellent</span>
-          </div>
+          <div class="sec-hd"><div><div class="sec-title">🥇 Top LGS Performers 2023</div><div class="sec-sub">Highest scoring MMDAs nationally</div></div><span class="tag td">Excellent</span></div>
           <div class="perf-list">
-            <div class="perf-item"><div class="perf-rank pr-1">1</div><div class="perf-info"><div class="perf-name">Abuakwa South Municipal Assembly</div><div class="perf-meta">Eastern Region</div></div><div class="perf-score" style="color:var(--gold)">87.3%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-2">2</div><div class="perf-info"><div class="perf-name">Atiwa East District Assembly</div><div class="perf-meta">Eastern Region</div></div><div class="perf-score" style="color:var(--ink2)">85.4%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-3">3</div><div class="perf-info"><div class="perf-name">Adentan Municipal Assembly</div><div class="perf-meta">Greater Accra Region</div></div><div class="perf-score" style="color:#B45309">84.3%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">4</div><div class="perf-info"><div class="perf-name">North Dayi District Assembly</div><div class="perf-meta">Volta Region</div></div><div class="perf-score" style="color:var(--blue)">82.8%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">5</div><div class="perf-info"><div class="perf-name">Mpohor District Assembly</div><div class="perf-meta">Western Region</div></div><div class="perf-score" style="color:var(--blue)">81.8%</div></div>
+            <div class="perf-item"><div class="pr pr1">1</div><div class="perf-info"><div class="perf-name">Abuakwa South Municipal Assembly</div><div class="perf-meta">Eastern Region</div></div><div class="perf-score" style="color:var(--gold)">87.3%</div></div>
+            <div class="perf-item"><div class="pr pr2">2</div><div class="perf-info"><div class="perf-name">Atiwa East District Assembly</div><div class="perf-meta">Eastern Region</div></div><div class="perf-score" style="color:var(--ink2)">85.4%</div></div>
+            <div class="perf-item"><div class="pr pr3">3</div><div class="perf-info"><div class="perf-name">Adentan Municipal Assembly</div><div class="perf-meta">Greater Accra Region</div></div><div class="perf-score" style="color:#B45309">84.3%</div></div>
+            <div class="perf-item"><div class="pr prn">4</div><div class="perf-info"><div class="perf-name">North Dayi District Assembly</div><div class="perf-meta">Volta Region</div></div><div class="perf-score" style="color:var(--blue)">82.8%</div></div>
+            <div class="perf-item"><div class="pr prn">5</div><div class="perf-info"><div class="perf-name">Mpohor District Assembly</div><div class="perf-meta">Western Region</div></div><div class="perf-score" style="color:var(--blue)">81.8%</div></div>
           </div>
         </div>
-
-        <!-- RCC Top 5 -->
         <div class="card">
-          <div class="section-heading">
-            <div><div class="section-title">🏛️ Top RCC Rankings 2023</div><div class="section-sub">Regional Coordinating Councils — overall scores</div></div>
-          </div>
+          <div class="sec-hd"><div><div class="sec-title">🏛️ Top RCC Rankings 2023</div><div class="sec-sub">Regional Coordinating Councils</div></div></div>
           <div class="perf-list">
-            <div class="perf-item"><div class="perf-rank pr-1">1</div><div class="perf-info"><div class="perf-name">Volta RCC</div><div class="perf-meta">Excellent — Top performing region</div></div><div class="perf-score" style="color:var(--gold)">91.5%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-2">2</div><div class="perf-info"><div class="perf-name">Greater Accra RCC</div><div class="perf-meta">Excellent</div></div><div class="perf-score" style="color:var(--ink2)">90.4%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-3">3</div><div class="perf-info"><div class="perf-name">Western RCC</div><div class="perf-meta">Excellent</div></div><div class="perf-score" style="color:#B45309">89.3%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n">4</div><div class="perf-info"><div class="perf-name">Ahafo RCC</div><div class="perf-meta">Excellent</div></div><div class="perf-score" style="color:var(--blue)">88.4%</div></div>
-            <div class="perf-item"><div class="perf-rank pr-n" style="color:var(--red)">16</div><div class="perf-info"><div class="perf-name">North East RCC</div><div class="perf-meta">Unsatisfactory — Lowest ranked</div></div><div class="perf-score" style="color:var(--red)">33.2%</div></div>
+            <div class="perf-item"><div class="pr pr1">1</div><div class="perf-info"><div class="perf-name">Volta RCC</div><div class="perf-meta">Excellent</div></div><div class="perf-score" style="color:var(--gold)">91.5%</div></div>
+            <div class="perf-item"><div class="pr pr2">2</div><div class="perf-info"><div class="perf-name">Greater Accra RCC</div><div class="perf-meta">Excellent</div></div><div class="perf-score" style="color:var(--ink2)">90.4%</div></div>
+            <div class="perf-item"><div class="pr pr3">3</div><div class="perf-info"><div class="perf-name">Western RCC</div><div class="perf-meta">Excellent</div></div><div class="perf-score" style="color:#B45309">89.3%</div></div>
+            <div class="perf-item"><div class="pr prn">4</div><div class="perf-info"><div class="perf-name">Ahafo RCC</div><div class="perf-meta">Excellent</div></div><div class="perf-score" style="color:var(--blue)">88.4%</div></div>
+            <div class="perf-item"><div class="pr prn" style="color:var(--red)">16</div><div class="perf-info"><div class="perf-name">North East RCC</div><div class="perf-meta">Unsatisfactory — Lowest</div></div><div class="perf-score" style="color:var(--red)">33.2%</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ─── SECTION: MPI OVERVIEW ─── -->
-    <div class="overview-section" style="margin-top:8px;">
-      <div class="overview-label">
+    <!-- MPI SECTION -->
+    <div class="ov-sec" style="margin-top:8px">
+      <div class="ov-lbl">
         <h2>Multidimensional Poverty Index (MPI)</h2>
-        <div class="divider-line"></div>
-        <button class="tag tag-blue" onclick="showPage('mpi', document.querySelectorAll('.nav-item')[3])" style="cursor:pointer;border:none;font-family:inherit;">View Full Data →</button>
+        <div class="divline"></div>
+        <button class="tag tb" onclick="showPage('mpi')">View Full Data →</button>
       </div>
-
-      <div class="grid-2-3">
+      <div class="g23">
         <div class="card">
-          <div class="section-heading"><div><div class="section-title">📉 MPI Key Figures</div><div class="section-sub">Ghana Statistical Service · 2021 MICS</div></div></div>
-          <div style="display:flex;flex-direction:column;gap:14px;">
-            <div class="mini-stat"><div class="mini-stat-val" style="color:var(--red)">34</div><div class="mini-stat-lbl">PAIReD MMDAs below national MPI threshold</div></div>
-            <div class="mini-stat"><div class="mini-stat-val" style="color:var(--blue)">4</div><div class="mini-stat-lbl">Deprivation dimensions measured (living, education, health, employment)</div></div>
-            <div class="mini-stat"><div class="mini-stat-val" style="color:var(--green)">7.4M</div><div class="mini-stat-lbl">Population across PAIReD MMDAs assessed</div></div>
+          <div class="sec-hd"><div><div class="sec-title">📉 MPI Key Figures</div><div class="sec-sub">Ghana Statistical Service · 2021 MICS</div></div></div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="mini-stat"><div class="mini-val" style="color:var(--red)">34</div><div class="mini-lbl">PAIReD MMDAs below national MPI threshold</div></div>
+            <div class="mini-stat"><div class="mini-val" style="color:var(--blue)">4</div><div class="mini-lbl">Deprivation dimensions measured</div></div>
+            <div class="mini-stat"><div class="mini-val" style="color:var(--green)">7.4M</div><div class="mini-lbl">Population across PAIReD MMDAs assessed</div></div>
           </div>
         </div>
         <div class="card">
-          <div class="section-heading"><div><div class="section-title">MPI Dimensions Explained</div><div class="section-sub">Non-monetary poverty across 4 key dimensions</div></div></div>
+          <div class="sec-hd"><div><div class="sec-title">MPI Dimensions Explained</div></div></div>
           <div class="dim-list">
-            <div class="dim-item"><div class="dim-dot" style="background:var(--blue)"></div><div><div class="dim-name">Living Conditions</div><div class="dim-desc">Housing quality, access to clean water, sanitation infrastructure and energy</div></div></div>
-            <div class="dim-item"><div class="dim-dot" style="background:var(--green)"></div><div><div class="dim-name">Education</div><div class="dim-desc">School attendance, attainment levels and literacy rates</div></div></div>
-            <div class="dim-item"><div class="dim-dot" style="background:var(--gold)"></div><div><div class="dim-name">Health</div><div class="dim-desc">Nutrition status, child mortality rates and antenatal care access</div></div></div>
-            <div class="dim-item"><div class="dim-dot" style="background:var(--purple)"></div><div><div class="dim-name">Employment</div><div class="dim-desc">Income quality, labour market participation and economic access</div></div></div>
+            <div class="dim-item"><div class="dim-dot" style="background:var(--blue)"></div><div><div class="dim-nm">Living Conditions</div><div class="dim-ds">Housing quality, water access, sanitation and energy</div></div></div>
+            <div class="dim-item"><div class="dim-dot" style="background:var(--green)"></div><div><div class="dim-nm">Education</div><div class="dim-ds">School attendance, attainment and literacy</div></div></div>
+            <div class="dim-item"><div class="dim-dot" style="background:var(--gold)"></div><div><div class="dim-nm">Health</div><div class="dim-ds">Nutrition, child mortality and antenatal care</div></div></div>
+            <div class="dim-item"><div class="dim-dot" style="background:var(--purple)"></div><div><div class="dim-nm">Employment</div><div class="dim-ds">Income quality and labour market participation</div></div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ─── SECTION: URBANISATION OVERVIEW ─── -->
-    <div class="overview-section" style="margin-top:8px;">
-      <div class="overview-label">
+    <!-- URBANISATION SECTION -->
+    <div class="ov-sec" style="margin-top:8px">
+      <div class="ov-lbl">
         <h2>Rate of Urbanisation</h2>
-        <div class="divider-line"></div>
-        <button class="tag tag-blue" onclick="showPage('urban', document.querySelectorAll('.nav-item')[4])" style="cursor:pointer;border:none;font-family:inherit;">View Map →</button>
+        <div class="divline"></div>
+        <button class="tag tb" onclick="showPage('urban')">View Map →</button>
       </div>
-
-      <div class="grid-3">
-        <div class="card">
-          <div class="kpi-label" style="margin-bottom:8px;">National Urbanisation Rate</div>
-          <div class="kpi-value" style="color:var(--blue)">~57%</div>
-          <div class="kpi-sub" style="margin-top:6px;">Share of Ghana's population in urban areas (2021 Census)</div>
-        </div>
-        <div class="card">
-          <div class="kpi-label" style="margin-bottom:8px;">Most Urbanised Region</div>
-          <div class="kpi-value" style="font-size:20px;color:var(--gold)">Greater Accra</div>
-          <div class="kpi-sub" style="margin-top:6px;">Over 90% urban population — economic hub of Ghana</div>
-        </div>
-        <div class="card">
-          <div class="kpi-label" style="margin-bottom:8px;">Urbanisation & Development</div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
-            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)"><span style="font-size:16px">🏗️</span> Drives infrastructure investment demand</div>
-            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)"><span style="font-size:16px">💼</span> Concentrates employment & commerce</div>
+      <div class="g3">
+        <div class="card"><div class="kpi-lbl" style="margin-bottom:8px">National Urbanisation Rate</div><div class="kpi-val" style="color:var(--blue)">~57%</div><div class="kpi-sub" style="margin-top:6px">Share of Ghana's population in urban areas (2021 PHC)</div></div>
+        <div class="card"><div class="kpi-lbl" style="margin-bottom:8px">Most Urbanised Region</div><div class="kpi-val" style="font-size:20px;color:var(--gold)">Greater Accra</div><div class="kpi-sub" style="margin-top:6px">Over 90% urban — economic hub of Ghana</div></div>
+        <div class="card"><div class="kpi-lbl" style="margin-bottom:8px">Why It Matters</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)"><span style="font-size:16px">🏗️</span> Drives infrastructure investment</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)"><span style="font-size:16px">💼</span> Concentrates employment and commerce</div>
             <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)"><span style="font-size:16px">📋</span> Shapes MMDA service delivery planning</div>
             <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)"><span style="font-size:16px">📈</span> Affects district IGF revenue generation</div>
           </div>
@@ -1453,55 +514,31 @@ body {
       </div>
     </div>
 
-    <!-- ─── REGIONAL LEADERS ─── -->
-    <div class="overview-section" style="margin-top:8px;">
-      <div class="overview-label">
-        <h2>PFM Regional Leaders 2024</h2>
-        <div class="divider-line"></div>
-        <span class="tag tag-green">Top MMDA per Region</span>
-      </div>
-      <div class="card" style="padding:18px 20px;">
-        <div class="regional-grid" id="regionalGrid"></div>
-      </div>
+    <!-- REGIONAL LEADERS -->
+    <div class="ov-sec" style="margin-top:8px">
+      <div class="ov-lbl"><h2>PFM Regional Leaders 2024</h2><div class="divline"></div><span class="tag tg">Top MMDA per Region</span></div>
+      <div class="card" style="padding:18px 20px"><div class="reg-grid" id="regionalGrid"></div></div>
     </div>
 
   </div><!-- /page-dashboard -->
 
 
-  <!-- ╔══════════════════════════════════════════════╗
-       ║  PAGE: PFM LEAGUE TABLE                     ║
-       ╚══════════════════════════════════════════════╝ -->
+  <!-- ═══ PFM PAGE ══════════════════════════════════════════════ -->
   <div id="page-pfm" class="page">
 
-    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
-      <div class="kpi-card green">
-        <div class="kpi-top"><div><div class="kpi-label">MMDAs Ranked</div><div class="kpi-value">261</div></div><div class="kpi-icon-wrap">🏛️</div></div>
-        <div class="kpi-sub">All metropolitan, municipal & district assemblies</div>
-      </div>
-      <div class="kpi-card gold">
-        <div class="kpi-top"><div><div class="kpi-label">Highest Score</div><div class="kpi-value">57.5%</div></div><div class="kpi-icon-wrap">🥇</div></div>
-        <div class="kpi-sub">La Dade Kotopon MA — Greater Accra</div>
-      </div>
-      <div class="kpi-card red">
-        <div class="kpi-top"><div><div class="kpi-label">Scored Zero</div><div class="kpi-value">3</div></div><div class="kpi-icon-wrap">⚠️</div></div>
-        <div class="kpi-sub">MMDAs with 0% PFM compliance score</div>
-      </div>
-      <div class="kpi-card blue">
-        <div class="kpi-top"><div><div class="kpi-label">Biggest Jump</div><div class="kpi-value">+252</div></div><div class="kpi-icon-wrap">🚀</div></div>
-        <div class="kpi-sub">Suame MA — Ashanti Region</div>
-      </div>
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi-card kgreen"><div class="kpi-top"><div><div class="kpi-lbl">MMDAs Ranked</div><div class="kpi-val">261</div></div><div class="kpi-ico">🏛️</div></div><div class="kpi-sub">All MMDAs nationally</div></div>
+      <div class="kpi-card kgold"><div class="kpi-top"><div><div class="kpi-lbl">Highest Score</div><div class="kpi-val">57.5%</div></div><div class="kpi-ico">🥇</div></div><div class="kpi-sub">La Dade Kotopon MA</div></div>
+      <div class="kpi-card kred"><div class="kpi-top"><div><div class="kpi-lbl">Scored Zero</div><div class="kpi-val">3</div></div><div class="kpi-ico">⚠️</div></div><div class="kpi-sub">MMDAs with 0% compliance</div></div>
+      <div class="kpi-card kblue"><div class="kpi-top"><div><div class="kpi-lbl">Biggest Jump</div><div class="kpi-val">+252</div></div><div class="kpi-ico">🚀</div></div><div class="kpi-sub">Suame MA — Ashanti</div></div>
     </div>
 
-    <div class="card" style="margin-bottom:16px;">
-      <div class="section-heading">
-        <div>
-          <div class="section-title">📋 Full PFM Compliance League Table — 2024 National Rankings</div>
-          <div class="section-sub">Public Financial Management Compliance · All 261 MMDAs · Source: GIFMIS</div>
-        </div>
-        <span class="tag tag-gold" id="row-count">261 districts</span>
+    <div class="card gfull">
+      <div class="sec-hd">
+        <div><div class="sec-title">📋 PFM Compliance League Table — 2024 National Rankings</div><div class="sec-sub">All 261 MMDAs · Source: GIFMIS</div></div>
+        <span class="tag tb" id="pfm-count">261 districts</span>
       </div>
-
-      <div class="region-tabs" id="regionTabs">
+      <div class="rtabs">
         <button class="rtab active" onclick="filterRegion('all',this)">All Regions</button>
         <button class="rtab" onclick="filterRegion('Greater Accra',this)">Greater Accra</button>
         <button class="rtab" onclick="filterRegion('Ashanti',this)">Ashanti</button>
@@ -1514,109 +551,67 @@ body {
         <button class="rtab" onclick="filterRegion('Upper East',this)">Upper East</button>
         <button class="rtab" onclick="filterRegion('Oti',this)">Oti</button>
       </div>
-
-      <div class="table-controls">
-        <input type="text" class="tbl-search" placeholder="Search district or region…" id="tableSearch" oninput="filterTable()">
+      <div class="tbl-controls">
+        <input class="tbl-search" type="text" id="pfm-search" placeholder="Search district or region…" oninput="filterPfm()">
       </div>
-
       <div class="tbl-wrap">
-        <table class="data-table" id="leagueTable">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>District / MMDA</th>
-              <th>Region</th>
-              <th>Score 2024</th>
-              <th>Rank 2023</th>
-              <th>Change</th>
-            </tr>
-          </thead>
-          <tbody id="leagueTableBody"></tbody>
+        <table class="dtbl">
+          <thead><tr><th>Rank</th><th>District / MMDA</th><th>Region</th><th>Score 2024</th><th>Rank 2023</th><th>Change</th></tr></thead>
+          <tbody id="pfm-tbody"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- Regional Leaders on PFM page too -->
     <div class="card">
-      <div class="section-heading">
-        <div><div class="section-title">🗺️ Regional Leaders 2024</div><div class="section-sub">Top-ranked MMDA in each of Ghana's 16 regions</div></div>
-      </div>
-      <div class="regional-grid" id="regionalGridPfm"></div>
+      <div class="sec-hd"><div><div class="sec-title">🗺️ Regional Leaders 2024</div><div class="sec-sub">Top-ranked MMDA in each of Ghana's 16 regions</div></div></div>
+      <div class="reg-grid" id="regionalGridPfm"></div>
     </div>
 
   </div><!-- /page-pfm -->
 
 
-  <!-- ╔══════════════════════════════════════════════╗
-       ║  PAGE: LGS PERFORMANCE 2023                 ║
-       ╚══════════════════════════════════════════════╝ -->
+  <!-- ═══ LGS PAGE ══════════════════════════════════════════════ -->
   <div id="page-lgs" class="page">
 
-    <div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:20px;">
-      <div class="kpi-card gold"><div class="kpi-top"><div><div class="kpi-label">Excellent</div><div class="kpi-value">9</div></div><div class="kpi-icon-wrap">⭐</div></div><div class="kpi-sub">80–100%</div></div>
-      <div class="kpi-card blue"><div class="kpi-top"><div><div class="kpi-label">Very Good</div><div class="kpi-value">38</div></div><div class="kpi-icon-wrap">✨</div></div><div class="kpi-sub">70–79%</div></div>
-      <div class="kpi-card green"><div class="kpi-top"><div><div class="kpi-label">Good</div><div class="kpi-value">71</div></div><div class="kpi-icon-wrap">✅</div></div><div class="kpi-sub">60–69%</div></div>
-      <div class="kpi-card teal"><div class="kpi-top"><div><div class="kpi-label">Satisfactory</div><div class="kpi-value">79</div></div><div class="kpi-icon-wrap">🔶</div></div><div class="kpi-sub">50–59%</div></div>
-      <div class="kpi-card red"><div class="kpi-top"><div><div class="kpi-label">Unsatisfactory</div><div class="kpi-value">64</div></div><div class="kpi-icon-wrap">⚠️</div></div><div class="kpi-sub">Below 50%</div></div>
+    <div class="kpi-grid" style="grid-template-columns:repeat(5,1fr)">
+      <div class="kpi-card kgold"><div class="kpi-top"><div><div class="kpi-lbl">Excellent</div><div class="kpi-val">9</div></div><div class="kpi-ico">⭐</div></div><div class="kpi-sub">80–100%</div></div>
+      <div class="kpi-card kblue"><div class="kpi-top"><div><div class="kpi-lbl">Very Good</div><div class="kpi-val">38</div></div><div class="kpi-ico">✨</div></div><div class="kpi-sub">70–79%</div></div>
+      <div class="kpi-card kgreen"><div class="kpi-top"><div><div class="kpi-lbl">Good</div><div class="kpi-val">71</div></div><div class="kpi-ico">✅</div></div><div class="kpi-sub">60–69%</div></div>
+      <div class="kpi-card kteal"><div class="kpi-top"><div><div class="kpi-lbl">Satisfactory</div><div class="kpi-val">79</div></div><div class="kpi-ico">🔶</div></div><div class="kpi-sub">50–59%</div></div>
+      <div class="kpi-card kred"><div class="kpi-top"><div><div class="kpi-lbl">Unsatisfactory</div><div class="kpi-val">64</div></div><div class="kpi-ico">⚠️</div></div><div class="kpi-sub">Below 50%</div></div>
     </div>
 
-    <div class="grid-2" style="margin-bottom:16px;">
-      <!-- RCC Rankings -->
+    <div class="g2">
       <div class="card">
-        <div class="section-heading">
-          <div><div class="section-title">🏆 RCC Performance Rankings</div><div class="section-sub">All 16 Regional Coordinating Councils — 2023</div></div>
-          <span class="tag tag-gold">LGS 2023</span>
-        </div>
+        <div class="sec-hd"><div><div class="sec-title">🏆 RCC Performance Rankings</div><div class="sec-sub">All 16 Regional Coordinating Councils</div></div><span class="tag td">LGS 2023</span></div>
         <div class="rcc-grid" id="rccGrid"></div>
       </div>
-      <!-- Regional Heatmap -->
       <div class="card">
-        <div class="section-heading">
-          <div><div class="section-title">📊 MMDA Ratings by Region</div><div class="section-sub">Distribution of performance ratings</div></div>
+        <div class="sec-hd"><div><div class="sec-title">📊 MMDA Ratings by Region</div><div class="sec-sub">Distribution of performance ratings</div></div></div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+          <span class="tag td">● Excellent</span><span class="tag tb">● Very Good</span><span class="tag tg">● Good</span><span class="tag tt">● Satisfactory</span><span class="tag tr">● Unsatisfactory</span>
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
-          <span class="tag tag-gold">● Excellent</span>
-          <span class="tag tag-blue">● Very Good</span>
-          <span class="tag tag-green">● Good</span>
-          <span class="tag tag-teal">● Satisfactory</span>
-          <span class="tag tag-red">● Unsatisfactory</span>
-        </div>
-        <div class="heatmap-grid" id="lgsHeatmap"></div>
+        <div class="hm-grid" id="lgsHeatmap"></div>
       </div>
     </div>
 
-    <!-- Full LGS table -->
-    <div class="card">
-      <div class="section-heading">
-        <div><div class="section-title">📋 LGS MMDA Performance Rankings — 2023</div><div class="section-sub">All 261 MMDAs · Local Government Service</div></div>
-        <span class="tag tag-blue" id="lgs-row-count">261 MMDAs</span>
+    <div class="card gfull">
+      <div class="sec-hd"><div><div class="sec-title">📋 LGS MMDA Rankings — 2023</div><div class="sec-sub">All 261 MMDAs · Local Government Service</div></div><span class="tag tb" id="lgs-count">261 MMDAs</span></div>
+      <div class="ltabs">
+        <button class="ltab active" onclick="filterLgs('all',this)">All Ratings</button>
+        <button class="ltab" onclick="filterLgs('Excellent',this)">⭐ Excellent</button>
+        <button class="ltab" onclick="filterLgs('Very Good',this)">✨ Very Good</button>
+        <button class="ltab" onclick="filterLgs('Good',this)">✅ Good</button>
+        <button class="ltab" onclick="filterLgs('Satisfactory',this)">🔶 Satisfactory</button>
+        <button class="ltab" onclick="filterLgs('Unsatisfactory',this)">⚠️ Unsatisfactory</button>
       </div>
-
-      <div class="lgs-tabs" id="lgsTabs">
-        <button class="ltab active" onclick="filterLgsRating('all',this)">All Ratings</button>
-        <button class="ltab" onclick="filterLgsRating('Excellent',this)">⭐ Excellent</button>
-        <button class="ltab" onclick="filterLgsRating('Very Good',this)">✨ Very Good</button>
-        <button class="ltab" onclick="filterLgsRating('Good',this)">✅ Good</button>
-        <button class="ltab" onclick="filterLgsRating('Satisfactory',this)">🔶 Satisfactory</button>
-        <button class="ltab" onclick="filterLgsRating('Unsatisfactory',this)">⚠️ Unsatisfactory</button>
+      <div class="tbl-controls">
+        <input class="tbl-search" type="text" id="lgs-search" placeholder="Search MMDA or region…" oninput="filterLgs(currentLgsRating, document.querySelector('.ltab.active'))">
       </div>
-
-      <div class="table-controls">
-        <input type="text" class="tbl-search" placeholder="Search MMDA name or region…" id="lgsSearch" oninput="filterLgsTable()">
-      </div>
-
       <div class="tbl-wrap">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>MMDA Name</th>
-              <th>Region</th>
-              <th>Score</th>
-              <th>Rating</th>
-            </tr>
-          </thead>
-          <tbody id="lgsTableBody"></tbody>
+        <table class="dtbl">
+          <thead><tr><th>Rank</th><th>MMDA Name</th><th>Region</th><th>Score</th><th>Rating</th></tr></thead>
+          <tbody id="lgs-tbody"></tbody>
         </table>
       </div>
     </div>
@@ -1624,133 +619,107 @@ body {
   </div><!-- /page-lgs -->
 
 
-  <!-- ╔══════════════════════════════════════════════╗
-       ║  PAGE: MPI                                  ║
-       ╚══════════════════════════════════════════════╝ -->
+  <!-- ═══ MPI PAGE ══════════════════════════════════════════════ -->
   <div id="page-mpi" class="page">
-
     <div class="embed-hero">
-      <div class="embed-hero-eyebrow">Ghana Statistical Service · 2021 MICS</div>
-      <div class="embed-hero-title">Multidimensional Poverty Index</div>
-      <div class="embed-hero-desc">The MPI measures non-monetary poverty across four key dimensions: living conditions, education, health, and employment. It reveals deprivation that income data alone cannot capture, giving a fuller picture of wellbeing across PAIReD districts.</div>
-      <div class="embed-meta-strip">
+      <div class="embed-eyebrow">Ghana Statistical Service · 2021 MICS</div>
+      <div class="embed-title">Multidimensional Poverty Index</div>
+      <div class="embed-desc">The MPI measures non-monetary poverty across four key dimensions: living conditions, education, health, and employment — giving a fuller picture of wellbeing across PAIReD districts.</div>
+      <div class="embed-strip">
         <span class="embed-chip">📍 60 PAIReD MMDAs</span>
         <span class="embed-chip">4 Dimensions</span>
         <span class="embed-chip">🗓️ 2021 Data</span>
         <span class="embed-chip">Source: GSS</span>
       </div>
     </div>
-
-    <div class="embed-frame-wrap" style="margin-bottom:16px;">
-      <div class="embed-loader" id="mpi-loader">
-        <div class="spinner"></div>
-        <span style="font-size:13px;color:var(--ink3)">Loading chart…</span>
-      </div>
-      <iframe src="https://datawrapper.dwcdn.net/qPfYY/1/" style="width:100%;min-height:680px;" title="MPI Chart" onload="this.previousElementSibling.classList.add('gone')"></iframe>
+    <div class="embed-frame">
+      <div class="embed-loader" id="mpi-loader"><div class="spinner"></div><span style="font-size:13px;color:var(--ink3)">Loading chart…</span></div>
+      <iframe src="https://datawrapper.dwcdn.net/qPfYY/1/" style="width:100%;min-height:680px" title="MPI" onload="document.getElementById('mpi-loader').classList.add('gone')"></iframe>
     </div>
-
-    <div class="embed-two-col">
+    <div class="e2col">
       <div class="info-card">
-        <div class="info-card-title">MPI Dimensions</div>
+        <div class="ic-title">MPI Dimensions</div>
         <div class="dim-list">
-          <div class="dim-item"><div class="dim-dot" style="background:var(--blue)"></div><div><div class="dim-name">Living Conditions</div><div class="dim-desc">Housing quality, clean water access, sanitation and energy</div></div></div>
-          <div class="dim-item"><div class="dim-dot" style="background:var(--green)"></div><div><div class="dim-name">Education</div><div class="dim-desc">School attendance and attainment levels</div></div></div>
-          <div class="dim-item"><div class="dim-dot" style="background:var(--gold)"></div><div><div class="dim-name">Health</div><div class="dim-desc">Nutrition, child mortality and antenatal care access</div></div></div>
-          <div class="dim-item"><div class="dim-dot" style="background:var(--purple)"></div><div><div class="dim-name">Employment</div><div class="dim-desc">Income quality and labour market access</div></div></div>
+          <div class="dim-item"><div class="dim-dot" style="background:var(--blue)"></div><div><div class="dim-nm">Living Conditions</div><div class="dim-ds">Housing quality, clean water, sanitation and energy</div></div></div>
+          <div class="dim-item"><div class="dim-dot" style="background:var(--green)"></div><div><div class="dim-nm">Education</div><div class="dim-ds">School attendance and attainment levels</div></div></div>
+          <div class="dim-item"><div class="dim-dot" style="background:var(--gold)"></div><div><div class="dim-nm">Health</div><div class="dim-ds">Nutrition, child mortality and antenatal care</div></div></div>
+          <div class="dim-item"><div class="dim-dot" style="background:var(--purple)"></div><div><div class="dim-nm">Employment</div><div class="dim-ds">Income quality and labour market access</div></div></div>
         </div>
       </div>
       <div class="info-card">
-        <div class="info-card-title">PAIReD MPI Snapshot</div>
-        <div class="info-stat-block">
-          <div class="info-stat-item"><div class="info-stat-val" style="color:var(--red)">34</div><div class="info-stat-desc">MMDAs below the national MPI threshold</div></div>
-          <div style="height:1px;background:var(--border)"></div>
-          <div class="info-stat-item"><div class="info-stat-val" style="color:var(--blue)">50.6%</div><div class="info-stat-desc">Female population share across PAIReD districts</div></div>
-          <div style="height:1px;background:var(--border)"></div>
-          <div class="info-stat-item"><div class="info-stat-val" style="color:var(--green)">7.4M</div><div class="info-stat-desc">Total population across all 60 PAIReD MMDAs</div></div>
+        <div class="ic-title">PAIReD MPI Snapshot</div>
+        <div class="stat-list">
+          <div class="stat-item"><div class="stat-val" style="color:var(--red)">34</div><div class="stat-ds">MMDAs below the national MPI threshold</div></div>
+          <div class="hr"></div>
+          <div class="stat-item"><div class="stat-val" style="color:var(--blue)">50.6%</div><div class="stat-ds">Female population share across PAIReD districts</div></div>
+          <div class="hr"></div>
+          <div class="stat-item"><div class="stat-val" style="color:var(--green)">7.4M</div><div class="stat-ds">Total population across all 60 PAIReD MMDAs</div></div>
         </div>
       </div>
     </div>
-
   </div><!-- /page-mpi -->
 
 
-  <!-- ╔══════════════════════════════════════════════╗
-       ║  PAGE: URBANISATION                         ║
-       ╚══════════════════════════════════════════════╝ -->
+  <!-- ═══ URBAN PAGE ════════════════════════════════════════════ -->
   <div id="page-urban" class="page">
-
-    <div class="embed-hero" style="background:linear-gradient(135deg, #063A1E 0%, #0E5C2F 100%);">
-      <div class="embed-hero-eyebrow">Ghana Statistical Service · 2021 Population & Housing Census</div>
-      <div class="embed-hero-title">Rate of Urbanisation</div>
-      <div class="embed-hero-desc">Urbanisation patterns across PAIReD partner districts. The proportion of the population in urban settlements affects economic activity, service delivery demands, and infrastructure investment priorities for district assemblies.</div>
-      <div class="embed-meta-strip">
+    <div class="embed-hero" style="background:linear-gradient(135deg,#063A1E,#0E5C2F)">
+      <div class="embed-eyebrow">Ghana Statistical Service · 2021 Population &amp; Housing Census</div>
+      <div class="embed-title">Rate of Urbanisation</div>
+      <div class="embed-desc">Urbanisation patterns across PAIReD partner districts. The proportion of population in urban settlements affects economic activity, service delivery and infrastructure investment priorities.</div>
+      <div class="embed-strip">
         <span class="embed-chip">📍 60 PAIReD MMDAs</span>
         <span class="embed-chip">🗺️ Interactive Map</span>
         <span class="embed-chip">🗓️ 2021 PHC</span>
       </div>
     </div>
-
-    <div class="embed-frame-wrap" style="margin-bottom:16px;">
-      <div class="embed-loader" id="urban-loader">
-        <div class="spinner"></div>
-        <span style="font-size:13px;color:var(--ink3)">Loading map…</span>
-      </div>
-      <iframe src="https://datawrapper.dwcdn.net/1bNV3/1/" style="width:100%;min-height:560px;" title="Urbanisation Map" onload="this.previousElementSibling.classList.add('gone')"></iframe>
+    <div class="embed-frame">
+      <div class="embed-loader" id="urban-loader"><div class="spinner"></div><span style="font-size:13px;color:var(--ink3)">Loading map…</span></div>
+      <iframe src="https://datawrapper.dwcdn.net/1bNV3/1/" style="width:100%;min-height:560px" title="Urbanisation Map" onload="document.getElementById('urban-loader').classList.add('gone')"></iframe>
     </div>
-
-    <div class="embed-two-col">
+    <div class="e2col">
       <div class="info-card">
-        <div class="info-card-title">Key Urbanisation Statistics</div>
-        <div class="info-stat-block">
-          <div class="info-stat-item"><div class="info-stat-val" style="color:var(--blue)">~57%</div><div class="info-stat-desc">Ghana's national urbanisation rate (2021 Census)</div></div>
-          <div style="height:1px;background:var(--border)"></div>
-          <div class="info-stat-item"><div class="info-stat-val" style="color:var(--gold);font-size:18px">Greater Accra</div><div class="info-stat-desc">Most urbanised — over 90% urban population</div></div>
-          <div style="height:1px;background:var(--border)"></div>
-          <div class="info-stat-item"><div class="info-stat-val" style="color:var(--green);font-size:18px">Upper East</div><div class="info-stat-desc">Least urbanised PAIReD region — predominantly rural</div></div>
+        <div class="ic-title">Key Statistics</div>
+        <div class="stat-list">
+          <div class="stat-item"><div class="stat-val" style="color:var(--blue)">~57%</div><div class="stat-ds">Ghana's national urbanisation rate (2021 Census)</div></div>
+          <div class="hr"></div>
+          <div class="stat-item"><div class="stat-val" style="color:var(--gold);font-size:18px">Greater Accra</div><div class="stat-ds">Most urbanised — over 90% urban population</div></div>
+          <div class="hr"></div>
+          <div class="stat-item"><div class="stat-val" style="color:var(--green);font-size:18px">Upper East</div><div class="stat-ds">Least urbanised PAIReD region</div></div>
         </div>
       </div>
       <div class="info-card">
-        <div class="info-card-title">Why Urbanisation Matters for MMDAs</div>
+        <div class="ic-title">Why Urbanisation Matters for MMDAs</div>
         <div class="why-list">
-          <div class="why-item"><div class="why-icon">🏗️</div><div><div class="why-title">Infrastructure Demand</div><div class="why-desc">Higher urbanisation drives need for roads, water, sanitation networks</div></div></div>
-          <div class="why-item"><div class="why-icon">💼</div><div><div class="why-title">Economic Activity</div><div class="why-desc">Urban centres concentrate employment and commercial activity</div></div></div>
-          <div class="why-item"><div class="why-icon">📋</div><div><div class="why-title">Service Delivery Planning</div><div class="why-desc">MMDAs calibrate services to their urban/rural population mix</div></div></div>
-          <div class="why-item"><div class="why-icon">📈</div><div><div class="why-title">Revenue Generation</div><div class="why-desc">Urban areas generate higher IGF for district assemblies</div></div></div>
+          <div class="why-item"><div class="why-ico">🏗️</div><div><div class="why-nm">Infrastructure Demand</div><div class="why-ds">Higher urbanisation drives roads, water and sanitation needs</div></div></div>
+          <div class="why-item"><div class="why-ico">💼</div><div><div class="why-nm">Economic Activity</div><div class="why-ds">Urban centres concentrate employment and commerce</div></div></div>
+          <div class="why-item"><div class="why-ico">📋</div><div><div class="why-nm">Service Delivery</div><div class="why-ds">MMDAs calibrate services to their urban/rural mix</div></div></div>
+          <div class="why-item"><div class="why-ico">📈</div><div><div class="why-nm">Revenue Generation</div><div class="why-ds">Urban areas generate higher IGF for assemblies</div></div></div>
         </div>
       </div>
     </div>
-
   </div><!-- /page-urban -->
 
   </div><!-- /content -->
 
-  <footer class="page-footer" style="margin-left:var(--sidebar-w)">
+  <footer class="pg-footer">
     <div>Designed by John, Mavis &amp; Araba · PAIReD Partners Ghana · Data: 2024 PFMCLT &amp; LGS 2023</div>
-    <div class="footer-links">
-      <a href="#">Terms</a>
-      <a href="#">Privacy</a>
-      <a href="#">Contact</a>
-    </div>
+    <div class="ft-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Contact</a></div>
   </footer>
-
 </div><!-- /main -->
 
 <script>
-// ── PAGE NAVIGATION ──────────────────────────────────────────────────────
-const pageMeta = {
-  dashboard: 'Dashboard',
-  pfm:       'PFM League Table 2024',
-  lgs:       'LGS Performance 2023',
-  mpi:       'Multidimensional Poverty Index',
-  urban:     'Rate of Urbanisation',
-};
+// ── NAVIGATION ─────────────────────────────────────────────────────────────
+const PAGE_TITLES = {dashboard:'Dashboard',pfm:'PFM League Table 2024',lgs:'LGS Performance 2023',mpi:'Poverty Index (MPI)',urban:'Rate of Urbanisation'};
 
-function showPage(id, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  document.getElementById('page-title').textContent = pageMeta[id] || 'Dashboard';
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var el = document.getElementById('page-' + id);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  var nb = document.getElementById('nb-' + id);
+  if (nb) nb.classList.add('active');
+  var pt = document.getElementById('page-title');
+  if (pt) pt.textContent = PAGE_TITLES[id] || id;
   window.scrollTo(0, 0);
   closeSidebar();
 }
@@ -1759,228 +728,144 @@ function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('overlay').classList.toggle('show');
 }
-
 function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('overlay').classList.remove('show');
 }
 
-// ── SCORE COLOURS ────────────────────────────────────────────────────────
-function scoreColor(score) {
-  if (score >= 50) return '#D4940A';
-  if (score >= 40) return '#1A56A0';
-  if (score >= 30) return '#006B3F';
-  if (score >= 20) return '#0E7490';
-  return '#C0392B';
+// ── HELPERS ─────────────────────────────────────────────────────────────────
+function scoreColor(s){ if(s>=50) return '#D4940A'; if(s>=40) return '#1A56A0'; if(s>=30) return '#006B3F'; if(s>=20) return '#0E7490'; return '#C0392B'; }
+function lgsColor(s){ if(s>=80) return '#D4940A'; if(s>=70) return '#1A56A0'; if(s>=60) return '#006B3F'; if(s>=50) return '#0E7490'; return '#C0392B'; }
+function lgsRtgClass(r){ return {Excellent:'rtg-ex','Very Good':'rtg-vg',Good:'rtg-gd',Satisfactory:'rtg-sf',Unsatisfactory:'rtg-un'}[r]||''; }
+function rankBadge(n){ if(n===1) return 'rb1'; if(n===2) return 'rb2'; if(n===3) return 'rb3'; if(n<=10) return 'rbt'; return 'rbn'; }
+function chgEl(r24,r23){
+  if(!r23||r23===0) return '<span class="chg chn">New</span>';
+  var d=r23-r24;
+  if(d>0) return '<span class="chg chu">▲ '+d+'</span>';
+  if(d<0) return '<span class="chg chd">▼ '+Math.abs(d)+'</span>';
+  return '<span class="chg chs">—</span>';
 }
 
-function lgsScoreColor(s) {
-  if (s >= 80) return '#D4940A';
-  if (s >= 70) return '#1A56A0';
-  if (s >= 60) return '#006B3F';
-  if (s >= 50) return '#0E7490';
-  return '#C0392B';
-}
+const regFullName = {ER:"Eastern",GAR:"Greater Accra",VR:"Volta",WR:"Western",AHR:"Ahafo",CR:"Central",UER:"Upper East",AR:"Ashanti",OR:"Oti",BER:"Bono East",UWR:"Upper West",BR:"Bono",WNR:"Western North",SR:"Savannah",NR:"Northern",NER:"North East"};
 
-function lgsRatingClass(r) {
-  return {
-    'Excellent':'rt-excellent','Very Good':'rt-verygood',
-    'Good':'rt-good','Satisfactory':'rt-satisfactory',
-    'Unsatisfactory':'rt-unsatisfactory'
-  }[r] || '';
-}
+// ── PFM TABLE ────────────────────────────────────────────────────────────────
+var currentRegion = 'all';
 
-function getRankBadgeClass(rank) {
-  if (rank===1) return 'rb-1';
-  if (rank===2) return 'rb-2';
-  if (rank===3) return 'rb-3';
-  if (rank<=10) return 'rb-top';
-  return 'rb-n';
-}
-
-function getRankChangeEl(r24, r23) {
-  if (!r23 || r23===0) return '<span class="chg chg-new">New</span>';
-  const d = r23 - r24;
-  if (d > 0) return `<span class="chg chg-up">▲ ${d}</span>`;
-  if (d < 0) return `<span class="chg chg-down">▼ ${Math.abs(d)}</span>`;
-  return '<span class="chg chg-same">—</span>';
-}
-
-// ── PFM TABLE ────────────────────────────────────────────────────────────
-let currentRegion = 'all';
-
-function renderTable(data) {
-  const tbody = document.getElementById('leagueTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = data.map(d => {
-    const c = scoreColor(d.score);
-    const pct = d.score === 0 ? 0 : (d.score / 60 * 100).toFixed(1);
-    return `<tr>
-      <td><span class="rank-badge ${getRankBadgeClass(d.rank)}">${d.rank}</span></td>
-      <td><div class="mmda-name-cell">${d.name}</div></td>
-      <td class="region-cell">${d.region}</td>
-      <td>
-        <div class="score-bar-wrap">
-          <div class="score-bar-bg"><div class="score-bar-fill" style="width:${pct}%;background:${c}"></div></div>
-          <div class="score-val" style="color:${c}">${d.score}%</div>
-        </div>
-      </td>
-      <td style="color:var(--ink3);font-size:12px">${d.rank2023||'—'}</td>
-      <td>${getRankChangeEl(d.rank, d.rank2023)}</td>
-    </tr>`;
+function renderPfm(data){
+  var b=document.getElementById('pfm-tbody');
+  if(!b) return;
+  b.innerHTML = data.map(function(d){
+    var c=scoreColor(d.score), p=(d.score/60*100).toFixed(1);
+    return '<tr><td><span class="rb '+rankBadge(d.rank)+'">'+d.rank+'</span></td>'+
+      '<td><div class="dn">'+d.name+'</div></td>'+
+      '<td class="dr">'+d.region+'</td>'+
+      '<td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+p+'%;background:'+c+'"></div></div><div class="bar-val" style="color:'+c+'">'+d.score+'%</div></div></td>'+
+      '<td class="dr">'+( d.rank2023||'—')+'</td>'+
+      '<td>'+chgEl(d.rank,d.rank2023)+'</td></tr>';
   }).join('');
-  const cnt = document.getElementById('row-count');
-  if (cnt) cnt.textContent = `${data.length} districts`;
+  var cnt=document.getElementById('pfm-count');
+  if(cnt) cnt.textContent=data.length+' districts';
 }
 
-function filterTable() {
-  const gs = (document.getElementById('globalSearch')?.value||'').toLowerCase();
-  const ts = (document.getElementById('tableSearch')?.value||'').toLowerCase();
-  const q = gs || ts;
-  let f = pfmData;
-  if (currentRegion !== 'all') f = f.filter(d => d.region.toLowerCase().includes(currentRegion.toLowerCase()));
-  if (q) f = f.filter(d => d.name.toLowerCase().includes(q) || d.region.toLowerCase().includes(q));
-  renderTable(f);
+function filterPfm(){
+  var q=(document.getElementById('pfm-search')||{value:''}).value.toLowerCase();
+  var f=pfmData;
+  if(currentRegion!=='all') f=f.filter(function(d){ return d.region.toLowerCase().indexOf(currentRegion.toLowerCase())>-1; });
+  if(q) f=f.filter(function(d){ return d.name.toLowerCase().indexOf(q)>-1||d.region.toLowerCase().indexOf(q)>-1; });
+  renderPfm(f);
 }
 
-function filterRegion(region, btn) {
-  currentRegion = region;
-  document.querySelectorAll('.rtab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  filterTable();
+function filterRegion(r,btn){
+  currentRegion=r;
+  document.querySelectorAll('.rtab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  filterPfm();
 }
 
-// ── REGIONAL LEADERS ─────────────────────────────────────────────────────
-function renderRegionalGrid() {
-  ['regionalGrid','regionalGridPfm'].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.innerHTML = regionalLeaders.map(r => `
-      <div class="region-card">
-        <div class="region-name-tag">${r.region}</div>
-        <div class="region-leader-name">${r.leader}</div>
-        <div class="region-score-tag">${r.score}% <span>score</span></div>
-      </div>`).join('');
+// ── REGIONAL LEADERS ─────────────────────────────────────────────────────────
+function renderRegional(){
+  ['regionalGrid','regionalGridPfm'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    el.innerHTML=regionalLeaders.map(function(r){
+      return '<div class="reg-card"><div class="reg-rtag">'+r.region+'</div><div class="reg-name">'+r.leader+'</div><div class="reg-score">'+r.score+'% <span>score</span></div></div>';
+    }).join('');
   });
 }
 
-// ── LGS TABLE ────────────────────────────────────────────────────────────
-let lgsCurrentRating = 'all';
+// ── LGS TABLE ────────────────────────────────────────────────────────────────
+var currentLgsRating = 'all';
 
-const regFullName = {
-  ER:"Eastern",GAR:"Greater Accra",VR:"Volta",WR:"Western",AHR:"Ahafo",
-  CR:"Central",UER:"Upper East",AR:"Ashanti",OR:"Oti",BER:"Bono East",
-  UWR:"Upper West",BR:"Bono",WNR:"Western North",SR:"Savannah",
-  NR:"Northern",NER:"North East"
-};
-
-function renderLgsTable(data) {
-  const tbody = document.getElementById('lgsTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = data.map(d => {
-    const c = lgsScoreColor(d.score);
-    const regionFull = regFullName[d.reg] || d.reg;
-    const pct = d.score.toFixed(1);
-    return `<tr>
-      <td><span class="rank-badge rb-n">${d.pos}</span></td>
-      <td><div class="mmda-name-cell">${d.name}</div></td>
-      <td class="region-cell">${regionFull}</td>
-      <td>
-        <div class="score-bar-wrap">
-          <div class="score-bar-bg"><div class="score-bar-fill" style="width:${pct}%;background:${c}"></div></div>
-          <div class="score-val" style="color:${c}">${d.score}%</div>
-        </div>
-      </td>
-      <td><span class="rating-tag ${lgsRatingClass(d.rating)}">${d.rating}</span></td>
-    </tr>`;
+function renderLgs(data){
+  var b=document.getElementById('lgs-tbody');
+  if(!b) return;
+  b.innerHTML=data.map(function(d){
+    var c=lgsColor(d.score), rn=regFullName[d.reg]||d.reg;
+    return '<tr><td><span class="rb rbn">'+d.pos+'</span></td>'+
+      '<td><div class="dn">'+d.name+'</div></td>'+
+      '<td class="dr">'+rn+'</td>'+
+      '<td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+d.score.toFixed(1)+'%;background:'+c+'"></div></div><div class="bar-val" style="color:'+c+'">'+d.score+'%</div></div></td>'+
+      '<td><span class="rtg '+lgsRtgClass(d.rating)+'">'+d.rating+'</span></td></tr>';
   }).join('');
-  const cnt = document.getElementById('lgs-row-count');
-  if (cnt) cnt.textContent = `${data.length} MMDAs`;
+  var cnt=document.getElementById('lgs-count');
+  if(cnt) cnt.textContent=data.length+' MMDAs';
 }
 
-function filterLgsTable() {
-  const q = (document.getElementById('lgsSearch')?.value||'').toLowerCase();
-  let f = lgsData;
-  if (lgsCurrentRating !== 'all') f = f.filter(d => d.rating === lgsCurrentRating);
-  if (q) f = f.filter(d => d.name.toLowerCase().includes(q) || (regFullName[d.reg]||d.reg).toLowerCase().includes(q));
-  renderLgsTable(f);
+function filterLgs(rating, btn){
+  currentLgsRating=rating;
+  document.querySelectorAll('.ltab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  var q=(document.getElementById('lgs-search')||{value:''}).value.toLowerCase();
+  var f=lgsData;
+  if(rating!=='all') f=f.filter(function(d){ return d.rating===rating; });
+  if(q) f=f.filter(function(d){ return d.name.toLowerCase().indexOf(q)>-1||(regFullName[d.reg]||d.reg).toLowerCase().indexOf(q)>-1; });
+  renderLgs(f);
 }
 
-function filterLgsRating(rating, btn) {
-  lgsCurrentRating = rating;
-  document.querySelectorAll('.ltab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  filterLgsTable();
-}
-
-// ── RCC GRID ─────────────────────────────────────────────────────────────
-const rccData = [
-  {pos:1,name:"Volta",score:91.5,rating:"Excellent"},
-  {pos:2,name:"Greater Accra",score:90.4,rating:"Excellent"},
-  {pos:3,name:"Western",score:89.3,rating:"Excellent"},
-  {pos:4,name:"Ahafo",score:88.4,rating:"Excellent"},
-  {pos:5,name:"Eastern",score:86.2,rating:"Excellent"},
-  {pos:6,name:"Upper East",score:85.5,rating:"Excellent"},
-  {pos:7,name:"Central",score:84.5,rating:"Excellent"},
-  {pos:8,name:"Bono East",score:82.4,rating:"Excellent"},
-  {pos:9,name:"Oti",score:81.7,rating:"Excellent"},
-  {pos:10,name:"Savannah",score:81.4,rating:"Excellent"},
-  {pos:11,name:"Bono",score:73.1,rating:"Very Good"},
-  {pos:12,name:"Ashanti",score:62.5,rating:"Good"},
-  {pos:13,name:"Western North",score:60.5,rating:"Good"},
-  {pos:14,name:"Upper West",score:43.5,rating:"Unsatisfactory"},
-  {pos:15,name:"Northern",score:41.8,rating:"Unsatisfactory"},
-  {pos:16,name:"North East",score:33.2,rating:"Unsatisfactory"},
+// ── RCC GRID ─────────────────────────────────────────────────────────────────
+var rccData=[
+  {pos:1,name:"Volta",score:91.5,rating:"Excellent"},{pos:2,name:"Greater Accra",score:90.4,rating:"Excellent"},
+  {pos:3,name:"Western",score:89.3,rating:"Excellent"},{pos:4,name:"Ahafo",score:88.4,rating:"Excellent"},
+  {pos:5,name:"Eastern",score:86.2,rating:"Excellent"},{pos:6,name:"Upper East",score:85.5,rating:"Excellent"},
+  {pos:7,name:"Central",score:84.5,rating:"Excellent"},{pos:8,name:"Bono East",score:82.4,rating:"Excellent"},
+  {pos:9,name:"Oti",score:81.7,rating:"Excellent"},{pos:10,name:"Savannah",score:81.4,rating:"Excellent"},
+  {pos:11,name:"Bono",score:73.1,rating:"Very Good"},{pos:12,name:"Ashanti",score:62.5,rating:"Good"},
+  {pos:13,name:"Western North",score:60.5,rating:"Good"},{pos:14,name:"Upper West",score:43.5,rating:"Unsatisfactory"},
+  {pos:15,name:"Northern",score:41.8,rating:"Unsatisfactory"},{pos:16,name:"North East",score:33.2,rating:"Unsatisfactory"},
 ];
 
-function getRccClass(rating) {
-  return {Excellent:'rcc-ex','Very Good':'rcc-vg',Good:'rcc-gd',Unsatisfactory:'rcc-us'}[rating]||'';
-}
-
-function renderRccGrid() {
-  const el = document.getElementById('rccGrid');
-  if (!el) return;
-  el.innerHTML = rccData.map(r => {
-    const c = lgsScoreColor(r.score);
-    const cls = getRccClass(r.rating);
-    const rankCls = r.pos===1?'style="color:var(--gold)"':r.pos===2?'style="color:#6B7280"':r.pos===3?'style="color:#B45309"':'style="color:var(--ink3)"';
-    return `<div class="rcc-card ${cls}">
-      <div class="rcc-pos" ${rankCls}>${r.pos}</div>
-      <div class="rcc-info">
-        <div class="rcc-region">${r.name}</div>
-        <div class="rcc-rating">${r.rating}</div>
-      </div>
-      <div class="rcc-score-val" style="color:${c}">${r.score}%</div>
-    </div>`;
+function renderRcc(){
+  var el=document.getElementById('rccGrid');
+  if(!el) return;
+  var rccCls={Excellent:'rcc-ex','Very Good':'rcc-vg',Good:'rcc-gd',Unsatisfactory:'rcc-us'};
+  el.innerHTML=rccData.map(function(r){
+    var c=lgsColor(r.score);
+    var pCls=['style="color:var(--gold)"','style="color:#6B7280"','style="color:#B45309"'][r.pos-1]||'style="color:var(--ink3)"';
+    return '<div class="rcc-card '+( rccCls[r.rating]||'')+'">'+
+      '<div class="rcc-pos" '+pCls+'>'+r.pos+'</div>'+
+      '<div class="rcc-info"><div class="rcc-rn">'+r.name+'</div><div class="rcc-rt">'+r.rating+'</div></div>'+
+      '<div class="rcc-sc" style="color:'+c+'">'+r.score+'%</div></div>';
   }).join('');
 }
 
-// ── HEATMAP ───────────────────────────────────────────────────────────────
-function renderLgsHeatmap() {
-  const el = document.getElementById('lgsHeatmap');
-  if (!el) return;
-  el.innerHTML = lgsRegionData.map(r => {
-    const max = r.mmda;
-    const hE = r.excellent   ? Math.max((r.excellent/max*100),4)   : 0;
-    const hV = r.verygood    ? Math.max((r.verygood/max*100),4)    : 0;
-    const hG = r.good        ? Math.max((r.good/max*100),4)        : 0;
-    const hS = r.satisfactory? Math.max((r.satisfactory/max*100),4): 0;
-    const hU = r.unsatisfactory? Math.max((r.unsatisfactory/max*100),4): 0;
-    return `<div class="heatmap-cell">
-      <div class="hm-region">${r.region}</div>
-      <div class="hm-bars">
-        ${r.excellent?   `<div class="hm-bar" style="height:${hE}%;background:var(--gold)"   title="${r.excellent} Excellent"></div>`:''}
-        ${r.verygood?    `<div class="hm-bar" style="height:${hV}%;background:var(--blue)"   title="${r.verygood} Very Good"></div>`:''}
-        ${r.good?        `<div class="hm-bar" style="height:${hG}%;background:var(--green)"  title="${r.good} Good"></div>`:''}
-        ${r.satisfactory?`<div class="hm-bar" style="height:${hS}%;background:var(--teal)"  title="${r.satisfactory} Satisfactory"></div>`:''}
-        ${r.unsatisfactory?`<div class="hm-bar" style="height:${hU}%;background:var(--red)" title="${r.unsatisfactory} Unsatisfactory"></div>`:''}
-      </div>
-      <div class="hm-total">${r.mmda} MMDAs</div>
-    </div>`;
+// ── HEATMAP ───────────────────────────────────────────────────────────────────
+function renderHeatmap(){
+  var el=document.getElementById('lgsHeatmap');
+  if(!el) return;
+  var cols={excellent:'var(--gold)',verygood:'var(--blue)',good:'var(--green)',satisfactory:'var(--teal)',unsatisfactory:'var(--red)'};
+  el.innerHTML=lgsRegionData.map(function(r){
+    var max=r.mmda;
+    var bars=Object.keys(cols).map(function(k){
+      if(!r[k]) return '';
+      var h=Math.max((r[k]/max*100),4).toFixed(0);
+      return '<div class="hm-bar" style="height:'+h+'%;background:'+cols[k]+'" title="'+r[k]+' '+k+'"></div>';
+    }).join('');
+    return '<div class="hm-cell"><div class="hm-rn">'+r.region+'</div><div class="hm-bars">'+bars+'</div><div class="hm-tot">'+r.mmda+' MMDAs</div></div>';
   }).join('');
 }
 
-
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const pfmData = [
   {rank:1,name:"La Dade Kotopon Municipal Assembly",region:"Greater Accra",score:57.50,rank2023:2},
   {rank:2,name:"Kwadaso Municipal Assembly",region:"Ashanti",score:55.50,rank2023:29},
   {rank:3,name:"Kpando Municipal Assembly",region:"Volta",score:55.20,rank2023:243},
@@ -2263,12 +1148,295 @@ const regionalLeaders = [
   {region:"Western North",leader:"Sefwi Wiawso Municipal Assembly",score:31.03},
 ];
 
-// ── INIT ──────────────────────────────────────────────────────────────────
-renderTable(pfmData);
-renderRegionalGrid();
-renderLgsTable(lgsData);
-renderLgsHeatmap();
-renderRccGrid();
+const lgsData = [
+  {pos:1,reg:"ER",name:"Abuakwa South",score:87.25,rating:"Excellent"},
+  {pos:2,reg:"ER",name:"Atiwa East",score:85.38,rating:"Excellent"},
+  {pos:3,reg:"GAR",name:"Adentan",score:84.25,rating:"Excellent"},
+  {pos:4,reg:"VR",name:"North Dayi",score:82.75,rating:"Excellent"},
+  {pos:5,reg:"WR",name:"Mpohor",score:81.75,rating:"Excellent"},
+  {pos:6,reg:"AHR",name:"Asunafo North Municipal",score:81.38,rating:"Excellent"},
+  {pos:7,reg:"WR",name:"Sekondi Takoradi Metro",score:80.69,rating:"Excellent"},
+  {pos:8,reg:"ER",name:"West Akim",score:80.44,rating:"Excellent"},
+  {pos:9,reg:"WR",name:"Shama",score:80.13,rating:"Excellent"},
+  {pos:10,reg:"VR",name:"Ketu North",score:79.75,rating:"Very Good"},
+  {pos:11,reg:"ER",name:"New Juaben North",score:79.19,rating:"Very Good"},
+  {pos:12,reg:"CR",name:"Assin Fosu",score:79.00,rating:"Very Good"},
+  {pos:13,reg:"ER",name:"Achiase",score:78.94,rating:"Very Good"},
+  {pos:14,reg:"ER",name:"Kwahu West",score:78.44,rating:"Very Good"},
+  {pos:15,reg:"AHR",name:"Tano North",score:77.44,rating:"Very Good"},
+  {pos:16,reg:"GAR",name:"Tema West",score:77.06,rating:"Very Good"},
+  {pos:17,reg:"WR",name:"Wassa Amenfi West",score:76.94,rating:"Very Good"},
+  {pos:18,reg:"WR",name:"Effia Kwesimintsim",score:76.75,rating:"Very Good"},
+  {pos:19,reg:"VR",name:"Ketu South",score:76.56,rating:"Very Good"},
+  {pos:20,reg:"UER",name:"Bolgatanga",score:76.38,rating:"Very Good"},
+  {pos:21,reg:"CR",name:"Gomoa Central",score:76.31,rating:"Very Good"},
+  {pos:22,reg:"UER",name:"Kassena Nankana West",score:75.81,rating:"Very Good"},
+  {pos:23,reg:"GAR",name:"Kpone Katamanso",score:75.75,rating:"Very Good"},
+  {pos:24,reg:"GAR",name:"Krowor",score:75.31,rating:"Very Good"},
+  {pos:25,reg:"VR",name:"Ho West",score:75.25,rating:"Very Good"},
+  {pos:26,reg:"GAR",name:"La Dade-Kotopon",score:74.88,rating:"Very Good"},
+  {pos:27,reg:"GAR",name:"Ga East",score:74.50,rating:"Very Good"},
+  {pos:28,reg:"CR",name:"Ajumako/Enyan/Esiam",score:74.13,rating:"Very Good"},
+  {pos:29,reg:"WR",name:"Jomoro",score:73.38,rating:"Very Good"},
+  {pos:30,reg:"OR",name:"Krachi East",score:73.31,rating:"Very Good"},
+  {pos:31,reg:"ER",name:"Nsawam Adoagyiri Municipal",score:73.19,rating:"Very Good"},
+  {pos:32,reg:"WR",name:"Wassa East",score:72.44,rating:"Very Good"},
+  {pos:33,reg:"CR",name:"Twifu Ati Morkwa",score:72.25,rating:"Very Good"},
+  {pos:34,reg:"AR",name:"Afigya Kwabre North Municipal",score:72.06,rating:"Very Good"},
+  {pos:35,reg:"ER",name:"Asene-Manso-Akroso",score:71.94,rating:"Very Good"},
+  {pos:36,reg:"VR",name:"South Dayi",score:71.69,rating:"Very Good"},
+  {pos:37,reg:"WR",name:"Amenfi Central",score:71.63,rating:"Very Good"},
+  {pos:38,reg:"AR",name:"Oforikrom Municipal",score:71.44,rating:"Very Good"},
+  {pos:39,reg:"CR",name:"Komenda-Edina-Eguafo-Abrim",score:71.31,rating:"Very Good"},
+  {pos:40,reg:"WR",name:"Nzema East Municipal",score:71.13,rating:"Very Good"},
+  {pos:41,reg:"CR",name:"Agona East",score:71.06,rating:"Very Good"},
+  {pos:42,reg:"BER",name:"Atebubu Amantin",score:70.88,rating:"Very Good"},
+  {pos:43,reg:"UWR",name:"Sissala East",score:70.56,rating:"Very Good"},
+  {pos:44,reg:"WR",name:"Prestea-Huni-Valley",score:70.38,rating:"Very Good"},
+  {pos:45,reg:"WR",name:"Tarkwa Nsuaem Municipal",score:70.13,rating:"Very Good"},
+  {pos:46,reg:"WR",name:"Ahanta West",score:70.00,rating:"Very Good"},
+  {pos:47,reg:"WR",name:"Ellembele",score:69.94,rating:"Good"},
+  {pos:48,reg:"UWR",name:"Lawra",score:69.44,rating:"Good"},
+  {pos:49,reg:"GAR",name:"Ayawaso West",score:69.44,rating:"Good"},
+  {pos:50,reg:"AHR",name:"Asunafo South",score:69.31,rating:"Good"},
+  {pos:51,reg:"GAR",name:"Ledzokuku",score:69.25,rating:"Good"},
+  {pos:52,reg:"BER",name:"Techiman North",score:69.06,rating:"Good"},
+  {pos:53,reg:"CR",name:"Cape Coast Metro",score:68.88,rating:"Good"},
+  {pos:54,reg:"ER",name:"Denkyembuor",score:68.50,rating:"Good"},
+  {pos:55,reg:"NR",name:"Tamale Metro",score:68.50,rating:"Good"},
+  {pos:56,reg:"UER",name:"Kassena Nankana East",score:68.13,rating:"Good"},
+  {pos:57,reg:"AR",name:"Atwima Kwanwoma",score:68.06,rating:"Good"},
+  {pos:58,reg:"GAR",name:"Ashaiman Municipal",score:68.00,rating:"Good"},
+  {pos:59,reg:"UER",name:"Bongo",score:67.75,rating:"Good"},
+  {pos:60,reg:"ER",name:"Birim South",score:67.31,rating:"Good"},
+  {pos:61,reg:"CR",name:"Awutu Senya",score:67.19,rating:"Good"},
+  {pos:62,reg:"UWR",name:"Wa West",score:67.00,rating:"Good"},
+  {pos:63,reg:"CR",name:"Gomoa West",score:66.81,rating:"Good"},
+  {pos:64,reg:"CR",name:"Gomoa East",score:66.63,rating:"Good"},
+  {pos:65,reg:"UWR",name:"Wa Municipal",score:66.25,rating:"Good"},
+  {pos:66,reg:"AHR",name:"Tano South",score:66.25,rating:"Good"},
+  {pos:67,reg:"CR",name:"Effutu",score:66.19,rating:"Good"},
+  {pos:68,reg:"BR",name:"Dormaa Central Municipal",score:66.19,rating:"Good"},
+  {pos:69,reg:"UER",name:"Builsa North",score:66.06,rating:"Good"},
+  {pos:70,reg:"ER",name:"Akuapim South",score:66.06,rating:"Good"},
+  {pos:71,reg:"UER",name:"Talensi",score:65.88,rating:"Good"},
+  {pos:72,reg:"UER",name:"Binduri",score:65.88,rating:"Good"},
+  {pos:73,reg:"CR",name:"Upper Denkyira West",score:65.88,rating:"Good"},
+  {pos:74,reg:"VR",name:"Afadzato South",score:65.81,rating:"Good"},
+  {pos:75,reg:"GAR",name:"Ga Central",score:65.81,rating:"Good"},
+  {pos:76,reg:"GAR",name:"Tema Metro",score:65.69,rating:"Good"},
+  {pos:77,reg:"CR",name:"Agona West",score:65.69,rating:"Good"},
+  {pos:78,reg:"ER",name:"Birim Central",score:65.63,rating:"Good"},
+  {pos:79,reg:"ER",name:"Yilo Krobo",score:65.44,rating:"Good"},
+  {pos:80,reg:"ER",name:"Abuakwa North",score:65.13,rating:"Good"},
+  {pos:81,reg:"CR",name:"Assin South",score:65.13,rating:"Good"},
+  {pos:82,reg:"ER",name:"Atiwa West",score:64.75,rating:"Good"},
+  {pos:83,reg:"UWR",name:"Dafiama Bussie Issa",score:64.50,rating:"Good"},
+  {pos:84,reg:"ER",name:"Kwahu East",score:64.38,rating:"Good"},
+  {pos:85,reg:"UER",name:"Pusiga",score:63.81,rating:"Good"},
+  {pos:86,reg:"VR",name:"Anloga",score:63.63,rating:"Good"},
+  {pos:87,reg:"ER",name:"New Juaben South",score:63.56,rating:"Good"},
+  {pos:88,reg:"SR",name:"Sawla Tuna Kalba",score:63.44,rating:"Good"},
+  {pos:89,reg:"ER",name:"Akyemansa",score:63.44,rating:"Good"},
+  {pos:90,reg:"UER",name:"Builsa South",score:63.06,rating:"Good"},
+  {pos:91,reg:"WR",name:"Wassa Amenfi East",score:63.06,rating:"Good"},
+  {pos:92,reg:"ER",name:"Lower Manya Krobo",score:63.06,rating:"Good"},
+  {pos:93,reg:"OR",name:"Nkwanta North",score:62.94,rating:"Good"},
+  {pos:94,reg:"GAR",name:"Ayawaso Central",score:62.81,rating:"Good"},
+  {pos:95,reg:"VR",name:"Hohoe Municipal",score:62.63,rating:"Good"},
+  {pos:96,reg:"BR",name:"Sunyani Municipal",score:62.50,rating:"Good"},
+  {pos:97,reg:"GAR",name:"Ga West",score:62.38,rating:"Good"},
+  {pos:98,reg:"GAR",name:"Okaikwei North",score:62.31,rating:"Good"},
+  {pos:99,reg:"CR",name:"Upper Denkyira East",score:61.88,rating:"Good"},
+  {pos:100,reg:"AR",name:"Asokwa Municipal",score:61.56,rating:"Good"},
+  {pos:101,reg:"CR",name:"Asikuma-Odoben-Brakwa",score:61.56,rating:"Good"},
+  {pos:102,reg:"AR",name:"Suame Municipal",score:61.56,rating:"Good"},
+  {pos:103,reg:"CR",name:"Awutu Senya East",score:61.56,rating:"Good"},
+  {pos:104,reg:"AR",name:"Asante Akim South Municipal",score:61.56,rating:"Good"},
+  {pos:105,reg:"WNR",name:"Sefwi Wiawso Municipal",score:61.56,rating:"Good"},
+  {pos:106,reg:"BER",name:"Techiman Municipal",score:61.44,rating:"Good"},
+  {pos:107,reg:"BER",name:"Sene West",score:61.38,rating:"Good"},
+  {pos:108,reg:"ER",name:"Akwapim North",score:60.69,rating:"Good"},
+  {pos:109,reg:"CR",name:"Hemang Lower Denkyira",score:60.63,rating:"Good"},
+  {pos:110,reg:"ER",name:"Birim North",score:60.63,rating:"Good"},
+  {pos:111,reg:"GAR",name:"Shai-Osudoku",score:60.63,rating:"Good"},
+  {pos:112,reg:"VR",name:"North Tongu",score:60.50,rating:"Good"},
+  {pos:113,reg:"BR",name:"Jaman South",score:60.44,rating:"Good"},
+  {pos:114,reg:"VR",name:"Akatsi North",score:60.25,rating:"Good"},
+  {pos:115,reg:"GAR",name:"Ablekuma North",score:60.25,rating:"Good"},
+  {pos:116,reg:"ER",name:"Kwahu Afram Plains North",score:60.25,rating:"Good"},
+  {pos:117,reg:"AR",name:"Juaben Municipal",score:60.25,rating:"Good"},
+  {pos:118,reg:"GAR",name:"Korle Klottey",score:59.94,rating:"Satisfactory"},
+  {pos:119,reg:"ER",name:"Asuogyaman",score:59.88,rating:"Satisfactory"},
+  {pos:120,reg:"UER",name:"Bawku West",score:59.69,rating:"Satisfactory"},
+  {pos:121,reg:"ER",name:"Kwaebibirem",score:59.69,rating:"Satisfactory"},
+  {pos:122,reg:"VR",name:"Central Tongu",score:59.69,rating:"Satisfactory"},
+  {pos:123,reg:"BER",name:"Nkoranza North",score:59.56,rating:"Satisfactory"},
+  {pos:124,reg:"GAR",name:"Ga South",score:59.19,rating:"Satisfactory"},
+  {pos:125,reg:"AHR",name:"Asutifi North",score:59.13,rating:"Satisfactory"},
+  {pos:126,reg:"WNR",name:"Bia East",score:58.94,rating:"Satisfactory"},
+  {pos:127,reg:"UER",name:"Nabdam",score:58.94,rating:"Satisfactory"},
+  {pos:128,reg:"AR",name:"Amansie Central",score:58.88,rating:"Satisfactory"},
+  {pos:129,reg:"WNR",name:"Suaman",score:58.75,rating:"Satisfactory"},
+  {pos:130,reg:"AR",name:"Adansi South",score:58.56,rating:"Satisfactory"},
+  {pos:131,reg:"AR",name:"Sekyere South",score:58.56,rating:"Satisfactory"},
+  {pos:132,reg:"UER",name:"Garu",score:58.50,rating:"Satisfactory"},
+  {pos:133,reg:"GAR",name:"Accra Metro",score:58.38,rating:"Satisfactory"},
+  {pos:134,reg:"SR",name:"East Gonja",score:58.38,rating:"Satisfactory"},
+  {pos:135,reg:"AR",name:"Bosomtwe",score:58.25,rating:"Satisfactory"},
+  {pos:136,reg:"OR",name:"Jasikan",score:58.19,rating:"Satisfactory"},
+  {pos:137,reg:"CR",name:"Ekumfi",score:58.13,rating:"Satisfactory"},
+  {pos:138,reg:"UWR",name:"Lambusie Karni",score:57.63,rating:"Satisfactory"},
+  {pos:139,reg:"BER",name:"Pru West",score:57.63,rating:"Satisfactory"},
+  {pos:140,reg:"AHR",name:"Asutifi South",score:57.56,rating:"Satisfactory"},
+  {pos:141,reg:"BER",name:"Pru East",score:57.50,rating:"Satisfactory"},
+  {pos:142,reg:"UWR",name:"Nandom",score:57.44,rating:"Satisfactory"},
+  {pos:143,reg:"UWR",name:"Nadowli Kaleo",score:57.19,rating:"Satisfactory"},
+  {pos:144,reg:"BER",name:"Kintampo North Municipal",score:57.19,rating:"Satisfactory"},
+  {pos:145,reg:"VR",name:"South Tongu",score:57.19,rating:"Satisfactory"},
+  {pos:146,reg:"ER",name:"Fanteakwa North",score:57.00,rating:"Satisfactory"},
+  {pos:147,reg:"VR",name:"Ho Municipal",score:56.88,rating:"Satisfactory"},
+  {pos:148,reg:"GAR",name:"Ningo-Prampram",score:56.88,rating:"Satisfactory"},
+  {pos:149,reg:"OR",name:"Krachi West",score:56.88,rating:"Satisfactory"},
+  {pos:150,reg:"AR",name:"Obuasi East",score:56.75,rating:"Satisfactory"},
+  {pos:151,reg:"UER",name:"Bolgatanga East",score:56.50,rating:"Satisfactory"},
+  {pos:152,reg:"OR",name:"Biakoye",score:56.38,rating:"Satisfactory"},
+  {pos:153,reg:"SR",name:"Bole",score:56.25,rating:"Satisfactory"},
+  {pos:154,reg:"GAR",name:"Ga North",score:56.13,rating:"Satisfactory"},
+  {pos:155,reg:"CR",name:"Abura/Asebu/Kwamankese",score:56.13,rating:"Satisfactory"},
+  {pos:156,reg:"AR",name:"Sekyere East",score:55.94,rating:"Satisfactory"},
+  {pos:157,reg:"ER",name:"Okere",score:55.75,rating:"Satisfactory"},
+  {pos:158,reg:"OR",name:"Kadjebi",score:55.56,rating:"Satisfactory"},
+  {pos:159,reg:"GAR",name:"Ayawaso North",score:55.56,rating:"Satisfactory"},
+  {pos:160,reg:"AR",name:"Obuasi Municipal",score:55.50,rating:"Satisfactory"},
+  {pos:161,reg:"ER",name:"Fanteakwa South",score:55.50,rating:"Satisfactory"},
+  {pos:162,reg:"UER",name:"Bawku",score:55.19,rating:"Satisfactory"},
+  {pos:163,reg:"ER",name:"Upper Manya Krobo",score:55.13,rating:"Satisfactory"},
+  {pos:164,reg:"GAR",name:"Ada West",score:54.94,rating:"Satisfactory"},
+  {pos:165,reg:"NR",name:"Kpandai",score:54.94,rating:"Satisfactory"},
+  {pos:166,reg:"AR",name:"Afigya Kwabre South",score:54.63,rating:"Satisfactory"},
+  {pos:167,reg:"WNR",name:"Bodi",score:54.63,rating:"Satisfactory"},
+  {pos:168,reg:"AR",name:"Atwima Nwabiagya Municipal",score:54.56,rating:"Satisfactory"},
+  {pos:169,reg:"AR",name:"Mampong Municipal",score:54.56,rating:"Satisfactory"},
+  {pos:170,reg:"VR",name:"Kpando Municipal",score:54.44,rating:"Satisfactory"},
+  {pos:171,reg:"GAR",name:"Ada East",score:54.31,rating:"Satisfactory"},
+  {pos:172,reg:"BR",name:"Dormaa West",score:54.19,rating:"Satisfactory"},
+  {pos:173,reg:"CR",name:"Assin North",score:53.88,rating:"Satisfactory"},
+  {pos:174,reg:"NR",name:"Zabzugu",score:53.75,rating:"Satisfactory"},
+  {pos:175,reg:"BR",name:"Sunyani West",score:53.63,rating:"Satisfactory"},
+  {pos:176,reg:"NR",name:"Nanumba South",score:53.63,rating:"Satisfactory"},
+  {pos:177,reg:"ER",name:"Kwahu South",score:53.56,rating:"Satisfactory"},
+  {pos:178,reg:"BR",name:"Berekum East",score:53.13,rating:"Satisfactory"},
+  {pos:179,reg:"AR",name:"Asante Akim Central Municipal",score:53.06,rating:"Satisfactory"},
+  {pos:180,reg:"AR",name:"Amansie West",score:52.88,rating:"Satisfactory"},
+  {pos:181,reg:"AR",name:"Atwima Nwabiagya North",score:51.94,rating:"Satisfactory"},
+  {pos:182,reg:"GAR",name:"Weija-Gbawe",score:51.88,rating:"Satisfactory"},
+  {pos:183,reg:"UWR",name:"Sissala West",score:51.81,rating:"Satisfactory"},
+  {pos:184,reg:"SR",name:"West Gonja",score:51.56,rating:"Satisfactory"},
+  {pos:185,reg:"NR",name:"Sagnerigu",score:51.50,rating:"Satisfactory"},
+  {pos:186,reg:"AR",name:"Sekyere Central",score:51.38,rating:"Satisfactory"},
+  {pos:187,reg:"AR",name:"Old Tafo Municipal",score:51.06,rating:"Satisfactory"},
+  {pos:188,reg:"BER",name:"Kintampo South",score:51.00,rating:"Satisfactory"},
+  {pos:189,reg:"NR",name:"Nanumba North",score:51.00,rating:"Satisfactory"},
+  {pos:190,reg:"NR",name:"Gushiegu",score:50.94,rating:"Satisfactory"},
+  {pos:191,reg:"NER",name:"West Mamprusi",score:50.88,rating:"Satisfactory"},
+  {pos:192,reg:"UWR",name:"Jirapa",score:50.81,rating:"Satisfactory"},
+  {pos:193,reg:"VR",name:"Keta Municipal",score:50.69,rating:"Satisfactory"},
+  {pos:194,reg:"SR",name:"Central Gonja",score:50.50,rating:"Satisfactory"},
+  {pos:195,reg:"VR",name:"Akatsi South",score:50.50,rating:"Satisfactory"},
+  {pos:196,reg:"AR",name:"Bosome Freho",score:50.38,rating:"Satisfactory"},
+  {pos:197,reg:"ER",name:"Upper West Akim",score:50.00,rating:"Satisfactory"},
+  {pos:198,reg:"SR",name:"North East Gonja",score:49.31,rating:"Unsatisfactory"},
+  {pos:199,reg:"WNR",name:"Aowin",score:49.13,rating:"Unsatisfactory"},
+  {pos:200,reg:"WNR",name:"Bibiani Anhwiaso Bekwai",score:49.06,rating:"Unsatisfactory"},
+  {pos:201,reg:"BR",name:"Jaman North",score:48.69,rating:"Unsatisfactory"},
+  {pos:202,reg:"GAR",name:"La-Nkwantanang",score:48.56,rating:"Unsatisfactory"},
+  {pos:203,reg:"AR",name:"Kumasi Metro",score:48.38,rating:"Unsatisfactory"},
+  {pos:204,reg:"WNR",name:"Sefwi Akontombra",score:48.25,rating:"Unsatisfactory"},
+  {pos:205,reg:"VR",name:"Adaklu",score:48.06,rating:"Unsatisfactory"},
+  {pos:206,reg:"ER",name:"Kwahu Afram Plains South",score:47.81,rating:"Unsatisfactory"},
+  {pos:207,reg:"AR",name:"Amansie South",score:47.75,rating:"Unsatisfactory"},
+  {pos:208,reg:"AR",name:"Adansi North",score:47.56,rating:"Unsatisfactory"},
+  {pos:209,reg:"NER",name:"Chereponi",score:47.56,rating:"Unsatisfactory"},
+  {pos:210,reg:"OR",name:"Nkwanta South",score:47.00,rating:"Unsatisfactory"},
+  {pos:211,reg:"AR",name:"Kwadaso Municipal",score:46.88,rating:"Unsatisfactory"},
+  {pos:212,reg:"BR",name:"Tain",score:46.63,rating:"Unsatisfactory"},
+  {pos:213,reg:"GAR",name:"Ablekuma West",score:46.44,rating:"Unsatisfactory"},
+  {pos:214,reg:"NR",name:"Kumbungu",score:46.38,rating:"Unsatisfactory"},
+  {pos:215,reg:"ER",name:"Ayensuano",score:46.31,rating:"Unsatisfactory"},
+  {pos:216,reg:"AR",name:"Offinso North",score:46.19,rating:"Unsatisfactory"},
+  {pos:217,reg:"SR",name:"North Gonja",score:45.81,rating:"Unsatisfactory"},
+  {pos:218,reg:"AR",name:"Asante Akim North Municipal",score:45.69,rating:"Unsatisfactory"},
+  {pos:219,reg:"BER",name:"Nkoranza South Municipal",score:45.63,rating:"Unsatisfactory"},
+  {pos:220,reg:"NR",name:"Yendi Municipal",score:45.38,rating:"Unsatisfactory"},
+  {pos:221,reg:"VR",name:"Agortime Ziope",score:45.25,rating:"Unsatisfactory"},
+  {pos:222,reg:"AR",name:"Atwima Mponua",score:45.06,rating:"Unsatisfactory"},
+  {pos:223,reg:"AR",name:"Ahafo Ano South West",score:45.06,rating:"Unsatisfactory"},
+  {pos:224,reg:"AR",name:"Ejura Sekyere-Dumase Municipal",score:45.00,rating:"Unsatisfactory"},
+  {pos:225,reg:"AR",name:"Ahafo Ano North Municipal",score:44.88,rating:"Unsatisfactory"},
+  {pos:226,reg:"AR",name:"Bekwai Municipal",score:44.88,rating:"Unsatisfactory"},
+  {pos:227,reg:"BR",name:"Banda",score:44.63,rating:"Unsatisfactory"},
+  {pos:228,reg:"BR",name:"Dormaa East",score:44.44,rating:"Unsatisfactory"},
+  {pos:229,reg:"UER",name:"Tempane",score:44.44,rating:"Unsatisfactory"},
+  {pos:230,reg:"NER",name:"East Mamprusi",score:44.13,rating:"Unsatisfactory"},
+  {pos:231,reg:"OR",name:"Krachi Nchumuru",score:43.63,rating:"Unsatisfactory"},
+  {pos:232,reg:"AR",name:"Adansi Asokwa",score:43.38,rating:"Unsatisfactory"},
+  {pos:233,reg:"UWR",name:"Wa East",score:43.31,rating:"Unsatisfactory"},
+  {pos:234,reg:"AR",name:"Sekyere-Kumawu",score:43.13,rating:"Unsatisfactory"},
+  {pos:235,reg:"AR",name:"Ahafo Ano South East",score:42.94,rating:"Unsatisfactory"},
+  {pos:236,reg:"BR",name:"Wenchi Municipal",score:42.69,rating:"Unsatisfactory"},
+  {pos:237,reg:"OR",name:"Guan",score:42.25,rating:"Unsatisfactory"},
+  {pos:238,reg:"NR",name:"Tatale Sanguli",score:42.19,rating:"Unsatisfactory"},
+  {pos:239,reg:"NR",name:"Savelugu",score:41.81,rating:"Unsatisfactory"},
+  {pos:240,reg:"ER",name:"Suhum",score:41.75,rating:"Unsatisfactory"},
+  {pos:241,reg:"CR",name:"Mfantsiman Municipal",score:41.25,rating:"Unsatisfactory"},
+  {pos:242,reg:"NR",name:"Karaga",score:41.06,rating:"Unsatisfactory"},
+  {pos:243,reg:"AR",name:"Asokore Mampong Municipal",score:39.44,rating:"Unsatisfactory"},
+  {pos:244,reg:"AR",name:"Kwabre East Municipal",score:39.31,rating:"Unsatisfactory"},
+  {pos:245,reg:"AR",name:"Akrofuom",score:39.19,rating:"Unsatisfactory"},
+  {pos:246,reg:"GAR",name:"Ablekuma Central",score:38.63,rating:"Unsatisfactory"},
+  {pos:247,reg:"GAR",name:"Ayawaso East",score:38.50,rating:"Unsatisfactory"},
+  {pos:248,reg:"NR",name:"Tolon",score:38.44,rating:"Unsatisfactory"},
+  {pos:249,reg:"NR",name:"Mion",score:38.38,rating:"Unsatisfactory"},
+  {pos:250,reg:"AR",name:"Ejisu Municipal",score:38.13,rating:"Unsatisfactory"},
+  {pos:251,reg:"BER",name:"Sene East",score:37.00,rating:"Unsatisfactory"},
+  {pos:252,reg:"NER",name:"Yunyoo Nasuan",score:36.56,rating:"Unsatisfactory"},
+  {pos:253,reg:"NR",name:"Saboba",score:36.19,rating:"Unsatisfactory"},
+  {pos:254,reg:"WNR",name:"Juaboso",score:34.63,rating:"Unsatisfactory"},
+  {pos:255,reg:"BR",name:"Berekum West",score:32.88,rating:"Unsatisfactory"},
+  {pos:256,reg:"NER",name:"Bunkpurugu Nakpanduri",score:32.69,rating:"Unsatisfactory"},
+  {pos:257,reg:"AR",name:"Sekyere Afram Plains",score:31.69,rating:"Unsatisfactory"},
+  {pos:258,reg:"NR",name:"Nanton",score:30.63,rating:"Unsatisfactory"},
+  {pos:259,reg:"NER",name:"Mamprugu Moagduri",score:29.94,rating:"Unsatisfactory"},
+  {pos:260,reg:"AR",name:"Offinso Municipal",score:29.06,rating:"Unsatisfactory"},
+  {pos:261,reg:"WNR",name:"Bia West",score:26.63,rating:"Unsatisfactory"},
+];
+
+const lgsRegionData = [
+  {region:"Ahafo",mmda:6,excellent:1,verygood:1,good:2,satisfactory:2,unsatisfactory:0},
+  {region:"Ashanti",mmda:43,excellent:0,verygood:2,good:5,satisfactory:16,unsatisfactory:20},
+  {region:"Bono East",mmda:11,excellent:0,verygood:1,good:3,satisfactory:5,unsatisfactory:2},
+  {region:"Bono",mmda:12,excellent:0,verygood:0,good:3,satisfactory:3,unsatisfactory:6},
+  {region:"Central",mmda:22,excellent:0,verygood:6,good:12,satisfactory:3,unsatisfactory:1},
+  {region:"Eastern",mmda:33,excellent:3,verygood:5,good:14,satisfactory:8,unsatisfactory:3},
+  {region:"Greater Accra",mmda:29,excellent:1,verygood:5,good:10,satisfactory:9,unsatisfactory:4},
+  {region:"North East",mmda:6,excellent:0,verygood:0,good:0,satisfactory:1,unsatisfactory:5},
+  {region:"Northern",mmda:16,excellent:0,verygood:0,good:1,satisfactory:6,unsatisfactory:9},
+  {region:"Oti",mmda:9,excellent:0,verygood:1,good:1,satisfactory:4,unsatisfactory:3},
+  {region:"Savannah",mmda:7,excellent:0,verygood:0,good:1,satisfactory:4,unsatisfactory:2},
+  {region:"Upper East",mmda:15,excellent:0,verygood:2,good:7,satisfactory:5,unsatisfactory:1},
+  {region:"Upper West",mmda:11,excellent:0,verygood:1,good:4,satisfactory:5,unsatisfactory:1},
+  {region:"Volta",mmda:18,excellent:1,verygood:4,good:5,satisfactory:6,unsatisfactory:2},
+  {region:"Western North",mmda:9,excellent:0,verygood:0,good:1,satisfactory:3,unsatisfactory:5},
+  {region:"Western",mmda:14,excellent:3,verygood:9,good:2,satisfactory:0,unsatisfactory:0},
+];
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+renderPfm(pfmData);
+renderRegional();
+renderLgs(lgsData);
+renderRcc();
+renderHeatmap();
 </script>
 </body>
 </html>
